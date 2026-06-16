@@ -11,7 +11,9 @@ import com.example.event.Dto.User.UserRequestDTO;
 import com.example.event.Dto.User.UserResponseDTO;
 import com.example.event.Entity.User;
 import com.example.event.Exception.EmailAlreadyExistException;
+import com.example.event.Exception.InvalidCredentialsException;
 import com.example.event.Repository.UserRepository;
+import com.example.event.Service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,7 @@ public class AuthServiceImpl implements AuthService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
 
     @Override
@@ -72,22 +75,13 @@ public class AuthServiceImpl implements AuthService{
                 request.getPassword(),
                 user.getPassword())) {
 
-            throw new RuntimeException("Invalid credentials");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
-        return mapToLoginResponse(user);
+        String token = jwtService.generateToken(user.getEmail());
+
+        return new LoginResponseDTO(token);
     }
 
-    private LoginResponseDTO mapToLoginResponse(User user) {
-
-    LoginResponseDTO response = new LoginResponseDTO();
-
-    response.setId(user.getId());
-    response.setFullName(user.getFullName());
-    response.setEmail(user.getEmail());
-    response.setRole(user.getRole());
-
-    return response;
-    }
     
 }

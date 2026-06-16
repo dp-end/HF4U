@@ -37,5 +37,36 @@ public class GlobalExceptionHandler {
                             null
                     )
             );
-}
+        }
+
+        @ExceptionHandler(EmailAlreadyExistException.class)
+        public ResponseEntity<ApiResponseDTO<?>> handleEmailExists(
+                EmailAlreadyExistException ex) {
+
+        return ResponseEntity.badRequest()
+                .body(
+                        new ApiResponseDTO<>(
+                                false,
+                                ex.getMessage(),
+                                null
+                        )
+                );
+        }
+
+        @ExceptionHandler(InvalidCredentialsException.class)
+        public ResponseEntity<ApiResponseDTO<?>> handleInvalidCredentials(
+                InvalidCredentialsException ex) {
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(
+                        new ApiResponseDTO<>(
+                                false,
+                                ex.getMessage(),
+                                null
+                        )
+                );
+        }
+
+
+
 }
