@@ -2,6 +2,7 @@ package com.example.event.Service.Auth;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.event.Dto.User.UserRequestDTO;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl implements AuthService{
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -29,7 +31,7 @@ public class AuthServiceImpl implements AuthService{
 
         user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         user.setRole(request.getRole());
 
