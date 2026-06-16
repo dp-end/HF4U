@@ -1,8 +1,6 @@
 package com.example.event.Controller;
 
 import java.util.List;
-
-import org.springframework.lang.NonNull; // Bunu ekledik
 import org.springframework.web.bind.annotation.DeleteMapping; // Bunu ekledik
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.event.Dto.ApiResponseDTO;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Service.EventService;
@@ -26,27 +25,35 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping
-    public EventResponseDTO createEvent(@Valid @RequestBody EventRequestDTO request){
-        return eventService.createEvent(request);
+    public ApiResponseDTO<EventResponseDTO> createEvent(@Valid @RequestBody EventRequestDTO request){
+        return new ApiResponseDTO<>(true , "event created successfully" ,eventService.createEvent(request));
     }
 
     @GetMapping
-    public List<EventResponseDTO> getAllEvents(){
-        return eventService.getAllEvents();
+    public ApiResponseDTO <List<EventResponseDTO>> getAllEvents(){
+        return new ApiResponseDTO<>(true ,"event fetch successfully" , eventService.getAllEvents());
     }
 
     @GetMapping("/{id}")
-    public EventResponseDTO getEventById(@PathVariable @NonNull Long id) { // @NonNull eklendi
-        return eventService.getEventById(id);
+    public ApiResponseDTO <EventResponseDTO> getEventById(@PathVariable Long id) { // @NonNull eklendi
+        return new ApiResponseDTO<>(true,"event fetch successfully",eventService.getEventById(id));
     }
 
     @PutMapping("/{id}") // Bu anotasyon eksikti, ekledik
-    public EventResponseDTO updateEvent(@PathVariable @NonNull Long id , @Valid @RequestBody EventRequestDTO request) { // @NonNull eklendi
-        return eventService.updateEvent(id, request);
+    public ApiResponseDTO <EventResponseDTO> updateEvent(@PathVariable  Long id , @Valid @RequestBody EventRequestDTO request) { // @NonNull eklendi
+        return new ApiResponseDTO<>(true ,"event updated successfully", eventService.updateEvent(id, request));
     }
 
-    @DeleteMapping("/{id}") // Bu anotasyon eksikti, ekledik
-    public void deleteEvent(@PathVariable @NonNull Long id){ // @NonNull eklendi
+    @DeleteMapping("/{id}")
+    public ApiResponseDTO<String> deleteEvent(
+            @PathVariable Long id) {
+
         eventService.deleteEvent(id);
+
+        return new ApiResponseDTO<>(
+                true,
+                "Event deleted successfully",
+                null
+        );
     }
 }

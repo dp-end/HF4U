@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Entity.Event;
+import com.example.event.Exception.ResourceNotFoundException;
 import com.example.event.Repository.EventRepository;
 
-import org.springframework.lang.NonNull;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,14 +39,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventResponseDTO getEventById(@NonNull Long id) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new RuntimeException("event not found with id: " + id));
+    public EventResponseDTO getEventById(long id) {
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("event not found with id" + id));
         return mapToResponse(event);
     }
 
     @Override
-    public EventResponseDTO updateEvent(@NonNull Long id, EventRequestDTO request) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new RuntimeException("event not found with id:" + id));
+    public EventResponseDTO updateEvent(long id, EventRequestDTO request) {
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("event not found with id" + id));
         event.setTitle(request.getTitle());
         event.setDescription(request.getDescription());
         event.setLocation(request.getLocation());
@@ -60,10 +60,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(@NonNull Long id) {
+    public void deleteEvent(long id) {
         
     if (!eventRepository.existsById(id)) {
-            throw new RuntimeException("event not found with id" + id);
+            throw new ResourceNotFoundException("event not found with id" + id);
         }
         
         eventRepository.deleteById(id);
