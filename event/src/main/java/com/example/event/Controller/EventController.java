@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.event.Dto.ApiResponseDTO;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
-import com.example.event.Service.EventService;
+import com.example.event.Service.Event.EventService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.event.Service;
+package com.example.event.Service.Event;
 
 import java.util.List;
 

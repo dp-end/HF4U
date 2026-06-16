@@ -2,6 +2,7 @@ package com.example.event.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,4 +18,24 @@ public class GlobalExceptionHandler {
         // Dönüş tipimiz ApiResponseDTO olduğu için ErrorResponseDTO oluşturmamıza gerek kalmadı.
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<>(false, ex.getMessage(), null));
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponseDTO<?>> handleValidationException(
+        MethodArgumentNotValidException ex) {
+
+    var fieldError = ex.getBindingResult().getFieldError();
+
+    String errorMessage = fieldError != null
+            ? fieldError.getDefaultMessage()
+            : "Validation error";
+
+    return ResponseEntity.badRequest()
+            .body(
+                    new ApiResponseDTO<>(
+                            false,
+                            errorMessage,
+                            null
+                    )
+            );
+}
 }

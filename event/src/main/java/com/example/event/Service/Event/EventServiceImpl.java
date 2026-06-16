@@ -1,4 +1,4 @@
-package com.example.event.Service;
+package com.example.event.Service.Event;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +10,6 @@ import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Entity.Event;
 import com.example.event.Exception.ResourceNotFoundException;
 import com.example.event.Repository.EventRepository;
-
 
 import lombok.RequiredArgsConstructor;
 
