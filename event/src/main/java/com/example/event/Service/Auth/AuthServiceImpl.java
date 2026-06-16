@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.event.Dto.Login.LoginRequestDTO;
+import com.example.event.Dto.Login.LoginResponseDTO;
 import com.example.event.Dto.User.UserRequestDTO;
 import com.example.event.Dto.User.UserResponseDTO;
 import com.example.event.Entity.User;
@@ -42,6 +44,8 @@ public class AuthServiceImpl implements AuthService{
         return mapToResponse(savedUser);
     }
 
+    
+
     private UserResponseDTO mapToResponse(User user){
         UserResponseDTO response = new UserResponseDTO();
 
@@ -52,6 +56,38 @@ public class AuthServiceImpl implements AuthService{
         response.setCreateAt(user.getCreatAt());
 
         return response;
+    }
+
+
+
+    @Override
+    public LoginResponseDTO login(LoginRequestDTO request) {
+
+        User user = userRepository
+                .findByEmail(request.getEmail())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(
+                request.getPassword(),
+                user.getPassword())) {
+
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        return mapToLoginResponse(user);
+    }
+
+    private LoginResponseDTO mapToLoginResponse(User user) {
+
+    LoginResponseDTO response = new LoginResponseDTO();
+
+    response.setId(user.getId());
+    response.setFullName(user.getFullName());
+    response.setEmail(user.getEmail());
+    response.setRole(user.getRole());
+
+    return response;
     }
     
 }
