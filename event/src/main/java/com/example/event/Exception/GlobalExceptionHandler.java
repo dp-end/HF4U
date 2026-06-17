@@ -67,6 +67,30 @@ public class GlobalExceptionHandler {
                 );
         }
 
+        @ExceptionHandler(AlreadyRegisteredException.class)
+        public ResponseEntity<ApiResponseDTO<?>> handleAlreadyRegistered(
+        AlreadyRegisteredException ex) {
 
+        return ResponseEntity
+            .badRequest()
+            .body(
+                    new ApiResponseDTO<>(
+                            false,
+                            ex.getMessage(),
+                            null
+                    )
+            );
+        }
 
+        public ResponseEntity<ApiResponseDTO<?>> handleEventCapacityFull(EventCapacityFullException ex) {
+                return ResponseEntity
+                .badRequest()
+                .body(
+                        new ApiResponseDTO<>(
+                                false,
+                                ex.getMessage(),
+                                null
+                        )
+                );
+        }
 }

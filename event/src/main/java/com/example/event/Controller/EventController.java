@@ -3,6 +3,7 @@ package com.example.event.Controller;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping; // Bunu ekledik
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import com.example.event.Dto.ApiResponseDTO;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Service.Event.EventService;
+import com.example.event.Service.EventRegistration.EventRegistrationService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventController {
     private final EventService eventService;
+    private final EventRegistrationService eventRegistrationService;
 
     @PostMapping
     @PostAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
@@ -59,6 +62,17 @@ public class EventController {
                 true,
                 "Event deleted successfully",
                 null
+        );
+    }
+
+    @PostMapping("/{eventId}/register")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ApiResponseDTO<String> registerToEvent(@PathVariable Long eventId){
+        eventRegistrationService.registerToEvent(eventId);
+        return new ApiResponseDTO<>(
+            true,
+            "successfully",
+            null
         );
     }
 }
