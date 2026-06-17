@@ -1,6 +1,8 @@
 package com.example.event.Controller;
 
 import java.util.List;
+
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping; // Bunu ekledik
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,7 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping
+    @PostAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
     public ApiResponseDTO<EventResponseDTO> createEvent(@Valid @RequestBody EventRequestDTO request){
         return new ApiResponseDTO<>(true , "event created successfully" ,eventService.createEvent(request));
     }
@@ -40,11 +43,13 @@ public class EventController {
     }
 
     @PutMapping("/{id}") // Bu anotasyon eksikti, ekledik
+    @PostAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
     public ApiResponseDTO <EventResponseDTO> updateEvent(@PathVariable  Long id , @Valid @RequestBody EventRequestDTO request) { // @NonNull eklendi
         return new ApiResponseDTO<>(true ,"event updated successfully", eventService.updateEvent(id, request));
     }
 
     @DeleteMapping("/{id}")
+    @PostAuthorize("hasRole('ADMIN')")
     public ApiResponseDTO<String> deleteEvent(
             @PathVariable Long id) {
 
