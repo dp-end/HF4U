@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.event.Dto.ApiResponseDTO;
 import com.example.event.Dto.MyResgistrationResponseDTO;
+import com.example.event.Dto.ParticipantResponseDTO;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Service.Event.EventService;
@@ -86,4 +87,15 @@ public class EventController {
             eventRegistrationService.getMyRegistrations()
         );
     }
+
+    @GetMapping("/{eventId}/participants")
+    @PreAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
+    public ApiResponseDTO<List<ParticipantResponseDTO>> getEventParticipants(@PathVariable long eventId){
+        return new ApiResponseDTO<>(
+            true,
+            "Participants fetched successfully",
+            eventRegistrationService.getEventParticipants(eventId)
+        );
+    }
+
 }

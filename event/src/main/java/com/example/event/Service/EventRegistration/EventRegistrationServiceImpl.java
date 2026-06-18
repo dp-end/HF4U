@@ -11,6 +11,7 @@ import com.example.event.Exception.ResourceNotFoundException;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
 import com.example.event.Dto.MyResgistrationResponseDTO;
+import com.example.event.Dto.ParticipantResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,11 +54,9 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     registration.setRegisteredAt(LocalDateTime.now());
 
     eventRegistrationRepository.save(registration);
-
     }
 
-
-    @Override
+        @Override
     public List<MyResgistrationResponseDTO> getMyRegistrations() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User student = (User) authentication.getPrincipal();
@@ -74,6 +73,21 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
 
         return dto;
     }
+
+
+    @Override
+    public List<ParticipantResponseDTO> getEventParticipants(long eventId) {
+        Event event =eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Event not found with id:" + eventId));
+        return eventRegistrationRepository.findByEvent(event).stream()
+        .map(this::mapToParticipantResponse).toList();
+    }
     
-    
+    private ParticipantResponseDTO mapToParticipantResponse(EventRegistration eventRegistration){
+        ParticipantResponseDTO dto = new ParticipantResponseDTO();
+        dto.setId(eventRegistration.getId());
+        dto.setFullName(eventRegistration.getStudent().getFullName());
+        dto.setEmail(eventRegistration.getStudent().getEmail());
+        return dto;
+    }
+
 }
