@@ -10,10 +10,12 @@ import com.example.event.Exception.EventCapacityFullException;
 import com.example.event.Exception.ResourceNotFoundException;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
+import com.example.event.Dto.MyResgistrationResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,5 +55,25 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     eventRegistrationRepository.save(registration);
 
     }
+
+
+    @Override
+    public List<MyResgistrationResponseDTO> getMyRegistrations() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User student = (User) authentication.getPrincipal();
+        return eventRegistrationRepository.findByStudent(student).stream()
+        .map(this::mapToMyRegistrationResponse).toList();
+    }
+
+    private MyResgistrationResponseDTO mapToMyRegistrationResponse(EventRegistration eventRegistration){
+        MyResgistrationResponseDTO dto = new MyResgistrationResponseDTO();
+        dto.setEventId(eventRegistration.getEvent().getId());
+        dto.setTitle(eventRegistration.getEvent().getTitle());
+        dto.setLocation(eventRegistration.getEvent().getLocation());
+        dto.setEventDate(eventRegistration.getEvent().getEventDate());
+
+        return dto;
+    }
+    
     
 }

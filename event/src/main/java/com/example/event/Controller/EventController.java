@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.event.Dto.ApiResponseDTO;
+import com.example.event.Dto.MyResgistrationResponseDTO;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Service.Event.EventService;
@@ -73,6 +74,16 @@ public class EventController {
             true,
             "successfully",
             null
+        );
+    }
+
+    @GetMapping("/my-registrations")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ApiResponseDTO<List<MyResgistrationResponseDTO>> getMyRegistrations(){
+        return new ApiResponseDTO<>(
+            true,
+            "Registrations fetched successfully",
+            eventRegistrationService.getMyRegistrations()
         );
     }
 }
