@@ -1,6 +1,8 @@
 package com.example.event.Dto.Event;
 import java.time.LocalDateTime;
 
+import com.example.event.Entity.EventStatus;
+
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -20,4 +22,5 @@ public class EventResponseDTO {
     @Min(1)
     private Integer capacity;
     private LocalDateTime createdAt;
+    private EventStatus eventStatus;
 }

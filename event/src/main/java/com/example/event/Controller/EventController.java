@@ -107,6 +107,35 @@ public class EventController {
         );
     }
 
+    @PutMapping("/{id}/approve")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponseDTO<EventResponseDTO> approveEvent(@PathVariable long id){
+        return new ApiResponseDTO<>(
+            true,
+            "Event approved successfully",
+            eventService.approveEvent(id)
+        );
+    }
 
+    @PutMapping("/{id}/reject")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponseDTO<EventResponseDTO> rejectEvent(@PathVariable long id){
+        return new ApiResponseDTO<>(
+            true,
+            "Event rejected successfully",
+            eventService.rejectEvent(id)
+        );
+    }
+
+
+    @GetMapping("/pending")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponseDTO<List<EventResponseDTO>> getPendingEvents() {
+        return new ApiResponseDTO<>(
+            true,
+            "Pending events fetched successfully",
+            eventService.getPendingEvents()
+        );
+    }
 
 }

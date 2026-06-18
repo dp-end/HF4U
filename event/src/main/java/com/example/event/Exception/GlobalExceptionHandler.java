@@ -13,6 +13,7 @@ import com.example.event.Exception.miniExceptions.EventCapacityFullException;
 import com.example.event.Exception.miniExceptions.InvalidCredentialsException;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
 import com.example.event.Exception.miniExceptions.UnauthorizedEventAccessException;
+import com.example.event.Exception.miniExceptions.notAllowRegisterException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -102,6 +103,19 @@ public class GlobalExceptionHandler {
         }
         @ExceptionHandler(UnauthorizedEventAccessException.class)
         public ResponseEntity<ApiResponseDTO<?>> handleUnauthorizedEventAccess(UnauthorizedEventAccessException ex){
+                return ResponseEntity
+                .badRequest()
+                .body(
+                        new ApiResponseDTO<>(
+                                false,
+                                ex.getMessage(),
+                                null
+                        )
+                );
+        }
+
+        @ExceptionHandler(notAllowRegisterException.class)
+        public ResponseEntity<ApiResponseDTO<?>> handlenotAllowRegisterException(notAllowRegisterException ex){
                 return ResponseEntity
                 .badRequest()
                 .body(

@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.event.Entity.Event;
 import com.example.event.Entity.EventRegistration;
+import com.example.event.Entity.EventStatus;
 import com.example.event.Entity.User;
 import com.example.event.Exception.miniExceptions.AlreadyRegisteredException;
 import com.example.event.Exception.miniExceptions.EventCapacityFullException;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
+import com.example.event.Exception.miniExceptions.notAllowRegisterException;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
 import com.example.event.Dto.MyResgistrationResponseDTO;
@@ -37,6 +39,10 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     Event event = eventRepository.findById(eventId).orElseThrow(
         ()-> new ResourceNotFoundException("Event not found with id :" + eventId)
     );
+
+    if(event.getStatus() != EventStatus.APPROVED){
+        throw new notAllowRegisterException("event is not approved yet");
+    }
     
     if(eventRegistrationRepository.existsByStudentAndEvent(student, event)){
         throw new AlreadyRegisteredException("You are already registered for this event");

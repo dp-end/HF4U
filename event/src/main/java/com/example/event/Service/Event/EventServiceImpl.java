@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
 import com.example.event.Entity.Event;
+import com.example.event.Entity.EventStatus;
 import com.example.event.Entity.Role;
 import com.example.event.Entity.User;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
@@ -36,13 +37,15 @@ public class EventServiceImpl implements EventService {
        event.setCapacity(request.getCapacity());
        event.setCreatedAt(LocalDateTime.now());
        event.setCreatedBy(currentUser); 
+       event.setStatus(EventStatus.PENDING);
        Event savedEvent = eventRepository.save(event);
        return mapToResponse(savedEvent);
     }
 
     @Override
     public List<EventResponseDTO> getAllEvents() {
-       return eventRepository.findAll().stream().map(this::mapToResponse).toList();
+       return eventRepository.findByStatus(EventStatus.APPROVED).stream()
+       .map(this::mapToResponse).toList();
     }
 
     @Override
@@ -97,6 +100,7 @@ public class EventServiceImpl implements EventService {
         response.setEventDate(event.getEventDate());
         response.setCapacity(event.getCapacity());
         response.setCreatedAt(event.getCreatedAt());
+        response.setEventStatus(event.getStatus());
 
         return response;
     }
@@ -107,6 +111,28 @@ public class EventServiceImpl implements EventService {
         User currentUser = (User) authentication.getPrincipal();
         return eventRepository.findByCreatedBy(currentUser).stream()
         .map(this::mapToResponse).toList();
+    }
+
+    @Override
+    public EventResponseDTO approveEvent(long id) {
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        event.setStatus(EventStatus.APPROVED);
+        Event savedEvent = eventRepository.save(event);
+        return mapToResponse(savedEvent);
+    }
+
+    @Override
+    public EventResponseDTO rejectEvent(long id) {
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        event.setStatus(EventStatus.REJECTED);
+        Event savedEvent = eventRepository.save(event);
+        return mapToResponse(savedEvent);
+    }
+
+    @Override
+    public List<EventResponseDTO> getPendingEvents() {
+       return eventRepository.findByStatus(EventStatus.PENDING).stream()
+       .map(this::mapToResponse).toList();
     }
 
 }

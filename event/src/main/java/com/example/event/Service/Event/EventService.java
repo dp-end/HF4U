@@ -13,4 +13,8 @@ public interface EventService {
     EventResponseDTO updateEvent( long id , EventRequestDTO request);
     void deleteEvent( long id);
     List<EventResponseDTO> getMyEvents();
+    EventResponseDTO approveEvent (long id);
+    EventResponseDTO rejectEvent (long id);
+    List<EventResponseDTO> getPendingEvents();
+    
 }
