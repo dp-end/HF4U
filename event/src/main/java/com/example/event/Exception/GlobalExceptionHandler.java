@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.event.Dto.ApiResponseDTO;
+import com.example.event.Exception.miniExceptions.AlreadyRegisteredException;
+import com.example.event.Exception.miniExceptions.EmailAlreadyExistException;
+import com.example.event.Exception.miniExceptions.EventCapacityFullException;
+import com.example.event.Exception.miniExceptions.InvalidCredentialsException;
+import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
+import com.example.event.Exception.miniExceptions.UnauthorizedEventAccessException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -82,7 +88,20 @@ public class GlobalExceptionHandler {
             );
         }
 
+        @ExceptionHandler(EventCapacityFullException.class)
         public ResponseEntity<ApiResponseDTO<?>> handleEventCapacityFull(EventCapacityFullException ex) {
+                return ResponseEntity
+                .badRequest()
+                .body(
+                        new ApiResponseDTO<>(
+                                false,
+                                ex.getMessage(),
+                                null
+                        )
+                );
+        }
+        @ExceptionHandler(UnauthorizedEventAccessException.class)
+        public ResponseEntity<ApiResponseDTO<?>> handleUnauthorizedEventAccess(UnauthorizedEventAccessException ex){
                 return ResponseEntity
                 .badRequest()
                 .body(

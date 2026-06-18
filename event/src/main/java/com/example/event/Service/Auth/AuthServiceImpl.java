@@ -10,8 +10,8 @@ import com.example.event.Dto.Login.LoginResponseDTO;
 import com.example.event.Dto.User.UserRequestDTO;
 import com.example.event.Dto.User.UserResponseDTO;
 import com.example.event.Entity.User;
-import com.example.event.Exception.EmailAlreadyExistException;
-import com.example.event.Exception.InvalidCredentialsException;
+import com.example.event.Exception.miniExceptions.EmailAlreadyExistException;
+import com.example.event.Exception.miniExceptions.InvalidCredentialsException;
 import com.example.event.Repository.UserRepository;
 import com.example.event.Service.JwtService;
 
