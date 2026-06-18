@@ -85,7 +85,7 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(id);
     }
 
-
+    //Event bilgisini çıktıda döndürmemizi sağlıyor.
     private EventResponseDTO mapToResponse(Event event) {
 
         EventResponseDTO response = new EventResponseDTO();
@@ -99,6 +99,14 @@ public class EventServiceImpl implements EventService {
         response.setCreatedAt(event.getCreatedAt());
 
         return response;
+    }
+
+    @Override
+    public List<EventResponseDTO> getMyEvents() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return eventRepository.findByCreatedBy(currentUser).stream()
+        .map(this::mapToResponse).toList();
     }
 
 }

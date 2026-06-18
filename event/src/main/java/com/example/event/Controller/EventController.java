@@ -97,6 +97,16 @@ public class EventController {
         );
     }
 
+    @GetMapping("/my-events")
+    @PreAuthorize("hasRole('CLUB_MANAGER')")
+    public ApiResponseDTO<List<EventResponseDTO>>getMyEvents(){
+        return new ApiResponseDTO<>(
+            true,
+            "My events fetched successfully",
+            eventService.getMyEvents()
+        );
+    }
+
 
 
 }
