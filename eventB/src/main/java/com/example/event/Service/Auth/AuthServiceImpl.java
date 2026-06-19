@@ -80,7 +80,12 @@ public class AuthServiceImpl implements AuthService{
 
         String token = jwtService.generateToken(user.getEmail());
 
-        return new LoginResponseDTO(token);
+        return new LoginResponseDTO(
+            token,
+            user.getId(),
+            user.getFullName(),
+            user.getRole()
+        );
     }
 
     
