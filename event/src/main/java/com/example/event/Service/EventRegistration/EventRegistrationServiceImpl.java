@@ -12,6 +12,7 @@ import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
 import com.example.event.Exception.miniExceptions.notAllowRegisterException;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
+
 import com.example.event.Dto.MyResgistrationResponseDTO;
 import com.example.event.Dto.ParticipantResponseDTO;
 
@@ -94,6 +95,19 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
         dto.setFullName(eventRegistration.getStudent().getFullName());
         dto.setEmail(eventRegistration.getStudent().getEmail());
         return dto;
+    }
+
+    @Override
+    public void cancelRegistration(long eventId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User student = (User) authentication.getPrincipal();
+        Event event = eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        EventRegistration eventRegistration =eventRegistrationRepository.findByStudentAndEvent(student, event).orElseThrow(
+            ()-> new ResourceNotFoundException("Registration not found")
+        );
+        if(eventRegistration != null){
+        eventRegistrationRepository.delete(eventRegistration);
+        }
     }
 
 }

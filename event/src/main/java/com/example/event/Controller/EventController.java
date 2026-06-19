@@ -138,4 +138,15 @@ public class EventController {
         );
     }
 
+    @DeleteMapping("/{eventId}/registration")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ApiResponseDTO<String> cancelRegistration(@PathVariable long eventId){
+        eventRegistrationService.cancelRegistration(eventId);
+        return new ApiResponseDTO<>(
+            true,
+            "Registration cancelled successfully",
+            null
+        );
+    }
+
 }

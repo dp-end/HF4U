@@ -8,4 +8,5 @@ public interface EventRegistrationService {
     void registerToEvent(long eventId);
     List<MyResgistrationResponseDTO> getMyRegistrations();
     List<ParticipantResponseDTO> getEventParticipants(long eventId);
+    void cancelRegistration(long eventId);
 }
