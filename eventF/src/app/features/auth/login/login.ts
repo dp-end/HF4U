@@ -1,6 +1,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { AuthService } from '../../../core/services/AuthService/auth-service';
 })
 export class Login implements OnInit {
   loginForm !: FormGroup;
-  constructor(private fb: FormBuilder , private authService: AuthService){}
+  constructor(private fb: FormBuilder , private authService: AuthService , private router : Router){}
 
   ngOnInit(){
     this.loginForm = this.fb.group({
@@ -25,8 +26,29 @@ export class Login implements OnInit {
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('role',response.data.role);
         localStorage.setItem('fullName',response.data.fullName);
-        console.log('Login successful');
+
+        switch(response.data.role){
+
+        case 'STUDENT':
+          this.router.navigate(['/student']);
+          break;
+
+        case 'CLUB_MANAGER':
+          this.router.navigate(['/club']);
+          break;
+
+        case 'ADMIN':
+          this.router.navigate(['/admin']);
+          break;
       }
+        console.log('Login successful');
+      },
+
+      error: (error) => {
+        console.error(error);
+        alert('Email veya şifre hatalı')
+      }
+
     })
   }
 }

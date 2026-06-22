@@ -1,0 +1,9 @@
+<h1>Events</h1>
+@for (event of events; track event.id) {
+  <div>
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.location }}</p>
+    <p>{{ event.eventDate }}</p>
+    <hr>
+  </div>
+}
