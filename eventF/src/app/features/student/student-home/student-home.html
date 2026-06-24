@@ -1,9 +1,39 @@
-<h1>Events</h1>
-@for (event of events; track event.id) {
-  <div>
-    <h3>{{ event.title }}</h3>
-    <p>{{ event.location }}</p>
-    <p>{{ event.eventDate }}</p>
-    <hr>
+<div class="page-container">
+
+  <h1 class="page-title">
+    Upcoming Events
+  </h1>
+
+  <div class="events-container">
+
+    @for (event of events; track event.id) {
+
+      <div class="event-card">
+
+        <h2 class="event-title">
+          {{ event.title }}
+        </h2>
+
+        <p class="event-description">
+          {{ event.description }}
+        </p>
+
+        <div class="event-info">
+          📍 {{ event.location }}
+        </div>
+
+        <div class="event-info">
+          📅 {{ event.eventDate }}
+        </div>
+
+        <div class="event-info">
+          👥 Capacity: {{ event.capacity }}
+        </div>
+
+      </div>
+
+    }
+
   </div>
-}
+
+</div>

@@ -12,7 +12,6 @@ export class StudentHome implements OnInit{
   constructor(private eventService : Event){}
 
   ngOnInit(): void{
-    console.log("student home loaded");
     this.eventService.getAllEvents().subscribe({
       next:(response: any) => {
         console.log(response);
