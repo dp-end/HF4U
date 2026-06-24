@@ -3,6 +3,7 @@ import { Login } from './features/auth/login/login';
 import { StudentHome } from './features/student/student-home/student-home';
 import { ClubHome } from './features/club/club-home/club-home';
 import { AdminHome } from './features/admin/admin-home/admin-home';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -16,14 +17,17 @@ export const routes: Routes = [
   },
   {
     path:'student',
-    component:StudentHome
+    component:StudentHome,
+    canActivate:[authGuard]
   },
   {
     path:'club',
-    component:ClubHome
+    component:ClubHome,
+    canActivate:[authGuard]
   },
   {
     path:'admin',
-    component:AdminHome
+    component:AdminHome,
+    canActivate:[authGuard]
   }
 ];
