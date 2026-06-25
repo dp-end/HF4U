@@ -1,5 +1,6 @@
-import { Component,OnInit } from '@angular/core';
-import { Event } from '../../../core/services/EventService/event';
+import { Component, OnInit, signal } from '@angular/core';
+import { Event } from '../../../core/models/event';
+import { EventService } from '../../../core/services/EventService/eventService';
 
 @Component({
   selector: 'app-student-home',
@@ -7,19 +8,21 @@ import { Event } from '../../../core/services/EventService/event';
   templateUrl: './student-home.html',
   styleUrl: './student-home.css',
 })
-export class StudentHome implements OnInit{
-  events: any[] = [];
-  constructor(private eventService : Event){}
+export class StudentHome implements OnInit {
 
-  ngOnInit(): void{
+  events = signal<Event[]>([]);
+
+  constructor(private eventService: EventService) {}
+
+  ngOnInit(): void {
     this.eventService.getAllEvents().subscribe({
-      next:(response: any) => {
-        console.log(response);
-        this.events = response.data;
+      next: (response) => {
+        this.events.set(response.data);
       },
-      error: (error) =>{
+      error: (error) => {
         console.error(error);
       }
     });
   }
+
 }

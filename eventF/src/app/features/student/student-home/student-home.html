@@ -6,31 +6,29 @@
 
   <div class="events-container">
 
-    @for (event of events; track event.id) {
+    @if (events().length === 0) {
 
-      <div class="event-card">
+      <p>No events available.</p>
 
-        <h2 class="event-title">
-          {{ event.title }}
-        </h2>
+    } @else {
 
-        <p class="event-description">
-          {{ event.description }}
-        </p>
+      @for (event of events(); track event.id) {
 
-        <div class="event-info">
-          📍 {{ event.location }}
+        <div class="event-card">
+
+          <h2>{{ event.title }}</h2>
+
+          <p>{{ event.description }}</p>
+
+          <p>📍 {{ event.location }}</p>
+
+          <p>📅 {{ event.eventDate }}</p>
+
+          <p>👥 {{ event.capacity }}</p>
+
         </div>
 
-        <div class="event-info">
-          📅 {{ event.eventDate }}
-        </div>
-
-        <div class="event-info">
-          👥 Capacity: {{ event.capacity }}
-        </div>
-
-      </div>
+      }
 
     }
 
