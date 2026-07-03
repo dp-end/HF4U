@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginRequest } from '../../models/login/login-request';
 import { ApiResponse } from '../../models/api-response';
 import { LoginResponse } from '../../models/login/login-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient){}
 
-  login(request: LoginRequest){
+  login(request: LoginRequest): Observable<ApiResponse<LoginResponse>>{
     return this.http.post<ApiResponse<LoginResponse>>(`${this.apiUrl}/login` , request);
   }
 }

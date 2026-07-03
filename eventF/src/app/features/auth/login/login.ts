@@ -22,7 +22,9 @@ export class Login implements OnInit {
 
   onSubmit(){
     this.authService.login(this.loginForm.value).subscribe({
-      next: (response: any) => {
+      next: (response) => {
+        const {token ,role ,fullName} = response.data;
+
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('role',response.data.role);
         localStorage.setItem('fullName',response.data.fullName);

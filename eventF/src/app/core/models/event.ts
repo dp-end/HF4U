@@ -1,3 +1,5 @@
+export type EventStatus= 'PENDING' | 'APPROVED' | 'REJECTED';
+
 export interface Event {
   id: number;
   title: string;
@@ -5,5 +7,6 @@ export interface Event {
   location: string;
   eventDate: string;
   capacity: number;
-  eventStatus: string;
+  eventStatus: EventStatus;
+  createdAt:string;
 }
