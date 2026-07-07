@@ -1,20 +1,67 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<main class="auth-page">
+  <section class="brand">
+    <div class="brand-icon">&#9734;</div>
+    <span>UniEvents</span>
+  </section>
 
-  <div>
-    <label>Email</label>
-    <input type="email" formControlName = "email">
-  </div>
+  <form class="auth-card" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <header class="auth-header">
+      <h1>Get started</h1>
+      <p>No account? <button type="button" (click)="goToRegister()">Sign up</button></p>
+    </header>
 
-  <br>
+    <div class="role-tabs" aria-label="Choose role">
+      <button
+        type="button"
+        [class.active]="selectedRole() === 'STUDENT'"
+        (click)="selectRole('STUDENT')"
+      >
+        Student
+      </button>
 
-  <div>
-    <label>Password</label>
-    <input type="password" formControlName="password">
-  </div>
+      <button
+        type="button"
+        [class.active]="selectedRole() === 'CLUB_MANAGER'"
+        (click)="selectRole('CLUB_MANAGER')"
+      >
+        Club
+      </button>
 
-  <br>
-  <button type="submit">
-    Login
+      <button
+        type="button"
+        [class.active]="selectedRole() === 'ADMIN'"
+        (click)="selectRole('ADMIN')"
+      >
+        Admin
+      </button>
+    </div>
+
+    <label class="field">
+      <input type="email" placeholder="Email address" formControlName="email" />
+    </label>
+
+    <label class="field">
+      <input type="password" placeholder="Password" formControlName="password" />
+    </label>
+
+    @if (errorMessage()) {
+      <p class="error-message">{{ errorMessage() }}</p>
+    }
+
+    <button class="primary-button" type="submit" [disabled]="isSubmitting()">
+      @if (isSubmitting()) {
+        Signing in...
+      } @else {
+        Continue <span aria-hidden="true">&rarr;</span>
+      }
+    </button>
+
+    <p class="legal">
+      By continuing you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
+    </p>
+  </form>
+
+  <button class="guest-link" type="button" (click)="browseAsGuest()">
+    &larr; Browse events without signing in
   </button>
-
-</form>
+</main>

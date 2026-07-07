@@ -1,0 +1,189 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  background:
+    radial-gradient(circle at top, #dff8ec 0, rgba(223, 248, 236, 0.35) 22%, transparent 48%),
+    #f5fbf8;
+  color: #183328;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 32px 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.brand-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #069b70;
+  color: white;
+  font-size: 30px;
+  box-shadow: 0 12px 24px rgba(6, 155, 112, 0.28);
+}
+
+.auth-card {
+  width: min(100%, 650px);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 58px 54px;
+  border: 2px solid #c7efdc;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 10px 28px rgba(6, 155, 112, 0.08);
+}
+
+.auth-header h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.auth-header p {
+  margin: 0;
+  color: #85a996;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.auth-header button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #009b6a;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 7px;
+  border: 2px solid #c7efdc;
+  border-radius: 18px;
+  background: #eef8f3;
+}
+
+.role-tabs button {
+  height: 54px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: #7da18e;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.role-tabs button.active {
+  background: white;
+  color: #009b6a;
+  box-shadow: 0 5px 14px rgba(16, 44, 34, 0.08);
+}
+
+.field input {
+  width: 100%;
+  height: 72px;
+  box-sizing: border-box;
+  border: 2px solid #c7efdc;
+  border-radius: 18px;
+  padding: 0 26px;
+  color: #183328;
+  font: inherit;
+  font-size: 22px;
+  outline: none;
+}
+
+.field input::placeholder {
+  color: #b3cdbf;
+}
+
+.field input:focus {
+  border-color: #0aae7d;
+  box-shadow: 0 0 0 4px rgba(10, 174, 125, 0.12);
+}
+
+.primary-button {
+  height: 72px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #08bd82, #00966d);
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 16px 24px rgba(6, 155, 112, 0.18);
+}
+
+.primary-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.legal {
+  margin: 6px 0 0;
+  text-align: center;
+  color: #a0beae;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.legal a {
+  color: #009b6a;
+  text-decoration: none;
+}
+
+.error-message {
+  margin: -8px 0;
+  color: #d33;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.guest-link {
+  border: 0;
+  background: transparent;
+  color: #86aa99;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 680px) {
+  .auth-card {
+    padding: 34px 22px;
+  }
+
+  .auth-header h1 {
+    font-size: 30px;
+  }
+
+  .auth-header p,
+  .field input,
+  .primary-button {
+    font-size: 18px;
+  }
+
+  .role-tabs button {
+    font-size: 16px;
+  }
+}

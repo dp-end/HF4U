@@ -1,7 +1,11 @@
-import { Component ,OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { Component, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { UserRole } from '../../../core/models/user_role';
+
+type LoginRole = UserRole;
 
 @Component({
   selector: 'app-login',
@@ -9,48 +13,84 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login implements OnInit {
-  loginForm !: FormGroup;
-  constructor(private fb: FormBuilder , private authService: AuthService , private router : Router){}
+export class Login {
+  selectedRole = signal<LoginRole>('STUDENT');
+  errorMessage = signal<string>('');
+  isSubmitting = signal<boolean>(false);
 
-  ngOnInit(){
+  loginForm!:FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.loginForm = this.fb.group({
-      email:[''],
-      password:['']
-   })
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
   }
 
-  onSubmit(){
-    this.authService.login(this.loginForm.value).subscribe({
+
+  selectRole(role: LoginRole): void {
+    this.selectedRole.set(role);
+    this.errorMessage.set('');
+  }
+
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.errorMessage.set('Please enter your email and password.');
+      return;
+    }
+
+    const request = {
+      email: this.loginForm.controls['email'].value ?? '',
+      password: this.loginForm.controls['password'].value ?? '',
+    };
+
+    this.isSubmitting.set(true);
+    this.errorMessage.set('');
+
+    this.authService.login(request).subscribe({
       next: (response) => {
-        const {token ,role ,fullName} = response.data;
+        const user = response.data;
 
-        localStorage.setItem('token',response.data.token);
-        localStorage.setItem('role',response.data.role);
-        localStorage.setItem('fullName',response.data.fullName);
+        if (user.role !== this.selectedRole()) {
+          this.isSubmitting.set(false);
+          this.errorMessage.set('This account does not match the selected role.');
+          return;
+        }
 
-        switch(response.data.role){
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('role', user.role);
+        localStorage.setItem('fullName', user.fullName);
+        localStorage.setItem('userId', String(user.userId));
 
-        case 'STUDENT':
-          this.router.navigate(['/student']);
-          break;
-
-        case 'CLUB_MANAGER':
-          this.router.navigate(['/club']);
-          break;
-
-        case 'ADMIN':
-          this.router.navigate(['/admin']);
-          break;
-      }
-        console.log('Login successful');
+        switch (user.role) {
+          case 'STUDENT':
+            this.router.navigate(['/student']);
+            break;
+          case 'CLUB_MANAGER':
+            this.router.navigate(['/club']);
+            break;
+          case 'ADMIN':
+            this.router.navigate(['/admin']);
+            break;
+        }
       },
+      error: () => {
+        this.isSubmitting.set(false);
+        this.errorMessage.set('Email or password is incorrect.');
+      },
+    });
+  }
 
-      error: (error) => {
-        console.error(error);
-        alert('Email veya şifre hatalı')
-      }
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 
-    })
+  browseAsGuest(): void {
+    this.router.navigate(['/student']);
   }
 }
