@@ -9,4 +9,9 @@ export interface Event {
   capacity: number;
   eventStatus: EventStatus;
   createdAt:string;
+  categort?:string;
+  coverImageUrl:string;
+  clubName?:string;
+  registeredCount:number;
+  availableSpots: number;
 }

@@ -15,6 +15,7 @@ import com.example.event.Entity.Role;
 import com.example.event.Entity.User;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
 import com.example.event.Exception.miniExceptions.UnauthorizedEventAccessException;
+import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
+    private final EventRegistrationRepository eventRegistrationRepository;
 
     @Override
     public EventResponseDTO createEvent(EventRequestDTO request) {
@@ -38,6 +40,8 @@ public class EventServiceImpl implements EventService {
        event.setCreatedAt(LocalDateTime.now());
        event.setCreatedBy(currentUser); 
        event.setStatus(EventStatus.PENDING);
+       event.setCategory(request.getCategory());
+       event.setCoverImageUrl(request.getCoverImageUrl());
        Event savedEvent = eventRepository.save(event);
        return mapToResponse(savedEvent);
     }
@@ -71,6 +75,8 @@ public class EventServiceImpl implements EventService {
         event.setLocation(request.getLocation());
         event.setEventDate(request.getEventDate());
         event.setCapacity(request.getCapacity());
+        event.setCategory(request.getCategory());
+        event.setCoverImageUrl(request.getCoverImageUrl());
 
         Event updatedEvent= eventRepository.save(event);
 
@@ -93,6 +99,9 @@ public class EventServiceImpl implements EventService {
 
         EventResponseDTO response = new EventResponseDTO();
 
+        long registeredCount = eventRegistrationRepository.countByEvent(event);
+        long availableSpots = Math.max(0, event.getCapacity()-registeredCount);
+
         response.setId(event.getId());
         response.setTitle(event.getTitle());
         response.setDescription(event.getDescription());
@@ -101,6 +110,14 @@ public class EventServiceImpl implements EventService {
         response.setCapacity(event.getCapacity());
         response.setCreatedAt(event.getCreatedAt());
         response.setEventStatus(event.getStatus());
+        response.setCategory(event.getCategory());
+        response.setCoverImageUrl(event.getCoverImageUrl());
+        response.setRegisteredCount(registeredCount);
+        response.setAvailableSpots(availableSpots);
+
+        if(event.getCreatedBy() != null){
+            response.setClubName(event.getCreatedBy().getFullName());
+        }
 
         return response;
     }

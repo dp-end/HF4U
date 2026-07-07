@@ -32,6 +32,8 @@ public class Event {
     private LocalDateTime eventDate;
     private Integer capacity;
     private LocalDateTime createdAt;
+    private String category;
+    private String coverImageUrl;
 
     @ManyToOne
     @JoinColumn(name = "created_by")

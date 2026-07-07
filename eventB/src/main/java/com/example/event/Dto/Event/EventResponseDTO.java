@@ -23,4 +23,9 @@ public class EventResponseDTO {
     private Integer capacity;
     private LocalDateTime createdAt;
     private EventStatus eventStatus;
+    private String category;
+    private String coverImageUrl;
+    private String clubName;
+    private long registeredCount;
+    private long availableSpots;
 }

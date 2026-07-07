@@ -26,7 +26,7 @@ public class DashboardServiceImpl implements DashboardService {
       dto.setTotalEvents(eventRepository.count());
       dto.setPendingEvents(eventRepository.countByStatus(EventStatus.PENDING));
       dto.setRejectedEvents(eventRepository.countByStatus(EventStatus.REJECTED));
-      dto.setApprovedEvents(eventRepository.countByStatus(EventStatus.REJECTED));
+      dto.setApprovedEvents(eventRepository.countByStatus(EventStatus.APPROVED));
       dto.setTotalRegistrations(eventRegistrationRepository.count());
       return dto;
     }

@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.http.HttpMethod;
 import com.example.event.Security.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -33,8 +33,9 @@ public class SecurityConfig {
                 .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**")
-                        .permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/events").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/events/*").permitAll()
                         .anyRequest()
                         .authenticated())
                 .addFilterBefore(

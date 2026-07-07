@@ -20,4 +20,6 @@ public class EventRequestDTO {
     private LocalDateTime eventDate;
     @Min(value = 1 ,message = "capacity must be greater than 0")
     private Integer capacity;
+    private String category;
+    private String coverImageUrl;
 }
