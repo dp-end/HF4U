@@ -5,6 +5,7 @@ import { ClubHome } from './features/club/club-home/club-home';
 import { AdminHome } from './features/admin/admin-home/admin-home';
 import { authGuard } from './core/guards/auth/auth-guard';
 import { roleGuard } from './core/guards/role/role-guard';
+import { Register } from './features/auth/register/register';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path:'login',
     component: Login
+  },
+  {
+    path:'register',
+    component:Register
   },
   {
     path:'student',

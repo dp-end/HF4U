@@ -1,0 +1,63 @@
+<main class="auth-page">
+  <section class="brand">
+    <div class="brand-icon">&#9734;</div>
+    <span>UniEvents</span>
+  </section>
+
+  <form class="auth-card" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <header class="auth-header">
+      <h1>Create account</h1>
+      <p>Already registered? <button type="button" (click)="goToLogin()">Sign in</button></p>
+    </header>
+
+    <label class="field">
+      <input type="text" placeholder="Full name" formControlName="fullName" />
+    </label>
+
+    <label class="field">
+      <input type="email" placeholder="University email" formControlName="email" />
+    </label>
+
+    <label class="field">
+      <input type="password" placeholder="Password" formControlName="password" />
+    </label>
+
+    <div class="role-tabs" aria-label="Choose role">
+      <button
+        type="button"
+        [class.active]="selectedRole() === 'STUDENT'"
+        (click)="selectRole('STUDENT')"
+      >
+        Student
+      </button>
+
+      <button
+        type="button"
+        [class.active]="selectedRole() === 'CLUB_MANAGER'"
+        (click)="selectRole('CLUB_MANAGER')"
+      >
+        Club Manager
+      </button>
+    </div>
+
+    @if (errorMessage()) {
+      <p class="error-message">{{ errorMessage() }}</p>
+    }
+
+    <button class="primary-button" type="submit" [disabled]="isSubmitting()">
+      @if (isSubmitting()) {
+        Creating...
+      } @else {
+        Create account <span aria-hidden="true">&rarr;</span>
+      }
+    </button>
+
+    <p class="legal">
+      By signing up you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
+    </p>
+  </form>
+
+  <button class="guest-link" type="button" (click)="browseAsGuest()">
+    &larr; Browse events without signing in
+  </button>
+</main>
