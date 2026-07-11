@@ -1,37 +1,35 @@
-<div class="page-container">
+<main class="student-page">
+  <header class="feed-header">
+    <div class="brand">
+      <span class="brand-mark">U</span>
+      <span>UniEvents</span>
+    </div>
 
-  <h1 class="page-title">
-    Upcoming Events
-  </h1>
+    <app-search-bar
+      [value]="searchQuery()"
+      (valueChange)="updateSearchQuery($event)"
+    />
+  </header>
 
-  <div class="events-container">
-
-    @if (events().length === 0) {
-
-      <p>No events available</p>
-
-    } @else {
-
-      @for (event of events(); track event.id) {
-
-        <div class="event-card">
-
-          <h2>{{ event.title }}</h2>
-
-          <p>{{ event.description }}</p>
-
-          <p>📍 {{ event.location }}</p>
-
-          <p>📅 {{ event.eventDate }}</p>
-
-          <p>👥 {{ event.capacity }}</p>
-
-        </div>
-
+  @if (isLoading()) {
+    <section class="state-screen">
+      <p>Loading events...</p>
+    </section>
+  } @else if (errorMessage()) {
+    <section class="state-screen">
+      <p class="error">{{ errorMessage() }}</p>
+    </section>
+  } @else if (filteredEvents().length === 0) {
+    <section class="state-screen">
+      <p>No events found.</p>
+    </section>
+  } @else {
+    <section class="event-feed" aria-label="Event feed">
+      @for (event of filteredEvents(); track event.id) {
+        <section class="feed-slide">
+          <app-event-card [event]="event" />
+        </section>
       }
-
-    }
-
-  </div>
-
-</div>
+    </section>
+  }
+</main>

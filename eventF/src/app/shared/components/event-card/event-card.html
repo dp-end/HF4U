@@ -1,0 +1,32 @@
+<article class="event-card">
+  <div class="event-cover">
+    @if (event().coverImageUrl) {
+      <img [src]="event().coverImageUrl" [alt]="event().title" />
+    } @else {
+      <div class="cover-placeholder">
+        {{ event().title.charAt(0) }}
+      </div>
+    }
+  </div>
+
+  <div class="event-content">
+    <div class="event-topline">
+      <span class="status">{{ event().eventStatus }}</span>
+      @if (event().clubName) {
+        <span class="club-name">{{ event().clubName }}</span>
+      }
+    </div>
+
+    <h2>{{ event().title }}</h2>
+
+    <p class="description">
+      {{ event().description }}
+    </p>
+
+    <div class="meta">
+      <span>{{ event().location }}</span>
+      <span>{{ event().eventDate }}</span>
+      <span>{{ event().availableSpots }} spots left</span>
+    </div>
+  </div>
+</article>
