@@ -5,10 +5,18 @@
       <span>UniEvents</span>
     </div>
 
-    <app-search-bar
-      [value]="searchQuery()"
-      (valueChange)="updateSearchQuery($event)"
-    />
+    <div class="feed-tools">
+      <app-search-bar
+        [value]="searchQuery()"
+        (valueChange)="updateSearchQuery($event)"
+      />
+
+      <app-category-chips
+        [categories]="categories()"
+        [selectedCategory]="selectedCategory()"
+        (categoryChange)="updateCategory($event)"
+      />
+    </div>
   </header>
 
   @if (isLoading()) {
@@ -27,7 +35,9 @@
     <section class="event-feed" aria-label="Event feed">
       @for (event of filteredEvents(); track event.id) {
         <section class="feed-slide">
-          <app-event-card [event]="event" />
+          <app-event-card
+          [event]="event"
+          (registerClick)="registerToEvent($event)" />
         </section>
       }
     </section>

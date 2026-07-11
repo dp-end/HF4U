@@ -87,6 +87,7 @@
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .meta {
@@ -116,4 +117,16 @@
   .description {
     font-size: 14px;
   }
+}
+
+.register-button {
+  height: 46px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #08bd82, #00966d);
+  color: white;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 20px rgba(6, 155, 112, 0.18);
 }

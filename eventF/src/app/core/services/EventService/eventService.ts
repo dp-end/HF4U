@@ -29,7 +29,7 @@ export class EventService {
   }
 
   registerToEvent(eventId:number):Observable<ApiResponse<string>>{
-    return this.http.post<ApiResponse<string>>(`${this.apiUrl}/{eventId}/register`,null);
+    return this.http.post<ApiResponse<string>>(`${this.apiUrl}/${eventId}/register`,null);
   }
 
   getMyRegistration(eventId:number):Observable<ApiResponse<MyRegistration[]>> {

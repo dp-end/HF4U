@@ -1,4 +1,4 @@
-import { Component,input} from '@angular/core';
+import { Component,input ,output} from '@angular/core';
 import { Event } from '../../../core/models/event';
 
 @Component({
@@ -9,4 +9,8 @@ import { Event } from '../../../core/models/event';
 })
 export class EventCard {
   event = input.required<Event>();
+  registerClick = output<number>();
+  register():void {
+    this.registerClick.emit(this.event().id);
+  }
 }

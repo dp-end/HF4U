@@ -17,18 +17,23 @@
   z-index: 10;
   top: 0;
   left: 0;
-  right: 0;
   display: grid;
-  grid-template-columns: auto minmax(220px, 360px);
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  grid-template-columns: 280px;
+  align-items: start;
+  gap: 16px;
   padding: 18px 24px;
   background: transparent;
   pointer-events: none;
 }
 
+.feed-tools {
+  display: grid;
+  gap: 10px;
+  width: 280px;
+}
+
 .feed-header app-search-bar,
+.feed-header app-category-chips,
 .brand {
   pointer-events: auto;
 }
@@ -115,6 +120,12 @@
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 14px;
+    width: min(100%, 360px);
+  }
+
+  .feed-tools {
+    grid-template-columns: 1fr;
+    width: 100%;
   }
 
   .brand {

@@ -1,0 +1,28 @@
+<div class="category-menu" aria-label="Event categories">
+  <button
+    class="category-trigger"
+    type="button"
+    aria-haspopup="true"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggleMenu()"
+  >
+    <span>Category</span>
+    @if (selectedCategory() !== 'All') {
+      <strong>{{ selectedCategory() }}</strong>
+    }
+    <span class="chevron" aria-hidden="true">⌄</span>
+  </button>
+
+  <div class="category-list" [class.open]="isOpen()" role="menu">
+    @for (category of categories(); track category) {
+      <button
+        type="button"
+        role="menuitem"
+        [class.active]="selectedCategory() === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    }
+  </div>
+</div>
