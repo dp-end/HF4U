@@ -10,7 +10,12 @@ import { Event } from '../../../core/models/event';
 export class EventCard {
   event = input.required<Event>();
   registerClick = output<number>();
+  detailClick = output<number>();
+
   register():void {
     this.registerClick.emit(this.event().id);
+  }
+  openDetail():void {
+    this.detailClick.emit(this.event().id);
   }
 }

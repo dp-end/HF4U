@@ -1,4 +1,4 @@
-<article class="event-card">
+<article class="event-card" (click)="openDetail()">
   <div class="event-cover">
     @if (event().coverImageUrl) {
       <img [src]="event().coverImageUrl" [alt]="event().title" />
@@ -29,7 +29,7 @@
       <span>{{ event().availableSpots }} spots left</span>
     </div>
 
-    <button class="register-button" type="button" (click)="register()">
+    <button class="register-button" type="button" (click)="$event.stopPropagation(); register()">
       Register
     </button>
 

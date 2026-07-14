@@ -6,6 +6,7 @@ import { AdminHome } from './features/admin/admin-home/admin-home';
 import { authGuard } from './core/guards/auth/auth-guard';
 import { roleGuard } from './core/guards/role/role-guard';
 import { Register } from './features/auth/register/register';
+import { EventDetail } from './features/student/event-detail/event-detail';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,14 @@ export const routes: Routes = [
     canActivate:[authGuard,roleGuard],
     data: {
       role:'ADMIN'
+    }
+  },
+  {
+    path:'student/events/:id',
+    component: EventDetail,
+    canActivate: [authGuard,roleGuard],
+    data: {
+      role:'STUDENT'
     }
   }
 ];

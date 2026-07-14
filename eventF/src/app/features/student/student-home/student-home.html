@@ -36,8 +36,10 @@
       @for (event of filteredEvents(); track event.id) {
         <section class="feed-slide">
           <app-event-card
-          [event]="event"
-          (registerClick)="registerToEvent($event)" />
+            [event]="event"
+            (registerClick)="registerToEvent($event)"
+            (detailClick)="openEventDetail($event)"
+          />
         </section>
       }
     </section>

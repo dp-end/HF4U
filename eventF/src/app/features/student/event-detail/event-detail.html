@@ -1,0 +1,73 @@
+<main class="detail-page">
+  <button class="back-button" type="button" (click)="goBack()">
+    Back
+  </button>
+
+  @if (isLoading()) {
+    <section class="state-screen">
+      <p>Loading event...</p>
+    </section>
+  } @else if (errorMessage()) {
+    <section class="state-screen">
+      <p class="error">{{ errorMessage() }}</p>
+    </section>
+  } @else if (event()) {
+    <article class="detail-card">
+      <section class="cover">
+        @if (event()!.coverImageUrl) {
+          <img [src]="event()!.coverImageUrl" [alt]="event()!.title" />
+        } @else {
+          <div class="cover-placeholder">
+            {{ event()!.title.charAt(0) }}
+          </div>
+        }
+      </section>
+
+      <section class="content">
+        <div class="topline">
+          <span class="status">{{ event()!.eventStatus }}</span>
+
+          @if (event()!.category) {
+            <span class="category">{{ event()!.category }}</span>
+          }
+        </div>
+
+        <h1>{{ event()!.title }}</h1>
+
+        @if (event()!.clubName) {
+          <p class="club">{{ event()!.clubName }}</p>
+        }
+
+        <p class="description">
+          {{ event()!.description }}
+        </p>
+
+        <div class="meta-grid">
+          <div>
+            <span>Date</span>
+            <strong>{{ event()!.eventDate }}</strong>
+          </div>
+
+          <div>
+            <span>Location</span>
+            <strong>{{ event()!.location }}</strong>
+          </div>
+
+          <div>
+            <span>Capacity</span>
+            <strong>{{ event()!.capacity }}</strong>
+          </div>
+
+          <div>
+            <span>Available</span>
+            <strong>{{ event()!.availableSpots }}</strong>
+          </div>
+        </div>
+
+        <button class="register-button" type="button" (click)="registerToEvent()">
+          Register
+        </button>
+      </section>
+    </article>
+  }
+</main>

@@ -32,8 +32,8 @@ export class EventService {
     return this.http.post<ApiResponse<string>>(`${this.apiUrl}/${eventId}/register`,null);
   }
 
-  getMyRegistration(eventId:number):Observable<ApiResponse<MyRegistration[]>> {
-    return this.http.get<ApiResponse<MyRegistration[]>>(`${this.apiUrl}/my-registration`);
+  getMyRegistrations():Observable<ApiResponse<MyRegistration[]>> {
+    return this.http.get<ApiResponse<MyRegistration[]>>(`${this.apiUrl}/my-registrations`);
   }
 
   cancelRegistration(eventId:number):Observable<ApiResponse<string>>{

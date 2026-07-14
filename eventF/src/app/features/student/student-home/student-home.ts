@@ -4,6 +4,7 @@ import { Event } from '../../../core/models/event';
 import { EventCard } from '../../../shared/components/event-card/event-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { CategoryChips } from '../../../shared/components/category-chips/category-chips';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-home',
@@ -43,7 +44,7 @@ export class StudentHome implements OnInit {
   }
 
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadEvents();
@@ -77,6 +78,10 @@ export class StudentHome implements OnInit {
         this.errorMessage.set('Registration failed.');
       },
     });
+  }
+
+  openEventDetail(eventId:number):void {
+    this.router.navigate(['/student/events', eventId]);
   }
 
 }
