@@ -5,13 +5,15 @@ import { EventCard } from '../../../shared/components/event-card/event-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { CategoryChips } from '../../../shared/components/category-chips/category-chips';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/AuthService/auth-service';
-import { UiButton } from '../../../shared/components/ui-button/ui-button';
 import { UiState } from '../../../shared/components/ui-state/ui-state';
+import { StudentNavbar } from '../../../shared/components/student-navbar/student-navbar';
+import { Toast } from '../../../shared/components/toast/toast';
+
+type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-student-home',
-  imports: [EventCard, SearchBar, CategoryChips, UiButton, UiState],
+  imports: [EventCard, SearchBar, CategoryChips, UiState, StudentNavbar, Toast],
   templateUrl: './student-home.html',
   styleUrl: './student-home.css',
 })
@@ -20,6 +22,8 @@ export class StudentHome implements OnInit {
   searchQuery = signal<string>('');
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');
+  feedbackMessage = signal<string>('');
+  feedbackType = signal<FeedbackType>('success');
   categories = signal<string[]>(['Tümü','Teknoloji','Sanat','Spor','Kariyer','Sosyal']);
   selectedCategory = signal<string>('Tümü');
 
@@ -47,11 +51,7 @@ export class StudentHome implements OnInit {
   }
 
 
-  constructor(
-    private eventService: EventService,
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+  constructor(private eventService: EventService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadEvents();
@@ -77,12 +77,17 @@ export class StudentHome implements OnInit {
   }
 
   registerToEvent(eventId:number):void {
+    this.feedbackMessage.set('');
+
     this.eventService.registerToEvent(eventId).subscribe({
       next:()=> {
+        this.feedbackType.set('success');
+        this.feedbackMessage.set('Kayıt başarıyla tamamlandı.');
         this.loadEvents();
       },
       error:() => {
-        this.errorMessage.set('Kayıt işlemi başarısız oldu.');
+        this.feedbackType.set('error');
+        this.feedbackMessage.set('Kayıt işlemi başarısız oldu.');
       },
     });
   }
@@ -91,13 +96,8 @@ export class StudentHome implements OnInit {
     this.router.navigate(['/student/events', eventId]);
   }
 
-  openRegistrations(): void {
-    this.router.navigate(['/student/registrations']);
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  clearFeedback(): void {
+    this.feedbackMessage.set('');
   }
 
   private categoryLabel(category?: string): string {

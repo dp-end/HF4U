@@ -1,16 +1,11 @@
 <main class="registrations-page">
-  <header class="page-header">
-    <button class="brand" type="button" (click)="goToFeed()">
-      <span class="brand-mark">U</span>
-      <span>UniEvents</span>
-    </button>
+  <app-student-navbar activePage="registrations" />
 
-    <nav class="header-actions" aria-label="Öğrenci menüsü">
-      <app-ui-button (click)="goToFeed()">Akış</app-ui-button>
-      <app-ui-button variant="primary">Kayıtlarım</app-ui-button>
-      <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
-    </nav>
-  </header>
+  <app-toast
+    [message]="feedbackMessage()"
+    [tone]="feedbackType()"
+    (dismissed)="clearFeedback()"
+  />
 
   <section class="profile-strip">
     <div class="avatar" aria-hidden="true">
@@ -22,12 +17,6 @@
       <h1>{{ studentName() }}</h1>
     </div>
   </section>
-
-  @if (feedbackMessage()) {
-    <app-feedback-message class="page-feedback" [tone]="feedbackType()">
-      {{ feedbackMessage() }}
-    </app-feedback-message>
-  }
 
   @if (isLoading()) {
     <app-ui-state class="state-panel">Kayıtların yükleniyor...</app-ui-state>

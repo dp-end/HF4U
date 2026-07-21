@@ -1,15 +1,12 @@
 <main class="student-page">
-  <header class="feed-header">
-    <div class="brand">
-      <span class="brand-mark">U</span>
-      <span>UniEvents</span>
-    </div>
+  <app-toast
+    [message]="feedbackMessage()"
+    [tone]="feedbackType()"
+    (dismissed)="clearFeedback()"
+  />
 
-    <nav class="student-nav" aria-label="Öğrenci menüsü">
-      <app-ui-button variant="primary">Akış</app-ui-button>
-      <app-ui-button (click)="openRegistrations()">Kayıtlarım</app-ui-button>
-      <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
-    </nav>
+  <header class="feed-header">
+    <app-student-navbar activePage="feed" />
 
     <div class="feed-tools">
       <app-search-bar

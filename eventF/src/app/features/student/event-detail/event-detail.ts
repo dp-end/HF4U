@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
-import { Event, EventStatus } from '../../../core/models/event';
-import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { Event } from '../../../core/models/event';
 import { Badge } from '../../../shared/components/badge/badge';
-import { FeedbackMessage } from '../../../shared/components/feedback-message/feedback-message';
+import { EventStatusBadge } from '../../../shared/components/event-status-badge/event-status-badge';
+import { StudentNavbar } from '../../../shared/components/student-navbar/student-navbar';
+import { Toast } from '../../../shared/components/toast/toast';
 import { UiButton } from '../../../shared/components/ui-button/ui-button';
 import { UiState } from '../../../shared/components/ui-state/ui-state';
 
@@ -13,7 +14,7 @@ type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-event-detail',
-  imports: [Badge, FeedbackMessage, UiButton, UiState],
+  imports: [Badge, EventStatusBadge, StudentNavbar, Toast, UiButton, UiState],
   templateUrl: './event-detail.html',
   styleUrl: './event-detail.css',
 })
@@ -56,9 +57,7 @@ export class EventDetail implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private eventService: EventService,
-    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -104,29 +103,6 @@ export class EventDetail implements OnInit {
     });
   }
 
-  goBack(): void {
-    this.router.navigate(['/student']);
-  }
-
-  openRegistrations(): void {
-    this.router.navigate(['/student/registrations']);
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
-  statusLabel(status: EventStatus): string {
-    const labels: Record<EventStatus, string> = {
-      PENDING: 'Onay Bekliyor',
-      APPROVED: 'Onaylandı',
-      REJECTED: 'Reddedildi',
-    };
-
-    return labels[status];
-  }
-
   categoryLabel(category?: string): string {
     const labels: Record<string, string> = {
       Technology: 'Teknoloji',
@@ -138,6 +114,10 @@ export class EventDetail implements OnInit {
     };
 
     return category ? labels[category] ?? category : '';
+  }
+
+  clearFeedback(): void {
+    this.feedbackMessage.set('');
   }
 
   registerToEvent(): void {

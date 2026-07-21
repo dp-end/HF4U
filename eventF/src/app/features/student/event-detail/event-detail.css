@@ -5,18 +5,10 @@
   color: #183328;
 }
 
-.detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.detail-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
+app-student-navbar {
+  display: block;
+  width: min(100%, 960px);
+  margin: 0 auto;
 }
 
 .detail-card {
@@ -114,20 +106,6 @@ app-ui-state.state-screen {
     padding: 12px;
   }
 
-  .detail-header {
-    align-items: start;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .detail-nav {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-content: flex-start;
-    gap: 6px;
-  }
-
   .detail-card {
     margin-top: 16px;
     border-radius: 18px;
@@ -161,10 +139,6 @@ app-ui-button {
 }
 
 @media (max-width: 420px) {
-  .detail-nav {
-    grid-template-columns: 1fr;
-  }
-
   .cover {
     height: 210px;
   }

@@ -5,47 +5,14 @@
   color: #183328;
 }
 
-.page-header {
+app-student-navbar {
+  display: block;
   width: min(100%, 1080px);
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
 }
 
-.brand,
 .registration-main {
   font: inherit;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 0;
-  background: transparent;
-  color: #183328;
-  font-size: 18px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.brand-mark {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  background: #08bd82;
-  color: #fff;
-}
-
-.header-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
 }
 
 .profile-strip {
@@ -87,17 +54,11 @@
   line-height: 1.1;
 }
 
-.page-feedback,
 app-ui-state.state-panel,
 .registrations-list {
   width: min(100%, 1080px);
   margin-left: auto;
   margin-right: auto;
-}
-
-.page-feedback {
-  display: block;
-  margin-top: 12px;
 }
 
 .registrations-list {
@@ -163,7 +124,6 @@ app-ui-state.state-panel,
     padding: 12px;
   }
 
-  .page-header,
   .registration-card,
   .registration-main {
     grid-template-columns: 1fr;
@@ -171,20 +131,6 @@ app-ui-state.state-panel,
 
   .registration-card {
     gap: 10px;
-  }
-
-  .page-header {
-    display: grid;
-    align-items: start;
-    gap: 12px;
-  }
-
-  .header-actions {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-content: stretch;
-    gap: 6px;
   }
 
   .profile-strip {
@@ -212,10 +158,6 @@ app-ui-state.state-panel,
 }
 
 @media (max-width: 420px) {
-  .header-actions {
-    grid-template-columns: 1fr;
-  }
-
   .profile-strip {
     align-items: flex-start;
   }

@@ -11,7 +11,7 @@
 
   <div class="event-content">
     <div class="event-topline">
-      <app-badge tone="success">{{ statusLabel(event().eventStatus) }}</app-badge>
+      <app-event-status-badge [status]="event().eventStatus" />
       @if (event().clubName) {
         <span class="club-name">{{ event().clubName }}</span>
       }

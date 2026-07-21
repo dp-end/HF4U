@@ -1,13 +1,11 @@
 <main class="detail-page">
-  <header class="detail-header">
-    <app-ui-button (click)="goBack()">Geri</app-ui-button>
+  <app-student-navbar />
 
-    <nav class="detail-nav" aria-label="Öğrenci menüsü">
-      <app-ui-button (click)="goBack()">Akış</app-ui-button>
-      <app-ui-button (click)="openRegistrations()">Kayıtlarım</app-ui-button>
-      <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
-    </nav>
-  </header>
+  <app-toast
+    [message]="feedbackMessage()"
+    [tone]="feedbackType()"
+    (dismissed)="clearFeedback()"
+  />
 
   @if (isLoading()) {
     <app-ui-state class="state-screen">Etkinlik yükleniyor...</app-ui-state>
@@ -27,7 +25,7 @@
 
       <section class="content">
         <div class="topline">
-          <app-badge tone="success">{{ statusLabel(event()!.eventStatus) }}</app-badge>
+          <app-event-status-badge [status]="event()!.eventStatus" />
 
           @if (event()!.category) {
             <app-badge>{{ categoryLabel(event()!.category) }}</app-badge>
@@ -65,11 +63,6 @@
             <strong>{{ event()!.availableSpots }}</strong>
           </div>
         </div>
-        @if (feedbackMessage()) {
-          <app-feedback-message [tone]="feedbackType()">
-            {{ feedbackMessage() }}
-          </app-feedback-message>
-        }
         <app-ui-button
           variant="primary"
           [disabled]="!canRegister()"

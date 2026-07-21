@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
 import { MyRegistration } from '../../../core/models/my-registration';
-import { FeedbackMessage } from '../../../shared/components/feedback-message/feedback-message';
+import { StudentNavbar } from '../../../shared/components/student-navbar/student-navbar';
+import { Toast } from '../../../shared/components/toast/toast';
 import { UiButton } from '../../../shared/components/ui-button/ui-button';
 import { UiState } from '../../../shared/components/ui-state/ui-state';
 
@@ -12,7 +13,7 @@ type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-student-registrations',
-  imports: [FeedbackMessage, UiButton, UiState],
+  imports: [StudentNavbar, Toast, UiButton, UiState],
   templateUrl: './student-registrations.html',
   styleUrl: './student-registrations.css',
 })
@@ -87,11 +88,6 @@ export class StudentRegistrations implements OnInit {
     this.router.navigate(['/student']);
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
   formatEventDate(value: string): string {
     const date = new Date(value);
 
@@ -105,6 +101,10 @@ export class StudentRegistrations implements OnInit {
       hour: '2-digit',
       minute: '2-digit',
     }).format(date);
+  }
+
+  clearFeedback(): void {
+    this.feedbackMessage.set('');
   }
 
   private getErrorMessage(error: HttpErrorResponse): string {

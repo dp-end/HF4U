@@ -1,0 +1,21 @@
+<header class="student-navbar">
+  <button class="brand" type="button" (click)="goToFeed()">
+    <span class="brand-mark">U</span>
+    <span>UniEvents</span>
+  </button>
+
+  <nav class="student-nav" aria-label="Öğrenci menüsü">
+    <app-ui-button [variant]="activePage() === 'feed' ? 'primary' : 'secondary'" (click)="goToFeed()">
+      Akış
+    </app-ui-button>
+
+    <app-ui-button
+      [variant]="activePage() === 'registrations' ? 'primary' : 'secondary'"
+      (click)="goToRegistrations()"
+    >
+      Kayıtlarım
+    </app-ui-button>
+
+    <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
+  </nav>
+</header>

@@ -1,11 +1,11 @@
 import { Component,input ,output} from '@angular/core';
-import { Event, EventStatus } from '../../../core/models/event';
-import { Badge } from '../badge/badge';
+import { Event } from '../../../core/models/event';
+import { EventStatusBadge } from '../event-status-badge/event-status-badge';
 import { UiButton } from '../ui-button/ui-button';
 
 @Component({
   selector: 'app-event-card',
-  imports: [Badge, UiButton],
+  imports: [EventStatusBadge, UiButton],
   templateUrl: './event-card.html',
   styleUrl: './event-card.css',
 })
@@ -19,15 +19,5 @@ export class EventCard {
   }
   openDetail():void {
     this.detailClick.emit(this.event().id);
-  }
-
-  statusLabel(status: EventStatus): string {
-    const labels: Record<EventStatus, string> = {
-      PENDING: 'Onay Bekliyor',
-      APPROVED: 'Onaylandı',
-      REJECTED: 'Reddedildi',
-    };
-
-    return labels[status];
   }
 }

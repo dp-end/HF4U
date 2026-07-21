@@ -35,35 +35,8 @@
 
 .feed-header app-search-bar,
 .feed-header app-category-chips,
-.student-nav,
-.brand {
+.feed-header app-student-navbar {
   pointer-events: auto;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  font-weight: 900;
-  color: #183328;
-}
-
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: #08bd82;
-  color: #fff;
-  box-shadow: 0 12px 24px rgba(8, 189, 130, 0.26);
-}
-
-.student-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 
 .event-feed {
@@ -128,22 +101,6 @@ app-ui-state.state-screen {
     width: 100%;
   }
 
-  .brand {
-    font-size: 16px;
-  }
-
-  .brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-  }
-
-  .student-nav {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-  }
-
   .feed-slide,
   app-ui-state.state-screen {
     padding: 136px 10px 10px;
@@ -157,10 +114,6 @@ app-ui-state.state-screen {
 }
 
 @media (max-width: 380px) {
-  .student-nav {
-    grid-template-columns: 1fr;
-  }
-
   .feed-slide,
   app-ui-state.state-screen {
     padding-top: 180px;
