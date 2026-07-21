@@ -54,13 +54,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO getEventById(long id) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("event not found with id" + id));
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id));
         return mapToResponse(event);
     }
 
     @Override
     public EventResponseDTO updateEvent(long id, EventRequestDTO request) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("event not found with id" + id));
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         boolean isAdmin = currentUser.getRole() == Role.ADMIN;
@@ -68,7 +68,7 @@ public class EventServiceImpl implements EventService {
 
         if(!isAdmin && !isOwner){
             System.out.println("Update merhodu çalışıyor mu");
-            throw new UnauthorizedEventAccessException("You can only manage your own events");
+            throw new UnauthorizedEventAccessException("Sadece kendi etkinliklerini yönetebilirsin");
         }
         event.setTitle(request.getTitle());
         event.setDescription(request.getDescription());
@@ -88,7 +88,7 @@ public class EventServiceImpl implements EventService {
     public void deleteEvent(long id) {
         
     if (!eventRepository.existsById(id)) {
-            throw new ResourceNotFoundException("event not found with id" + id);
+            throw new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id);
         }
         
         eventRepository.deleteById(id);
@@ -132,7 +132,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO approveEvent(long id) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı"));
         event.setStatus(EventStatus.APPROVED);
         Event savedEvent = eventRepository.save(event);
         return mapToResponse(savedEvent);
@@ -140,7 +140,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO rejectEvent(long id) {
-        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı"));
         event.setStatus(EventStatus.REJECTED);
         Event savedEvent = eventRepository.save(event);
         return mapToResponse(savedEvent);

@@ -40,7 +40,7 @@ export class Login {
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      this.errorMessage.set('Please enter your email and password.');
+      this.errorMessage.set('Lütfen e-posta adresini ve şifreni gir.');
       return;
     }
 
@@ -58,7 +58,7 @@ export class Login {
 
         if (user.role !== this.selectedRole()) {
           this.isSubmitting.set(false);
-          this.errorMessage.set('This account does not match the selected role.');
+          this.errorMessage.set('Bu hesap seçilen rolle eşleşmiyor.');
           return;
         }
 
@@ -81,7 +81,7 @@ export class Login {
       },
       error: () => {
         this.isSubmitting.set(false);
-        this.errorMessage.set('Email or password is incorrect.');
+        this.errorMessage.set('E-posta adresi veya şifre hatalı.');
       },
     });
   }

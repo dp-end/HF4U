@@ -1,44 +1,41 @@
-# UniEvents Architecture
+# UniEvents Mimari Dokümanı
 
-> Technical Architecture Documentation
-
----
-
-# Project Overview
-
-UniEvents is a full-stack web application.
-
-The project consists of two independent applications.
-
-```
-exercise/
-
-├── EventB/     -> Spring Boot Backend
-
-├── EventF/     -> Angular Frontend
-
-├── PROJECT_CONTEXT.md
-
-├── ROADMAP.md
-
-├── NEXT_TASK.md
-
-└── ARCHITECTURE.md
-```
-
-Both applications should evolve together.
-
-Backend exposes REST APIs.
-
-Frontend consumes APIs.
+> UniEvents için ürün, backend, frontend ve veri mimarisi notları
 
 ---
 
-# Backend Architecture
+# Mimari Vizyon
 
-The backend follows Clean Layered Architecture.
+UniEvents, üniversite etkinliklerini sosyal medya akışı gibi keşfedilebilir hale getiren bir kampüs platformudur.
 
-```
+Bu proje klasik bir yönetim paneli mantığıyla değil, içerik ve keşif odaklı bir ürün mantığıyla geliştirilmelidir.
+
+Temel fikir:
+
+- Etkinlikler içeriktir
+- Kulüpler içerik üreticisidir
+- Öğrenciler keşfeden kullanıcıdır
+- Yönetici kalite ve güvenlik kontrolünü sağlar
+
+---
+
+# Ana Katmanlar
+
+Proje iki ana uygulamadan oluşur:
+
+- `eventB`: Spring Boot backend
+- `eventF`: Angular frontend
+
+Backend API sağlar.
+
+Frontend bu API’leri kullanarak rol bazlı deneyimler sunar.
+
+---
+
+# Backend Mimarisi
+
+Backend katmanları şu sırayla ilerlemelidir:
+
 Controller
 
 ↓
@@ -52,778 +49,477 @@ Repository
 ↓
 
 Database
-```
 
-Controllers should NEVER contain business logic.
+Controller yalnızca HTTP isteklerini karşılar.
 
-Repositories should NEVER be accessed directly from Controllers.
+İş kuralları Service katmanında bulunur.
 
-All business logic belongs inside Services.
+Repository yalnızca veri erişimi için kullanılır.
 
----
+Entity sınıfları veritabanı modelini temsil eder.
 
-## Backend Folder Structure
-
-```
-controller/
-
-service/
-
-repository/
-
-entity/
-
-dto/
-
-mapper/
-
-config/
-
-security/
-
-exception/
-
-enums/
-
-util/
-```
+DTO sınıfları API giriş ve çıkışlarını temsil eder.
 
 ---
 
-# Entity Rules
+# Backend Kuralları
 
-Entities represent database tables only.
-
-Entities should NOT be returned directly from controllers.
-
-Always use DTOs.
-
-Example
-
-```
-Event
-
-↓
-
-EventResponseDTO
-```
+- Controller içinde repository kullanılmaz.
+- İş mantığı component veya controller içine taşınmaz.
+- API response yapısı tutarlı olmalıdır.
+- Hatalar `GlobalExceptionHandler` üzerinden yönetilmelidir.
+- Rol kontrolü Spring Security ile yapılmalıdır.
+- JWT doğrulaması filter katmanında yapılmalıdır.
+- Kullanıcı şifreleri BCrypt ile saklanmalıdır.
 
 ---
 
-# DTO Rules
+# Backend Paketleri
 
-Every request and response should use DTOs.
+## Controller
 
-Example
+HTTP endpointlerini barındırır.
 
-```
-LoginRequestDTO
+Mevcut controllerlar:
 
-LoginResponseDTO
+- AuthController
+- EventController
+- DashboardController
 
-EventRequestDTO
+## Service
 
-EventResponseDTO
+İş kurallarını barındırır.
 
-RegistrationResponseDTO
-```
+Mevcut servisler:
 
-Never expose Entity objects.
+- AuthService
+- EventService
+- EventRegistrationService
+- DashboardService
+- JwtService
+
+## Repository
+
+Veritabanı erişimini sağlar.
+
+Mevcut repositoryler:
+
+- UserRepository
+- EventRepository
+- EventRegistrationRepository
+
+## Entity
+
+Veritabanı tablolarını temsil eder.
+
+Mevcut entityler:
+
+- User
+- Event
+- EventRegistration
+- Role
+- EventStatus
+
+## DTO
+
+API request ve response modellerini temsil eder.
+
+Mevcut DTO grupları:
+
+- Login DTO
+- User DTO
+- Event DTO
+- Dashboard DTO
+- ApiResponseDTO
+- MyRegistration DTO
+- Participant DTO
 
 ---
 
-# API Response Standard
+# Rol Mimarisi
 
-Every endpoint returns
+## Öğrenci
+
+Öğrenci şunları yapabilir:
+
+- Giriş yapabilir
+- Kayıt olabilir
+- Onaylanmış etkinlikleri görebilir
+- Etkinlik detayını açabilir
+- Etkinliğe kayıt olabilir
+- Kaydını iptal edebilir
+- Kayıtlarını görebilir
+
+Öğrenci şunları yapamaz:
+
+- Etkinlik oluşturamaz
+- Etkinlik düzenleyemez
+- Etkinlik onaylayamaz
+
+## Kulüp Yöneticisi
+
+Kulüp yöneticisi şunları yapabilir:
+
+- Etkinlik oluşturabilir
+- Kendi etkinliklerini görebilir
+- Kendi etkinliklerini düzenleyebilir
+- Katılımcıları görebilir
+
+Kulüp yöneticisi şunları yapamaz:
+
+- Başka kulüplerin etkinliklerini yönetemez
+- Etkinlik onaylayamaz
+
+## Admin
+
+Admin şunları yapabilir:
+
+- Onay bekleyen etkinlikleri görebilir
+- Etkinlikleri onaylayabilir
+- Etkinlikleri reddedebilir
+- Etkinlik silebilir
+- Dashboard verilerini görebilir
+
+---
+
+# Etkinlik Yaşam Döngüsü
+
+Yeni etkinlik kulüp yöneticisi tarafından oluşturulur.
+
+Yeni etkinlik varsayılan olarak `PENDING` durumundadır.
+
+Admin etkinliği inceler.
+
+Admin etkinliği `APPROVED` veya `REJECTED` durumuna alır.
+
+Öğrenciler yalnızca onaylanmış etkinlikleri keşfetmelidir.
+
+Kayıt işlemi yalnızca onaylı ve kontenjanı dolmamış etkinlikler için yapılmalıdır.
+
+---
+
+# Kayıt Mimarisi
+
+Bir öğrenci aynı etkinliğe yalnızca bir kez kayıt olabilir.
+
+Kontenjan doluysa kayıt engellenmelidir.
+
+Etkinlik onaylı değilse kayıt engellenmelidir.
+
+Öğrenci kendi kaydını iptal edebilir.
+
+Kayıt sayısı ve kalan kontenjan backend tarafından hesaplanmalıdır.
+
+---
+
+# API Response Standardı
+
+Tüm API cevapları ortak formatı izlemelidir:
 
 ```json
 {
-    "success": true,
-    "message": "Success",
-    "data": {}
+  "success": true,
+  "message": "İşlem başarılı",
+  "data": {}
 }
 ```
 
-Frontend should always expect this format.
+Hata durumunda:
+
+```json
+{
+  "success": false,
+  "message": "Hata mesajı",
+  "data": null
+}
+```
+
+Frontend her zaman `ApiResponse<T>` tipini kullanmalıdır.
 
 ---
 
-# Authentication
+# Frontend Mimarisi
 
-JWT Authentication.
+Frontend Angular 21 ve standalone component yapısıyla geliştirilir.
 
-Flow
+State yönetiminde Angular Signals tercih edilir.
 
-```
-Login
+Servisler API iletişiminden sorumludur.
 
-↓
+Componentler UI ve kullanıcı etkileşiminden sorumludur.
 
-JWT Generated
-
-↓
-
-Frontend stores token
-
-↓
-
-Authorization Header
-
-↓
-
-JWT Filter
-
-↓
-
-Authenticated User
-```
+Componentler içinde iş mantığı büyütülmemelidir.
 
 ---
 
-# Authorization
+# Frontend Klasör Yapısı
 
-Three roles exist.
+Önerilen yapı:
 
-```
-STUDENT
-
-CLUB_MANAGER
-
-ADMIN
-```
-
-Permissions
-
-Student
-
-- Register
-- Browse Events
-
-Club
-
-- Manage Own Events
-
-Admin
-
-- Manage Platform
-
----
-
-# Frontend Architecture
-
-Angular 21
-
-Standalone Components
-
-Signals
-
-RxJS
-
-SCSS
-
----
-
-# Frontend Folder Structure
-
-```
+```text
 src/app
-
-core/
-
-shared/
-
-features/
+├── core
+│   ├── guards
+│   ├── interceptors
+│   ├── models
+│   └── services
+├── features
+│   ├── auth
+│   ├── student
+│   ├── club
+│   └── admin
+└── shared
+    └── components
 ```
 
 ---
 
-## core
+# Frontend Kuralları
 
-Contains application logic.
-
-```
-core/
-
-services/
-
-guards/
-
-interceptors/
-
-models/
-
-utils/
-```
+- Standalone component kullanılmalıdır.
+- Signals kullanılmalıdır.
+- Servis response’ları güçlü tiplenmelidir.
+- `any` kullanılmamalıdır.
+- Ortak UI parçaları `shared/components` altında toplanmalıdır.
+- Tekrarlayan state, style ve template yapıları componentleştirilmelidir.
+- Kullanıcıya görünen tüm metinler Türkçe olmalıdır.
 
 ---
 
-## shared
+# Öğrenci Modülü
 
-Contains reusable UI components.
+Öğrenci modülü MVP’nin ana odağıdır.
 
-```
-shared/
+Mevcut sayfalar:
 
-navbar/
+- Öğrenci akışı
+- Etkinlik detayı
+- Kayıtlarım
 
-sidebar/
+Öğrenci akışı sosyal medya hissi vermelidir.
 
-button/
+Öğrenci etkinlikleri arayabilmeli, kategoriye göre filtreleyebilmeli ve kartları kaydırarak keşfedebilmelidir.
 
-badge/
+Etkinlik detayında öğrencinin etkinlik hakkında karar vermesi için gereken bilgiler açıkça gösterilmelidir.
 
-dialog/
-
-loading/
-
-empty-state/
-
-search/
-
-carousel/
-
-event-card/
-```
-
-Everything inside shared should be reusable.
+Kayıtlarım sayfası öğrencinin kayıt olduğu etkinlikleri yönetmesini sağlar.
 
 ---
 
-## features
+# Auth Modülü
 
-Business pages.
+Auth modülü giriş ve kayıt akışlarını içerir.
 
-```
-features/
+Login sonrası token, rol, kullanıcı adı ve kullanıcı id bilgileri localStorage içinde saklanır.
 
-auth/
+Auth guard token kontrolü yapar.
 
-student/
+Role guard kullanıcının doğru rol ile doğru sayfaya erişmesini sağlar.
 
-club/
-
-admin/
-```
+Logout işlemi localStorage içindeki oturum bilgilerini temizler.
 
 ---
 
-# Student Module
+# Club Modülü
 
-```
-student/
+Kulüp modülü henüz temel seviyededir.
 
-home/
+Gelecek görevler:
 
-event-detail/
-
-my-registrations/
-
-profile/
-```
-
----
-
-# Club Module
-
-```
-club/
-
-dashboard/
-
-create-event/
-
-edit-event/
-
-my-events/
-
-participants/
-```
+- Kulüp dashboard
+- Etkinlik oluşturma
+- Etkinlik düzenleme
+- Etkinlik silme
+- Etkinliklerim
+- Katılımcılar
 
 ---
 
-# Admin Module
+# Admin Modülü
 
-```
-admin/
+Admin modülü henüz temel seviyededir.
 
-dashboard/
+Gelecek görevler:
 
-pending-events/
-
-users/
-
-reports/
-```
-
----
-
-# Services
-
-Every entity should have its own service.
-
-Example
-
-```
-AuthService
-
-EventService
-
-RegistrationService
-
-ClubService
-
-AdminService
-```
-
-Never put HTTP requests inside Components.
+- Admin dashboard
+- Onay bekleyen etkinlikler
+- Etkinlik onaylama
+- Etkinlik reddetme
+- Kullanıcı yönetimi
+- Platform istatistikleri
 
 ---
 
-# Models
+# Güvenlik Mimarisi
 
-Every API object must have an interface.
+JWT tabanlı kimlik doğrulama kullanılır.
 
-Example
+Frontend her istek için token’ı Authorization header ile gönderir.
 
-```
-Event
+Backend token’ı doğrular ve kullanıcı rolünü security context içine yerleştirir.
 
-User
-
-Registration
-
-ApiResponse<T>
-
-DashboardStats
-```
-
-Never use any.
+Endpoint yetkileri `@PreAuthorize` ile korunur.
 
 ---
 
-# API Calls
+# Veri Modeli
 
-Good
+## User
 
-```typescript
-getAllEvents(): Observable<ApiResponse<Event[]>>
-```
+Kullanıcı hesabını temsil eder.
 
-Bad
+Temel alanlar:
 
-```typescript
-http.get(...)
-```
+- id
+- fullName
+- email
+- password
+- role
 
-Always use typed responses.
+## Event
 
----
+Etkinliği temsil eder.
 
-# State Management
+Temel alanlar:
 
-Angular Signals are preferred.
+- id
+- title
+- description
+- location
+- eventDate
+- capacity
+- status
+- category
+- coverImageUrl
+- createdBy
+- createdAt
 
-Use
+## EventRegistration
 
-```
-signal()
+Öğrencinin etkinliğe kaydını temsil eder.
 
-computed()
+Temel alanlar:
 
-effect()
-```
-
-Avoid manual ChangeDetectorRef.
-
----
-
-# Routing
-
-```
-Login
-
-↓
-
-Student
-
-Club
-
-Admin
-```
-
-Use
-
-AuthGuard
-
-RoleGuard
+- id
+- student
+- event
+- registeredAt
 
 ---
 
-# Components
+# UI İlkeleri
 
-Components should stay small.
+Arayüz bir üniversite bilgi sistemi gibi görünmemelidir.
 
-Maximum responsibility:
+Etkinlikler tablo gibi değil, içerik kartları gibi sunulmalıdır.
 
-One feature.
+Öğrenci ilk ekranda ürünün enerjisini hissetmelidir.
 
-Example
+Metinler kısa, açık ve Türkçe olmalıdır.
 
-Good
+Butonlar eylemi net anlatmalıdır.
 
-```
-Navbar
-
-EventCard
-
-SearchBar
-
-CategoryFilter
-
-HeroBanner
-```
-
-Bad
-
-```
-HomeComponent
-
-(1000 lines)
-```
+Boş durumlar kullanıcıyı bir sonraki adıma yönlendirmelidir.
 
 ---
 
-# Styling
+# Feed Mimarisi
 
-Use SCSS.
+Öğrenci akışı etkinlik keşfinin merkezidir.
 
-Never use inline styles.
+Feed şunları desteklemelidir:
 
-Prefer component-scoped styles.
+- Arama
+- Kategori filtreleme
+- Büyük etkinlik kartları
+- Responsive tasarım
+- Kaydırma odaklı deneyim
+- Etkinlik detayına geçiş
+- Hızlı kayıt
 
-Keep spacing consistent.
-
-8px grid system.
-
----
-
-# Naming Convention
-
-Services
-
-```
-EventService
-```
-
-Interfaces
-
-```
-Event
-```
-
-Components
-
-```
-StudentHomeComponent
-```
-
-Methods
-
-```
-createEvent()
-
-updateEvent()
-
-deleteEvent()
-
-registerToEvent()
-```
-
-Variables
-
-camelCase
-
-Classes
-
-PascalCase
+Gelecekte feed medya açısından daha zengin hale getirilecektir.
 
 ---
 
-# Error Handling
+# Medya Mimarisi
 
-Backend
+Medya fazı ileride eklenecektir.
 
-GlobalExceptionHandler
+Planlanan yapı:
 
-↓
+- EventMedia entity
+- Görsel yükleme
+- Video yükleme
+- Galeri
+- Carousel
+- Medya sıralama
+- Harici depolama desteği
 
-ApiResponse
+Başlangıçta local storage düşünülebilir.
 
-↓
-
-Frontend
-
-Toast Notification
-
-Never expose stack traces.
-
----
-
-# Logging
-
-Backend
-
-Use logger.
-
-Avoid System.out.println()
-
-Frontend
-
-Use console.log only during development.
-
-Remove unnecessary logs before release.
+Gelecekte Cloudinary veya AWS S3 kullanılabilir.
 
 ---
 
-# Media Architecture (Future)
+# Performans İlkeleri
 
-Current
-
-```
-Event
-```
-
-Future
-
-```
-Event
-
-↓
-
-EventMedia
-
-↓
-
-Photo
-
-Video
-
-Poster
-```
-
-One Event
-
-↓
-
-Many Media
+- Gereksiz API çağrısı yapılmamalıdır.
+- Büyük listeler ileride pagination veya infinite scroll ile yönetilmelidir.
+- Görseller optimize edilmelidir.
+- Lazy loading tercih edilmelidir.
+- Componentler küçük tutulmalıdır.
+- State yalnızca gerektiği yerde tutulmalıdır.
 
 ---
 
-# Database Direction
+# Test Yaklaşımı
 
-Current
+Frontend için component oluşturma testleri korunmalıdır.
 
-```
-User
+Backend için context load ve service davranış testleri genişletilmelidir.
 
-Role
+Kritik akışlar:
 
-Event
-
-Registration
-```
-
-Future
-
-```
-EventMedia
-
-ClubProfile
-
-Follow
-
-Notification
-
-Favorite
-
-Analytics
-```
+- Login
+- Kayıt
+- Event list
+- Event detail
+- Etkinliğe kayıt
+- Kayıt iptali
+- Role guard
+- Auth interceptor
 
 ---
 
-# UI Philosophy
+# Mevcut Teknik Borçlar
 
-The application should NOT feel like a university ERP.
-
-Instead,
-
-it should feel like
-
-Instagram
-
-TikTok
-
-Spotify
-
-Linear
-
-Modern SaaS.
+- Ortak `Navbar`, `Button`, `Badge`, `Toast`, `Dialog`, `EmptyState` ve `Loading` componentleri tamamlanmalı.
+- Kulüp ve admin ekranları henüz gerçek deneyim seviyesinde değildir.
+- MyRegistration DTO içinde etkinlik durumu yoktur.
+- `getMyEvents()` frontend servisindeki endpoint kontrol edilmelidir.
+- Angular build komutu yerel ortamda `134` koduyla sessiz düşmektedir.
 
 ---
 
-# Feed Architecture
+# Geliştirme Sırası
 
-Students should consume content.
-
-Vertical Scroll
-
-↓
-
-Events
-
-↓
-
-Events
-
-↓
-
-Events
-
-Each Event
-
-↓
-
-Horizontal Media Swipe
-
-This is one of the core product ideas.
+1. Öğrenci deneyimi MVP’sini tamamla.
+2. Ortak componentleri toparla.
+3. Kulüp dashboard ve etkinlik yönetimini ekle.
+4. Admin onay akışını gerçek UI ile bağla.
+5. Medya altyapısını ekle.
+6. Sosyal özellikleri ekle.
+7. Keşif ve öneri sistemlerini geliştir.
 
 ---
 
-# Performance Rules
+# Başarı Ölçütleri
 
-Always
+Proje şu durumda doğru yönde ilerliyor kabul edilir:
 
-Lazy Loading
-
-Image Optimization
-
-Signals
-
-Reusable Components
-
-Code Splitting
-
-Pagination
-
-Infinite Scroll
-
-Avoid
-
-Duplicated Components
-
-Duplicated CSS
-
-Huge Components
-
-Business Logic inside Components
-
----
-
-# Coding Standards
-
-Always
-
-✔ TypeScript Strict
-
-✔ Strong Typing
-
-✔ Interfaces
-
-✔ DTOs
-
-✔ Signals
-
-✔ ApiResponse
-
-✔ Reusable Components
-
-Never
-
-❌ any
-
-❌ Business logic inside UI
-
-❌ Duplicate code
-
-❌ Huge components
-
----
-
-# Future Architecture
-
-Current
-
-```
-Student
-
-↓
-
-Event
-
-↓
-
-Register
-```
-
-Future
-
-```
-Student
-
-↓
-
-Feed
-
-↓
-
-Media
-
-↓
-
-Club
-
-↓
-
-Follow
-
-↓
-
-Notification
-
-↓
-
-Recommendation Engine
-
-↓
-
-AI
-```
-
-The architecture should always support future expansion.
-
----
-
-# Final Principle
-
-UniEvents is NOT being developed as a university assignment.
-
-It is being developed as a scalable real-world product.
-
-Every architectural decision should prioritize:
-
-- Maintainability
-- Scalability
-- Reusability
-- Performance
-- Clean Code
-- Great User Experience
+- Öğrenci etkinlikleri keyifle keşfedebiliyorsa
+- Kayıt ve iptal akışları sorunsuz çalışıyorsa
+- Backend temiz katmanlı mimariyi koruyorsa
+- Frontend componentleri tekrar kullanılabilir kalıyorsa
+- Kullanıcıya görünen tüm metinler Türkçe ise
+- UI modern ve sosyal medya esintili hissettiriyorsa

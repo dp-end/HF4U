@@ -20,7 +20,7 @@ export class StudentRegistrations implements OnInit {
   errorMessage = signal<string>('');
   feedbackMessage = signal<string>('');
   feedbackType = signal<FeedbackType>('success');
-  studentName = signal<string>('Student');
+  studentName = signal<string>('Öğrenci');
 
   constructor(
     private eventService: EventService,
@@ -43,7 +43,7 @@ export class StudentRegistrations implements OnInit {
         this.isLoading.set(false);
       },
       error: () => {
-        this.errorMessage.set('Registrations could not be loaded.');
+        this.errorMessage.set('Kayıtların yüklenemedi.');
         this.isLoading.set(false);
       },
     });
@@ -54,7 +54,7 @@ export class StudentRegistrations implements OnInit {
   }
 
   cancelRegistration(eventId: number): void {
-    const confirmed = confirm('Cancel your registration for this event?');
+    const confirmed = confirm('Bu etkinlik kaydını iptal etmek istiyor musun?');
 
     if (!confirmed) {
       return;
@@ -69,7 +69,7 @@ export class StudentRegistrations implements OnInit {
           registrations.filter((registration) => registration.eventId !== eventId),
         );
         this.feedbackType.set('success');
-        this.feedbackMessage.set('Registration cancelled successfully.');
+        this.feedbackMessage.set('Kayıt başarıyla iptal edildi.');
         this.cancellingEventId.set(null);
       },
       error: (error: HttpErrorResponse) => {
@@ -92,6 +92,6 @@ export class StudentRegistrations implements OnInit {
   private getErrorMessage(error: HttpErrorResponse): string {
     const responseBody = error.error as { message?: string } | null;
 
-    return responseBody?.message ?? 'Registration could not be cancelled.';
+    return responseBody?.message ?? 'Kayıt iptal edilemedi.';
   }
 }

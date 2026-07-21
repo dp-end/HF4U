@@ -11,7 +11,7 @@
 
   <div class="event-content">
     <div class="event-topline">
-      <span class="status">{{ event().eventStatus }}</span>
+      <span class="status">{{ statusLabel(event().eventStatus) }}</span>
       @if (event().clubName) {
         <span class="club-name">{{ event().clubName }}</span>
       }
@@ -26,11 +26,11 @@
     <div class="meta">
       <span>{{ event().location }}</span>
       <span>{{ event().eventDate }}</span>
-      <span>{{ event().availableSpots }} spots left</span>
+      <span>{{ event().availableSpots }} kontenjan kaldı</span>
     </div>
 
     <button class="register-button" type="button" (click)="$event.stopPropagation(); register()">
-      Register
+      Kayıt Ol
     </button>
 
   </div>

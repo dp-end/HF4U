@@ -1,161 +1,158 @@
 # UniEvents
 
-> Social Media Inspired Campus Event Discovery Platform
+> Sosyal medya esintili kampüs etkinlik keşif platformu
 
 ---
 
-# Project Vision
+# Proje Vizyonu
 
-UniEvents is **NOT** a traditional Event Management System.
+UniEvents geleneksel bir etkinlik yönetim sistemi değildir.
 
-The goal is **not** simply creating and managing events.
+Amaç yalnızca etkinlik oluşturmak ve yönetmek değildir.
 
-The goal is to build a **social-media-inspired platform** where university clubs create rich multimedia content and students discover campus life through an engaging scrolling experience.
+Amaç; üniversite kulüplerinin zengin medya içerikleri oluşturduğu, öğrencilerin ise kampüs yaşamını keyifli bir akış deneyimiyle keşfettiği sosyal medya esintili bir platform kurmaktır.
 
-Think about:
+Şunların birleşimini düşün:
 
 - Instagram
 - TikTok
 - Eventbrite
 - LinkedIn Events
 
-combined into a single university platform.
+Tek bir üniversite platformunda birleşmiş hali.
 
-Instead of boring tables and long event lists, students should discover events naturally by scrolling.
+Öğrenciler uzun ve sıkıcı tablolar okumak yerine etkinlikleri doğal bir şekilde kaydırarak keşfetmelidir.
 
-The platform should encourage participation through media-rich content.
+Platform, medya odaklı içeriklerle etkinlik katılımını artırmalıdır.
 
 ---
 
-# Problem Statement
+# Problem Tanımı
 
-Current university event systems are outdated.
+Mevcut üniversite etkinlik sistemleri eski ve sıkıcıdır.
 
-Typical flow:
+Tipik akış:
 
-Club
-↓
-
-Creates Event
+Kulüp
 
 ↓
 
-Students see long boring tables
+Etkinlik oluşturur
 
 ↓
 
-Nobody reads
+Öğrenciler uzun listeler görür
 
 ↓
 
-Low participation
+Kimse okumaz
+
+↓
+
+Katılım düşük kalır
 
 ---
 
-Our solution:
+Bizim çözümümüz:
 
-Club creates beautiful event content.
+Kulüp güzel bir etkinlik içeriği oluşturur.
 
-Students discover events by scrolling.
+Öğrenci etkinlikleri kaydırarak keşfeder.
 
-Students interact with events exactly like social media.
-
----
-
-# Core Philosophy
-
-Events are content.
-
-Clubs are creators.
-
-Students are consumers.
-
-Media comes first.
-
-Text comes second.
-
-Discovery is more important than management.
+Öğrenci etkinliklerle sosyal medya kullanır gibi etkileşime girer.
 
 ---
 
-# Main Roles
+# Temel Felsefe
 
-## Student
+Etkinlikler içeriktir.
 
-Students can:
+Kulüpler içerik üreticisidir.
 
-- Register
-- Login
-- Discover events
-- View media
-- Register to events
-- Cancel registration
-- View registrations
-- Follow clubs (future)
-- Receive notifications (future)
+Öğrenciler keşfeden ve tüketen kullanıcıdır.
 
-Students CANNOT:
+Medya önce gelir.
 
-- Create events
-- Edit events
-- Approve events
+Metin sonra gelir.
+
+Keşif, yönetimden daha önemlidir.
 
 ---
 
-## Club Manager
+# Ana Roller
 
-Every club has its own account.
+## Öğrenci
 
-Club Managers can:
+Öğrenci şunları yapabilir:
 
-- Create events
-- Upload photos
-- Upload videos
-- Edit own events
-- Delete own events
-- View participants
-- View statistics
+- Kayıt olabilir
+- Giriş yapabilir
+- Etkinlikleri keşfedebilir
+- Medya görüntüleyebilir
+- Etkinliğe kayıt olabilir
+- Kaydını iptal edebilir
+- Kayıtlarını görüntüleyebilir
+- Kulüpleri takip edebilir, ileride
+- Bildirim alabilir, ileride
 
-Club Managers CANNOT:
+Öğrenci şunları yapamaz:
 
-- Edit other clubs' events
-- Approve events
+- Etkinlik oluşturamaz
+- Etkinlik düzenleyemez
+- Etkinlik onaylayamaz
 
-Every new event starts as:
+## Kulüp Yöneticisi
+
+Her kulübün kendi hesabı vardır.
+
+Kulüp yöneticisi şunları yapabilir:
+
+- Etkinlik oluşturabilir
+- Fotoğraf yükleyebilir
+- Video yükleyebilir
+- Kendi etkinliklerini düzenleyebilir
+- Kendi etkinliklerini silebilir
+- Katılımcıları görüntüleyebilir
+- İstatistikleri görüntüleyebilir
+
+Kulüp yöneticisi şunları yapamaz:
+
+- Başka kulüplerin etkinliklerini düzenleyemez
+- Etkinlik onaylayamaz
+
+Her yeni etkinlik şu durumda başlar:
 
 PENDING
 
----
+## Yönetici
 
-## Administrator
+Yönetici platformu yönetir.
 
-Admin manages the platform.
+Yönetici şunları yapabilir:
 
-Admin can:
-
-- Approve events
-- Reject events
-- Delete any event
-- Manage users
-- View analytics
+- Etkinlikleri onaylayabilir
+- Etkinlikleri reddedebilir
+- Herhangi bir etkinliği silebilir
+- Kullanıcıları yönetebilir
+- Analitikleri görüntüleyebilir
 
 ---
 
-# Product Direction
+# Ürün Yönü
 
-This project should feel like:
+Bu proje şu hissi vermelidir:
 
-Campus Instagram
+Kampüs Instagramı
 
-rather than
+Şu hissi vermemelidir:
 
-University ERP.
+Üniversite ERP sistemi
 
-Students should enjoy discovering events.
+Öğrenciler etkinlik keşfetmekten keyif almalıdır.
 
 ---
 
-# Technology Stack
+# Teknoloji Yığını
 
 Frontend
 
@@ -176,7 +173,7 @@ Backend
 
 ---
 
-# Backend Architecture
+# Backend Mimarisi
 
 Controller
 
@@ -192,21 +189,21 @@ Repository
 
 Database
 
-Never access repositories directly from controllers.
+Controller içinden repository’ye doğrudan erişilmez.
 
-Business logic always belongs inside Service layer.
+İş kuralları her zaman Service katmanında bulunur.
 
 ---
 
-# Current Backend
+# Mevcut Backend
 
-Implemented
+Tamamlananlar:
 
 ✓ JWT Authentication
 
 ✓ Login
 
-✓ Register
+✓ Kayıt
 
 ✓ Role System
 
@@ -217,497 +214,3 @@ Implemented
 ✓ Event Approval
 
 ✓ Role Authorization
-
-✓ ApiResponse
-
-✓ Exception Handling
-
----
-
-# Frontend Architecture
-
-src/
-
-app/
-
-core/
-
-shared/
-
-features/
-
----
-
-core
-
-Contains:
-
-services
-
-guards
-
-interceptors
-
-models
-
-utilities
-
----
-
-shared
-
-Reusable UI components
-
-Examples:
-
-Navbar
-
-Sidebar
-
-Event Card
-
-Badge
-
-Loading Spinner
-
-Dialog
-
-Button
-
-Input
-
-Search
-
----
-
-features
-
-Contains business pages.
-
-Student
-
-Club
-
-Admin
-
-Auth
-
----
-
-# Models
-
-Use interfaces.
-
-Never use "any".
-
-Example:
-
-Event
-
-User
-
-Registration
-
-DashboardStats
-
-ApiResponse<T>
-
----
-
-# Services
-
-Services must be strongly typed.
-
-Bad
-
-http.get(url)
-
-Good
-
-http.get<ApiResponse<Event[]>>(url)
-
----
-
-# State Management
-
-Angular Signals should be preferred.
-
-Avoid manual ChangeDetectorRef whenever possible.
-
-Use:
-
-signal()
-
-computed()
-
-effect()
-
-instead.
-
----
-
-# Authentication
-
-JWT Authentication.
-
-Store:
-
-token
-
-role
-
-fullName
-
-inside localStorage.
-
-Use AuthInterceptor.
-
----
-
-# Routing
-
-Role Based.
-
-Student
-
-Club
-
-Admin
-
-must have separate dashboards.
-
-Use:
-
-AuthGuard
-
-RoleGuard
-
----
-
-# API Response Standard
-
-Every endpoint returns:
-
-{
-  success,
-  message,
-  data
-}
-
-Never return raw entities.
-
-Always use DTOs.
-
----
-
-# Event Lifecycle
-
-Club creates event
-
-↓
-
-Status = PENDING
-
-↓
-
-Admin approves
-
-↓
-
-Status = APPROVED
-
-↓
-
-Visible inside Student Feed
-
-↓
-
-Students register
-
-↓
-
-Event completed
-
----
-
-# Future Event Model
-
-Current
-
-Event
-
-↓
-
-Title
-
-Description
-
-Location
-
-Date
-
-Capacity
-
-Status
-
----
-
-Future
-
-Event
-
-↓
-
-Media
-
-↓
-
-Photos
-
-Videos
-
-Poster
-
-Thumbnail
-
----
-
-Media should become first-class citizen.
-
----
-
-# Future Entities
-
-Event
-
-Registration
-
-Media
-
-ClubProfile
-
-Follow
-
-Notification
-
-Comment
-
-Analytics
-
----
-
-# UI Philosophy
-
-Never build boring tables.
-
-Everything should feel modern.
-
-Inspired by:
-
-Instagram
-
-TikTok
-
-Linear
-
-Notion
-
-Stripe Dashboard
-
----
-
-# Student Feed
-
-Students should scroll vertically.
-
-Every event card should occupy large space.
-
-Cards should contain:
-
-Hero image
-
-Title
-
-Location
-
-Date
-
-Capacity
-
-Register button
-
-Swipeable gallery
-
----
-
-# Media Experience
-
-Every event may contain:
-
-Multiple photos
-
-Videos
-
-Poster
-
-Gallery
-
-Users should swipe horizontally inside event.
-
-Users scroll vertically between events.
-
-Exactly like TikTok + Instagram.
-
----
-
-# MVP
-
-Version 1
-
-Authentication
-
-Event Feed
-
-Event Detail
-
-Register
-
-My Registrations
-
-Club Dashboard
-
-Create Event
-
-Admin Approval
-
----
-
-# Version 2
-
-Media Upload
-
-Multiple Images
-
-Videos
-
-Club Profiles
-
-Follow Clubs
-
-Notifications
-
----
-
-# Version 3
-
-Recommendations
-
-AI Suggestions
-
-Analytics
-
-Campus Feed Ranking
-
----
-
-# Coding Rules
-
-Always keep code clean.
-
-Prefer composition.
-
-Avoid duplicated code.
-
-Use reusable components.
-
-Keep components small.
-
-Strong typing everywhere.
-
-Never use "any".
-
-Never place business logic inside components.
-
-Business logic belongs to services.
-
----
-
-# Naming Rules
-
-Services
-
-AuthService
-
-EventService
-
-RegistrationService
-
-ClubService
-
-AdminService
-
-Interfaces
-
-Event
-
-User
-
-Registration
-
-ApiResponse
-
-Components
-
-StudentHomeComponent
-
-EventDetailComponent
-
-ClubDashboardComponent
-
----
-
-# Component Strategy
-
-Every page should be built from reusable blocks.
-
-Example:
-
-Navbar
-
-↓
-
-SearchBar
-
-↓
-
-CategoryFilter
-
-↓
-
-FeaturedEvent
-
-↓
-
-EventFeed
-
-↓
-
-EventCard
-
-↓
-
-RegisterButton
-
-Never create giant components.
-
----
-
-# Long Term Vision
-
-This is NOT just a CRUD project.
-
-This should become a real product.
-
-A student should spend time inside UniEvents because discovering campus life is enjoyable.
-
-The platform should make university events feel alive.

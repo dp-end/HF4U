@@ -1,4 +1,4 @@
-<div class="category-menu" aria-label="Event categories">
+<div class="category-menu" aria-label="Etkinlik kategorileri">
   <button
     class="category-trigger"
     type="button"
@@ -6,7 +6,7 @@
     [attr.aria-expanded]="isOpen()"
     (click)="toggleMenu()"
   >
-    <span>Category</span>
+    <span>Kategori</span>
     @if (selectedCategory() !== 'All') {
       <strong>{{ selectedCategory() }}</strong>
     }

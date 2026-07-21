@@ -1,76 +1,70 @@
-# Sprint 002 — Event Experience
+# Sprint 002 — Etkinlik Deneyimi
 
-**Duration:** 2 Days
-
----
-
-# Sprint Goal
-
-Allow students to interact with events.
-
-Instead of only seeing event cards, users should be able to open event details and register.
+**Süre:** 2 gün
 
 ---
 
-# Business Goal
+# Sprint Hedefi
 
-Students should be able to:
+Öğrencilerin etkinliklerle etkileşime girebilmesini sağlamak.
 
-- Open event details
-- Read descriptions
-- View event information
-- Register
-- Receive feedback
+Öğrenciler yalnızca etkinlik kartlarını görmekle kalmamalı; etkinlik detayını açabilmeli ve kayıt olabilmelidir.
+
+---
+
+# İş Hedefi
+
+Öğrenciler şunları yapabilmelidir:
+
+- Etkinlik detayını açabilmeli
+- Açıklamaları okuyabilmeli
+- Etkinlik bilgilerini görebilmeli
+- Kayıt olabilmeli
+- Geri bildirim alabilmeli
 
 ---
 
 # Backend
 
-Use existing APIs.
+Mevcut API’ler kullanılacaktır.
 
 GET /api/events/{id}
 
-POST /api/event-registrations
+POST /api/events/{eventId}/register
 
 ---
 
-# Frontend Tasks
+# Frontend Görevleri
 
-## Event Detail
+## Etkinlik Detayı
 
-Create a dedicated detail page.
+Özel bir detay sayfası oluştur.
 
-Display
+Gösterilecekler:
 
-- [ ] Cover Image Placeholder
-- [ ] Title
-- [ ] Description
-- [ ] Date
-- [ ] Location
-- [ ] Capacity
-- [ ] Organizer
-- [ ] Status Badge
+- [x] Kapak görseli veya placeholder
+- [x] Başlık
+- [x] Açıklama
+- [x] Tarih
+- [x] Konum
+- [x] Kontenjan
+- [x] Organizatör
+- [x] Durum badge’i
 
----
+## Kayıt
 
-## Registration
+- [x] Kayıt butonu
+- [x] Kayıt sonrası butonu pasifleştirme
+- [x] Başarı geri bildirimi
+- [x] Hata geri bildirimi
+- [x] Loading göstergesi
 
-- [ ] Register Button
-- [ ] Disable button after registration
-- [ ] Success Toast
-- [ ] Error Toast
-- [ ] Loading Indicator
+## Navigasyon
 
----
+- [x] Akıştan detaya geçiş
+- [x] Detaydan akışa dönüş
 
-## Navigation
-
-- [ ] Feed → Detail
-- [ ] Detail → Feed
-
----
-
-## Shared Components
+## Ortak Componentler
 
 - [ ] Badge
 - [ ] Toast
@@ -78,40 +72,38 @@ Display
 
 ---
 
-# Technical Rules
+# Teknik Kurallar
 
-No business logic inside components.
+İş mantığını component içinde büyütme.
 
-Use services.
+Servisleri kullan.
 
-Strong typing everywhere.
+Her yerde güçlü tip kullan.
 
-Signals for state.
-
----
-
-# Definition of Done
-
-Student can
-
-Feed
-
-↓
-
-Open Detail
-
-↓
-
-Register
-
-↓
-
-Receive confirmation
-
-without page reload.
+State için Signals kullan.
 
 ---
 
-# Deliverable
+# Tamamlanma Tanımı
 
-Working event detail experience connected to backend.
+Öğrenci şu akışı sayfa yenilemeden tamamlayabilir:
+
+Akış
+
+↓
+
+Detayı Aç
+
+↓
+
+Kayıt Ol
+
+↓
+
+Onay Mesajı Al
+
+---
+
+# Teslim Çıktısı
+
+Backend’e bağlı çalışan etkinlik detay deneyimi.

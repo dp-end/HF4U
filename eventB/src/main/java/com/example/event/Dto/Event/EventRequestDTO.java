@@ -11,14 +11,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class EventRequestDTO {
-    @NotBlank(message = "title cannot be empty")
+    @NotBlank(message = "Başlık boş olamaz")
     private String title;
     private String description;
-    @NotBlank(message = "location cannot be empty")
+    @NotBlank(message = "Konum boş olamaz")
     private String location;
-    @Future(message = "event date must be in the futures")
+    @Future(message = "Etkinlik tarihi gelecekte olmalı")
     private LocalDateTime eventDate;
-    @Min(value = 1 ,message = "capacity must be greater than 0")
+    @Min(value = 1 ,message = "Kontenjan 0'dan büyük olmalı")
     private Integer capacity;
     private String category;
     private String coverImageUrl;

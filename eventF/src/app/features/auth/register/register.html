@@ -6,29 +6,29 @@
 
   <form class="auth-card" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <header class="auth-header">
-      <h1>Create account</h1>
-      <p>Already registered? <button type="button" (click)="goToLogin()">Sign in</button></p>
+      <h1>Hesap Oluştur</h1>
+      <p>Zaten kayıtlı mısın? <button type="button" (click)="goToLogin()">Giriş Yap</button></p>
     </header>
 
     <label class="field">
-      <input type="text" placeholder="Full name" formControlName="fullName" />
+      <input type="text" placeholder="Ad soyad" formControlName="fullName" />
     </label>
 
     <label class="field">
-      <input type="email" placeholder="University email" formControlName="email" />
+      <input type="email" placeholder="Üniversite e-postası" formControlName="email" />
     </label>
 
     <label class="field">
-      <input type="password" placeholder="Password" formControlName="password" />
+      <input type="password" placeholder="Şifre" formControlName="password" />
     </label>
 
-    <div class="role-tabs" aria-label="Choose role">
+    <div class="role-tabs" aria-label="Rol seçimi">
       <button
         type="button"
         [class.active]="selectedRole() === 'STUDENT'"
         (click)="selectRole('STUDENT')"
       >
-        Student
+        Öğrenci
       </button>
 
       <button
@@ -36,7 +36,7 @@
         [class.active]="selectedRole() === 'CLUB_MANAGER'"
         (click)="selectRole('CLUB_MANAGER')"
       >
-        Club Manager
+        Kulüp Yöneticisi
       </button>
     </div>
 
@@ -46,18 +46,18 @@
 
     <button class="primary-button" type="submit" [disabled]="isSubmitting()">
       @if (isSubmitting()) {
-        Creating...
+        Oluşturuluyor...
       } @else {
-        Create account <span aria-hidden="true">&rarr;</span>
+        Hesap Oluştur <span aria-hidden="true">&rarr;</span>
       }
     </button>
 
     <p class="legal">
-      By signing up you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
+      Kayıt olarak <a href="#">Kullanım Şartları</a> ve <a href="#">Gizlilik Politikası</a> metinlerini kabul etmiş olursun.
     </p>
   </form>
 
   <button class="guest-link" type="button" (click)="browseAsGuest()">
-    &larr; Browse events without signing in
+    &larr; Giriş yapmadan etkinlikleri keşfet
   </button>
 </main>

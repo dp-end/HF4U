@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = fieldError != null
             ? fieldError.getDefaultMessage()
-            : "Validation error";
+            : "Doğrulama hatası";
 
     return ResponseEntity.badRequest()
             .body(

@@ -1,19 +1,19 @@
 <main class="detail-page">
   <header class="detail-header">
     <button class="back-button" type="button" (click)="goBack()">
-      Back
+      Geri
     </button>
 
-    <nav class="detail-nav" aria-label="Student navigation">
-      <button type="button" (click)="goBack()">Feed</button>
-      <button type="button" (click)="openRegistrations()">My Registrations</button>
-      <button type="button" (click)="logout()">Logout</button>
+    <nav class="detail-nav" aria-label="Öğrenci menüsü">
+      <button type="button" (click)="goBack()">Akış</button>
+      <button type="button" (click)="openRegistrations()">Kayıtlarım</button>
+      <button type="button" (click)="logout()">Çıkış Yap</button>
     </nav>
   </header>
 
   @if (isLoading()) {
     <section class="state-screen">
-      <p>Loading event...</p>
+      <p>Etkinlik yükleniyor...</p>
     </section>
   } @else if (errorMessage()) {
     <section class="state-screen">
@@ -33,10 +33,10 @@
 
       <section class="content">
         <div class="topline">
-          <span class="status">{{ event()!.eventStatus }}</span>
+          <span class="status">{{ statusLabel(event()!.eventStatus) }}</span>
 
           @if (event()!.category) {
-            <span class="category">{{ event()!.category }}</span>
+            <span class="category">{{ categoryLabel(event()!.category) }}</span>
           }
         </div>
 
@@ -52,22 +52,22 @@
 
         <div class="meta-grid">
           <div>
-            <span>Date</span>
+            <span>Tarih</span>
             <strong>{{ event()!.eventDate }}</strong>
           </div>
 
           <div>
-            <span>Location</span>
+            <span>Konum</span>
             <strong>{{ event()!.location }}</strong>
           </div>
 
           <div>
-            <span>Capacity</span>
+            <span>Kontenjan</span>
             <strong>{{ event()!.capacity }}</strong>
           </div>
 
           <div>
-            <span>Available</span>
+            <span>Kalan</span>
             <strong>{{ event()!.availableSpots }}</strong>
           </div>
         </div>

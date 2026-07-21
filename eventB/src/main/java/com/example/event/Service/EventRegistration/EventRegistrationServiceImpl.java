@@ -38,21 +38,21 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     User student = (User) authentication.getPrincipal();
 
     Event event = eventRepository.findById(eventId).orElseThrow(
-        ()-> new ResourceNotFoundException("Event not found with id :" + eventId)
+        ()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + eventId)
     );
 
     if(event.getStatus() != EventStatus.APPROVED){
-        throw new notAllowRegisterException("event is not approved yet");
+        throw new notAllowRegisterException("Etkinlik henüz onaylanmadı");
     }
     
     if(eventRegistrationRepository.existsByStudentAndEvent(student, event)){
-        throw new AlreadyRegisteredException("You are already registered for this event");
+        throw new AlreadyRegisteredException("Bu etkinliğe zaten kayıtlısın");
     }
 
     long currentParticipants = eventRegistrationRepository.countByEvent(event);
 
     if(currentParticipants >= event.getCapacity()) {
-        throw new EventCapacityFullException("Event capacity is full");
+        throw new EventCapacityFullException("Etkinlik kontenjanı dolu");
     }
 
     EventRegistration registration = new EventRegistration();
@@ -84,7 +84,7 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
 
     @Override
     public List<ParticipantResponseDTO> getEventParticipants(long eventId) {
-        Event event =eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Event not found with id:" + eventId));
+        Event event =eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + eventId));
         return eventRegistrationRepository.findByEvent(event).stream()
         .map(this::mapToParticipantResponse).toList();
     }
@@ -101,9 +101,9 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     public void cancelRegistration(long eventId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User student = (User) authentication.getPrincipal();
-        Event event = eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Event not found"));
+        Event event = eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı"));
         EventRegistration eventRegistration =eventRegistrationRepository.findByStudentAndEvent(student, event).orElseThrow(
-            ()-> new ResourceNotFoundException("Registration not found")
+            ()-> new ResourceNotFoundException("Kayıt bulunamadı")
         );
         if(eventRegistration != null){
         eventRegistrationRepository.delete(eventRegistration);

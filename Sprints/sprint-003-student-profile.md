@@ -1,126 +1,120 @@
-# Sprint 003 — Student Profile & Registrations
+# Sprint 003 — Öğrenci Profili ve Kayıtlar
 
-**Duration:** 2 Days
-
----
-
-# Sprint Goal
-
-Students should manage their own registrations.
+**Süre:** 2 gün
 
 ---
 
-# Business Goal
+# Sprint Hedefi
 
-Students should:
+Öğrencilerin kendi etkinlik kayıtlarını yönetebilmesini sağlamak.
 
-- View registered events
-- Cancel registrations
-- Logout
+---
+
+# İş Hedefi
+
+Öğrenciler şunları yapabilmelidir:
+
+- Kayıt oldukları etkinlikleri görüntüleyebilmeli
+- Etkinlik kayıtlarını iptal edebilmeli
+- Çıkış yapabilmeli
 
 ---
 
 # Backend
 
-Use existing APIs.
+Mevcut API’ler kullanılacaktır.
 
-GET /api/event-registrations/my
+GET /api/events/my-registrations
 
-DELETE /api/event-registrations/{id}
-
----
-
-# Frontend Tasks
-
-## My Registrations
-
-Create page.
-
-Display
-
-- [ ] Registered Events
-- [ ] Event Status
-- [ ] Cancel Button
-- [ ] Empty State
+DELETE /api/events/{eventId}/registration
 
 ---
 
-## Cancel Registration
+# Frontend Görevleri
 
-- [ ] Confirmation Dialog
-- [ ] Success Toast
-- [ ] Error Toast
+## Kayıtlarım
 
----
+Sayfa oluştur.
 
-## Profile
+Gösterilecekler:
 
-- [ ] Avatar Placeholder
-- [ ] Full Name
-- [ ] Role
-- [ ] Logout
+- [x] Kayıt olunan etkinlikler
+- [ ] Etkinlik durumu
+- [x] İptal butonu
+- [x] Empty state
 
----
+Not: Etkinlik durumu mevcut backend DTO’da yoktur. DTO genişleyince arayüze eklenecektir.
+
+## Kayıt İptali
+
+- [x] Onay diyaloğu
+- [x] Başarı geri bildirimi
+- [x] Hata geri bildirimi
+
+## Profil
+
+- [x] Avatar placeholder
+- [x] Ad soyad
+- [x] Rol
+- [x] Çıkış
 
 ## Navbar
 
-- [ ] User Menu
-- [ ] Logout Button
-
----
+- [x] Kullanıcı menüsü
+- [x] Çıkış butonu
 
 ## Responsive
 
-- [ ] Mobile
-- [ ] Tablet
-- [ ] Desktop
+- [x] Mobil
+- [x] Tablet
+- [x] Desktop
 
 ---
 
-# Technical Rules
+# Teknik Kurallar
 
-Use reusable components.
+Tekrar kullanılabilir componentler kullan.
 
-No duplicated UI.
+UI tekrarı yapma.
 
-Signals only.
+State için Signals kullan.
 
-Use interfaces.
+Interface kullan.
 
-No any.
-
----
-
-# Definition of Done
-
-Student can
-
-Login
-
-↓
-
-Browse Feed
-
-↓
-
-Register
-
-↓
-
-View My Registrations
-
-↓
-
-Cancel Registration
-
-↓
-
-Logout
-
-Everything works using backend APIs.
+`any` kullanma.
 
 ---
 
-# Deliverable
+# Tamamlanma Tanımı
 
-Complete Student experience MVP.
+Öğrenci şu akışı tamamlayabilir:
+
+Giriş Yap
+
+↓
+
+Akışı Gez
+
+↓
+
+Kayıt Ol
+
+↓
+
+Kayıtlarımı Gör
+
+↓
+
+Kaydı İptal Et
+
+↓
+
+Çıkış Yap
+
+Her şey backend API’leri kullanılarak çalışır.
+
+---
+
+# Teslim Çıktısı
+
+Tamamlanmış öğrenci deneyimi MVP’si.

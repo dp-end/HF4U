@@ -22,7 +22,7 @@ public class DashboardController {
     public ApiResponseDTO<DashboardResponseDTO> getDashboard(){
         return new ApiResponseDTO<>(
             true,
-            "Dashboard fetched successfully",
+            "Panel bilgileri başarıyla getirildi",
             dashboardService.getDashboard()
         );
     }

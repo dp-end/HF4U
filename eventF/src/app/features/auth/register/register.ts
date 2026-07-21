@@ -39,7 +39,7 @@ export class Register {
   onSubmit():void {
     if(this.registerForm.invalid){
       this.registerForm.markAllAsTouched();
-      this.errorMessage.set('Please fill in all required fields.');
+      this.errorMessage.set('Lütfen tüm zorunlu alanları doldur.');
       return;
     }
 
@@ -59,7 +59,7 @@ export class Register {
       },
       error: () => {
         this.isSubmitting.set(false);
-        this.errorMessage.set('Could not create account. Please check your information.');
+        this.errorMessage.set('Hesap oluşturulamadı. Lütfen bilgilerini kontrol et.');
       },
     });
   }

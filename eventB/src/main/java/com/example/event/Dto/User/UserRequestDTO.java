@@ -9,13 +9,13 @@ import com.example.event.Entity.Role;
 @Getter
 @Setter
 public class UserRequestDTO {
-    @NotBlank(message = "fullname cannot be empty")
+    @NotBlank(message = "Ad soyad boş olamaz")
     private String fullName;
 
-    @Email(message = "invalid email format")
+    @Email(message = "Geçersiz e-posta formatı")
     private String email;
 
-    @NotBlank(message = "password cannot be empty")
+    @NotBlank(message = "Şifre boş olamaz")
     private String password;
 
 

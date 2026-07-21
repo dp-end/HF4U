@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public UserResponseDTO register(UserRequestDTO request) {
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
-            throw new EmailAlreadyExistException("Email aldready exists:" + request.getEmail());
+            throw new EmailAlreadyExistException("Bu e-posta adresi zaten kayıtlı: " + request.getEmail());
         }
 
         User user = new User();
@@ -69,13 +69,13 @@ public class AuthServiceImpl implements AuthService{
         User user = userRepository
                 .findByEmail(request.getEmail())
                 .orElseThrow(() ->
-                        new RuntimeException("User not found"));
+                        new RuntimeException("Kullanıcı bulunamadı"));
 
         if (!passwordEncoder.matches(
                 request.getPassword(),
                 user.getPassword())) {
 
-            throw new InvalidCredentialsException("Invalid credentials");
+            throw new InvalidCredentialsException("Geçersiz giriş bilgileri");
         }
 
         String token = jwtService.generateToken(user.getEmail());

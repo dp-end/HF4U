@@ -31,6 +31,6 @@ export class AuthService {
   }
 
   getCurrentUserName(): string {
-    return localStorage.getItem('fullName') ?? 'Student';
+    return localStorage.getItem('fullName') ?? 'Öğrenci';
   }
 }

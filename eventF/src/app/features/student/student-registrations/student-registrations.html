@@ -5,10 +5,10 @@
       <span>UniEvents</span>
     </button>
 
-    <nav class="header-actions" aria-label="Student navigation">
-      <button type="button" (click)="goToFeed()">Feed</button>
-      <button class="active" type="button">My Registrations</button>
-      <button type="button" (click)="logout()">Logout</button>
+    <nav class="header-actions" aria-label="Öğrenci menüsü">
+      <button type="button" (click)="goToFeed()">Akış</button>
+      <button class="active" type="button">Kayıtlarım</button>
+      <button type="button" (click)="logout()">Çıkış Yap</button>
     </nav>
   </header>
 
@@ -18,7 +18,7 @@
     </div>
 
     <div>
-      <p>Student</p>
+      <p>Öğrenci</p>
       <h1>{{ studentName() }}</h1>
     </div>
   </section>
@@ -31,7 +31,7 @@
 
   @if (isLoading()) {
     <section class="state-panel">
-      <p>Loading registrations...</p>
+      <p>Kayıtların yükleniyor...</p>
     </section>
   } @else if (errorMessage()) {
     <section class="state-panel">
@@ -39,12 +39,12 @@
     </section>
   } @else if (registrations().length === 0) {
     <section class="state-panel">
-      <h2>No registrations yet</h2>
-      <p>Your registered events will appear here.</p>
-      <button type="button" (click)="goToFeed()">Browse Events</button>
+      <h2>Henüz kaydın yok</h2>
+      <p>Kayıt olduğun etkinlikler burada görünecek.</p>
+      <button type="button" (click)="goToFeed()">Etkinlikleri Keşfet</button>
     </section>
   } @else {
-    <section class="registrations-list" aria-label="Registered events">
+    <section class="registrations-list" aria-label="Kayıt olunan etkinlikler">
       @for (registration of registrations(); track registration.eventId) {
         <article class="registration-card">
           <button class="registration-main" type="button" (click)="openEvent(registration.eventId)">
@@ -59,7 +59,7 @@
             [disabled]="cancellingEventId() === registration.eventId"
             (click)="cancelRegistration(registration.eventId)"
           >
-            {{ cancellingEventId() === registration.eventId ? 'Cancelling...' : 'Cancel' }}
+            {{ cancellingEventId() === registration.eventId ? 'İptal ediliyor...' : 'İptal Et' }}
           </button>
         </article>
       }

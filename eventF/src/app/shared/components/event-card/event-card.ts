@@ -1,5 +1,5 @@
 import { Component,input ,output} from '@angular/core';
-import { Event } from '../../../core/models/event';
+import { Event, EventStatus } from '../../../core/models/event';
 
 @Component({
   selector: 'app-event-card',
@@ -17,5 +17,15 @@ export class EventCard {
   }
   openDetail():void {
     this.detailClick.emit(this.event().id);
+  }
+
+  statusLabel(status: EventStatus): string {
+    const labels: Record<EventStatus, string> = {
+      PENDING: 'Onay Bekliyor',
+      APPROVED: 'Onaylandı',
+      REJECTED: 'Reddedildi',
+    };
+
+    return labels[status];
   }
 }

@@ -1,235 +1,256 @@
-# NEXT TASK
+# SONRAKİ GÖREV
 
-> Current Sprint: Student Experience MVP
-
----
-
-# Current Goal
-
-Build the first usable version of the Student experience.
-
-The backend core is mostly completed.
-
-The current focus is creating a modern, social-media-inspired frontend connected to the existing Spring Boot backend.
-
-The UI should follow the provided Figma designs while adapting them to the UniEvents product vision.
+> Mevcut sprint: Öğrenci Deneyimi MVP
 
 ---
 
-# Current Status
+# Mevcut Hedef
+
+Öğrenci deneyiminin ilk kullanılabilir sürümünü oluşturmak.
+
+Backend çekirdeği büyük ölçüde tamamlandı.
+
+Mevcut odak, modern ve sosyal medya esintili frontend deneyimini Spring Boot backend ile bağlamak.
+
+Arayüz, UniEvents ürün vizyonuna uyacak şekilde modern, keşif odaklı ve medya öncelikli olmalıdır.
+
+---
+
+# Mevcut Durum
 
 ## Backend
 
-✅ Authentication
+✅ Kimlik doğrulama
 
 ✅ JWT
 
-✅ Register
+✅ Kayıt
 
-✅ Login
+✅ Giriş
 
-✅ Role Authorization
+✅ Rol yetkilendirme
 
-✅ Event CRUD
+✅ Etkinlik CRUD
 
-✅ Event Approval
+✅ Etkinlik onayı
 
-✅ Event Registration
+✅ Etkinlik kaydı
 
-✅ Cancel Registration
+✅ Kayıt iptali
 
-✅ My Registrations
+✅ Kayıtlarım
 
 ---
 
 ## Frontend
 
-✅ Angular 21 Project
+✅ Angular 21 projesi
 
-✅ Authentication
+✅ Kimlik doğrulama
 
-✅ JWT Storage
+✅ JWT saklama
 
-✅ Auth Interceptor
+✅ Auth interceptor
 
-✅ Auth Guard
+✅ Auth guard
 
-✅ Role Guard
+✅ Role guard
 
-✅ Login Page
+✅ Giriş sayfası
+
+✅ Kayıt sayfası
 
 ✅ EventService
 
 ✅ Signals
 
-✅ Student can fetch events from backend
+✅ Öğrenci etkinlikleri backend’den çekebiliyor
+
+✅ Öğrenci akışı
+
+✅ Etkinlik detayı
+
+✅ Kayıt butonu
+
+✅ Kayıtlarım
+
+✅ Kayıt iptali
+
+✅ Çıkış
 
 ---
 
-# Current Sprint
+# Mevcut Sprint
 
-Sprint 1
+Sprint 003
 
-Goal:
+Hedef:
 
-Create the Student Feed.
-
----
-
-# Tasks
-
-## 1. Project Cleanup
-
-Priority: High
-
-- [ ] Remove remaining "any" types
-- [ ] Strongly type every API response
-- [ ] Review folder structure
-- [ ] Rename inconsistent files if necessary
-- [ ] Create reusable UI components folder
+Öğrencinin kayıt olduğu etkinlikleri yönetebilmesi.
 
 ---
 
-## 2. Shared Components
+# Görevler
 
-Priority: High
+## 1. Proje Temizliği
 
-Create reusable components.
+Öncelik: Yüksek
+
+- [ ] Kalan `any` tiplerini kaldır
+- [ ] Tüm API response tiplerini güçlü şekilde tanımla
+- [ ] Klasör yapısını gözden geçir
+- [ ] Gerekirse tutarsız dosya isimlerini düzelt
+- [ ] Reusable UI component klasörünü güçlendir
+
+---
+
+## 2. Ortak Componentler
+
+Öncelik: Yüksek
+
+Tekrar kullanılabilir componentler oluştur.
 
 - [ ] Navbar
-- [ ] Event Card
+- [x] Event Card
 - [ ] Button
 - [ ] Badge
 - [ ] Empty State
-- [ ] Loading Component
-- [ ] Search Bar
-- [ ] Category Chips
+- [ ] Loading component
+- [x] Search Bar
+- [x] Category Chips
+- [ ] Toast
+- [ ] Dialog
 
-Nothing should be duplicated.
+Hiçbir UI gereksiz yere kopyalanmamalıdır.
 
 ---
 
-## 3. Student Feed
+## 3. Öğrenci Akışı
 
-Priority: Highest
+Öncelik: Yüksek
 
-Build the landing page.
+Ana keşif sayfasını güçlendir.
 
-Requirements
+Gereksinimler:
 
 - [ ] Hero section
 - [ ] Featured Event
-- [ ] Search
-- [ ] Categories
-- [ ] Infinite scrolling layout
-- [ ] Responsive cards
+- [x] Search
+- [x] Categories
+- [x] Scrolling layout
+- [x] Responsive cards
 - [ ] Modern animations
 
-Backend Endpoint
+Backend endpoint:
 
 GET /api/events
 
 ---
 
-## 4. Event Card
+## 4. Etkinlik Kartı
 
-Every card should display
+Her kart şunları göstermelidir:
 
-- Cover Image
-- Title
-- Description
-- Location
-- Date
-- Capacity
-- Status
-- Register Button
+- [x] Kapak görseli
+- [x] Başlık
+- [x] Açıklama
+- [x] Konum
+- [x] Tarih
+- [x] Kontenjan
+- [x] Durum
+- [x] Kayıt butonu
 
-Cards should support future image galleries.
+Kartlar ileride görsel galerileri destekleyebilmelidir.
 
 ---
 
-## 5. Event Detail
+## 5. Etkinlik Detayı
 
-Create event detail page.
+Detay sayfası oluşturuldu.
 
-Requirements
+Gereksinimler:
 
-- [ ] Hero Image
-- [ ] Image Carousel
-- [ ] Description
-- [ ] Location
-- [ ] Date
-- [ ] Capacity
-- [ ] Register Button
+- [x] Hero image
+- [ ] Image carousel
+- [x] Description
+- [x] Location
+- [x] Date
+- [x] Capacity
+- [x] Kayıt butonu
+- [x] Success feedback
+- [x] Error feedback
+- [x] Duplicate registration kontrolü
 
-Backend Endpoint
+Backend endpoint:
 
 GET /api/events/{id}
 
 ---
 
-## 6. Registration
+## 6. Kayıt
 
-Requirements
+Gereksinimler:
 
-- [ ] Register button
-- [ ] Success feedback
-- [ ] Error feedback
-- [ ] Prevent duplicate registrations
+- [x] Kayıt butonu
+- [x] Success feedback
+- [x] Error feedback
+- [x] Duplicate registration engelleme
 
-Backend Endpoint
+Backend endpoint:
 
-POST /api/event-registrations
-
----
-
-## 7. My Registrations
-
-Requirements
-
-- [ ] Registered Events
-- [ ] Cancel Registration
-- [ ] Empty State
-
-Backend Endpoints
-
-GET /api/event-registrations/my
-
-DELETE /api/event-registrations/{id}
+POST /api/events/{eventId}/register
 
 ---
 
-# Coding Rules
+## 7. Kayıtlarım
 
-Always
+Gereksinimler:
 
-✅ Use Signals
+- [x] Kayıt olunan etkinlikler
+- [x] Kayıt iptali
+- [x] Empty state
+- [x] Profil özeti
+- [x] Çıkış
 
-✅ Use Interfaces
+Backend endpointleri:
 
-✅ Use ApiResponse<T>
+GET /api/events/my-registrations
 
-✅ Use reusable components
-
-✅ Keep components small
-
-Never
-
-❌ Use any
-
-❌ Put business logic inside components
-
-❌ Duplicate UI
+DELETE /api/events/{eventId}/registration
 
 ---
 
-# UI Rules
+# Kodlama Kuralları
 
-The project should NOT look like a university information system.
+Her zaman:
 
-The experience should feel like a modern product.
+✅ Signals kullan
 
-Inspired by
+✅ Interface kullan
+
+✅ ApiResponse<T> kullan
+
+✅ Reusable component kullan
+
+✅ Componentleri küçük tut
+
+Asla:
+
+❌ `any` kullanma
+
+❌ İş mantığını component içinde büyütme
+
+❌ UI tekrarına izin verme
+
+---
+
+# UI Kuralları
+
+Proje bir üniversite bilgi sistemi gibi görünmemelidir.
+
+Deneyim modern bir ürün gibi hissettirmelidir.
+
+Esin kaynakları:
 
 - Instagram
 - TikTok
@@ -237,15 +258,15 @@ Inspired by
 - Notion
 - Stripe Dashboard
 
-The user should discover events instead of reading long tables.
+Kullanıcı uzun tablolar okumak yerine etkinlikleri keşfetmelidir.
 
 ---
 
-# Future Considerations
+# Gelecek Konular
 
-Do NOT implement yet.
+Şimdilik uygulanmayacak.
 
-These belong to future sprints.
+Bunlar gelecek sprintlere aittir.
 
 - Media Upload
 - Multiple Images
@@ -258,54 +279,49 @@ These belong to future sprints.
 
 ---
 
-# Definition of Done
+# Tamamlanma Tanımı
 
-This sprint is complete when
+Bu sprint şu durumda tamamlanır:
 
-- Student can login
-- Student sees modern event feed
-- Student can open event detail
-- Student can register
-- Student can cancel registration
-- UI is responsive
-- No "any" types remain
-- Components are reusable
-- Backend and frontend are fully connected
+- Öğrenci giriş yapabilir
+- Öğrenci modern etkinlik akışını görebilir
+- Öğrenci etkinlik detayını açabilir
+- Öğrenci etkinliğe kayıt olabilir
+- Öğrenci kaydını iptal edebilir
+- UI responsive olur
+- `any` tipi kalmaz
+- Componentler tekrar kullanılabilir olur
+- Backend ve frontend tamamen bağlı olur
 
 ---
 
-# Next Sprint Preview
+# Sonraki Sprint Önizlemesi
 
-Sprint 2
+Sprint 004
 
-Goal
+Hedef:
 
-Transform events into media-rich content.
+Etkinlikleri medya açısından daha zengin hale getirmek.
 
-Features
+Özellikler:
 
-- Event Images
-
-- Event Videos
-
-- Gallery
-
+- Etkinlik görselleri
+- Etkinlik videoları
+- Galeri
 - Carousel
+- Swipe deneyimi
+- Media upload
 
-- Swipe Experience
+Backend:
 
-- Media Upload
+EventMedia entity
 
-Backend
+Frontend:
 
-EventMedia Entity
-
-Frontend
-
-Media Components
+Media componentleri
 
 Carousel
 
-Image Viewer
+Image viewer
 
-Video Player
+Video player

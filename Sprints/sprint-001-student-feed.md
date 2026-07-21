@@ -1,121 +1,118 @@
-# Sprint 001 — Student Discovery Feed
+# Sprint 001 — Öğrenci Keşif Akışı
 
-**Duration:** 2 Days
-
-**Sprint Goal**
-
-Build the first version of the Student Feed.
-
-Students should no longer see a boring list of events.
-Instead, they should experience a modern event discovery page inspired by social media platforms.
+**Süre:** 2 gün
 
 ---
 
-# Business Goal
+# Sprint Hedefi
 
-A student should be able to:
+Öğrenci akışının ilk sürümünü oluşturmak.
 
-- Login
-- Discover approved events
-- Browse events comfortably
-- Search events
-- Enjoy a modern UI
+Öğrenciler artık sıkıcı etkinlik listeleri görmemelidir.
 
-The application should begin feeling like a real product instead of a university information system.
+Bunun yerine sosyal medya platformlarından ilham alan modern bir etkinlik keşif sayfası deneyimlemelidir.
+
+---
+
+# İş Hedefi
+
+Öğrenci şunları yapabilmelidir:
+
+- Giriş yapabilmeli
+- Onaylanmış etkinlikleri keşfedebilmeli
+- Etkinlikleri rahatça gezebilmeli
+- Etkinliklerde arama yapabilmeli
+- Modern bir arayüz deneyimlemeli
+
+Uygulama bir üniversite bilgi sistemi yerine gerçek bir ürün gibi hissettirmeye başlamalıdır.
 
 ---
 
 # Backend
 
-No backend changes are required.
+Backend değişikliği gerekmez.
 
-Use existing APIs.
+Mevcut API kullanılacaktır.
 
-Endpoints
+Endpoint:
 
 GET /api/events
 
 ---
 
-# Frontend Tasks
+# Frontend Görevleri
 
-## Project Cleanup
+## Proje Temizliği
 
-- [ ] Remove remaining `any` types
-- [ ] Ensure every service is strongly typed
-- [ ] Review folder structure
-- [ ] Verify Signals usage
+- [ ] Kalan `any` tiplerini kaldır
+- [ ] Her servisin güçlü tip kullandığından emin ol
+- [ ] Klasör yapısını gözden geçir
+- [ ] Signals kullanımını doğrula
 
----
+## Ortak Componentler
 
-## Shared Components
-
-Create reusable components.
+Tekrar kullanılabilir componentler oluştur.
 
 - [ ] Navbar
-- [ ] Event Card
-- [ ] Search Bar
-- [ ] Category Filter
+- [x] Event Card
+- [x] Search Bar
+- [x] Category Filter
 - [ ] Empty State
 - [ ] Loading Skeleton
 
----
+## Öğrenci Akışı
 
-## Student Feed
-
-- [ ] Landing Page
+- [x] Landing page
 - [ ] Featured Event
-- [ ] Event Feed
-- [ ] Responsive Layout
-- [ ] Search Input
-- [ ] Category Chips (Static)
-
----
+- [x] Event Feed
+- [x] Responsive Layout
+- [x] Search Input
+- [x] Category Chips
 
 ## UI
 
-Follow the provided Figma inspiration.
+Verilen Figma ilhamı takip edilmelidir.
 
-Requirements
+Gereksinimler:
 
-- Large event cards
-- Modern spacing
-- Rounded corners
-- Responsive
-- Soft shadows
-- Minimal design
-
----
-
-# Technical Rules
-
-- Use Angular Signals.
-- Use standalone components.
-- Use reusable components.
-- Do not use any.
-- Use ApiResponse<T>.
-- No duplicated CSS.
+- Büyük etkinlik kartları
+- Modern boşluk düzeni
+- Yuvarlatılmış köşeler
+- Responsive yapı
+- Yumuşak gölgeler
+- Minimal tasarım
 
 ---
 
-# Definition of Done
+# Teknik Kurallar
 
-Student can:
-
-✅ Login
-
-✅ See event feed
-
-✅ Search events
-
-✅ Browse responsive cards
-
-All data comes from backend.
-
-No mock data.
+- Angular Signals kullan.
+- Standalone componentler kullan.
+- Tekrar kullanılabilir componentler kullan.
+- `any` kullanma.
+- ApiResponse<T> kullan.
+- Gereksiz CSS tekrarı yapma.
 
 ---
 
-# Deliverable
+# Tamamlanma Tanımı
 
-A modern Student Feed connected to the Spring Boot backend.
+Öğrenci şunları yapabilir:
+
+✅ Giriş yapabilir
+
+✅ Etkinlik akışını görebilir
+
+✅ Etkinliklerde arama yapabilir
+
+✅ Responsive kartları gezebilir
+
+Tüm veriler backend’den gelir.
+
+Mock veri kullanılmaz.
+
+---
+
+# Teslim Çıktısı
+
+Spring Boot backend’e bağlı modern öğrenci akışı.

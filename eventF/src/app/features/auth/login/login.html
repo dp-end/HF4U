@@ -6,17 +6,17 @@
 
   <form class="auth-card" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <header class="auth-header">
-      <h1>Get started</h1>
-      <p>No account? <button type="button" (click)="goToRegister()">Sign up</button></p>
+      <h1>Giriş Yap</h1>
+      <p>Hesabın yok mu? <button type="button" (click)="goToRegister()">Kayıt Ol</button></p>
     </header>
 
-    <div class="role-tabs" aria-label="Choose role">
+    <div class="role-tabs" aria-label="Rol seçimi">
       <button
         type="button"
         [class.active]="selectedRole() === 'STUDENT'"
         (click)="selectRole('STUDENT')"
       >
-        Student
+        Öğrenci
       </button>
 
       <button
@@ -24,7 +24,7 @@
         [class.active]="selectedRole() === 'CLUB_MANAGER'"
         (click)="selectRole('CLUB_MANAGER')"
       >
-        Club
+        Kulüp
       </button>
 
       <button
@@ -37,11 +37,11 @@
     </div>
 
     <label class="field">
-      <input type="email" placeholder="Email address" formControlName="email" />
+      <input type="email" placeholder="E-posta adresi" formControlName="email" />
     </label>
 
     <label class="field">
-      <input type="password" placeholder="Password" formControlName="password" />
+      <input type="password" placeholder="Şifre" formControlName="password" />
     </label>
 
     @if (errorMessage()) {
@@ -50,18 +50,18 @@
 
     <button class="primary-button" type="submit" [disabled]="isSubmitting()">
       @if (isSubmitting()) {
-        Signing in...
+        Giriş yapılıyor...
       } @else {
-        Continue <span aria-hidden="true">&rarr;</span>
+        Devam Et <span aria-hidden="true">&rarr;</span>
       }
     </button>
 
     <p class="legal">
-      By continuing you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
+      Devam ederek <a href="#">Kullanım Şartları</a> ve <a href="#">Gizlilik Politikası</a> metinlerini kabul etmiş olursun.
     </p>
   </form>
 
   <button class="guest-link" type="button" (click)="browseAsGuest()">
-    &larr; Browse events without signing in
+    &larr; Giriş yapmadan etkinlikleri keşfet
   </button>
 </main>

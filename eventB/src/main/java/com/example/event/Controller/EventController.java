@@ -33,23 +33,23 @@ public class EventController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
     public ApiResponseDTO<EventResponseDTO> createEvent(@Valid @RequestBody EventRequestDTO request){
-        return new ApiResponseDTO<>(true , "event created successfully" ,eventService.createEvent(request));
+        return new ApiResponseDTO<>(true , "Etkinlik başarıyla oluşturuldu" ,eventService.createEvent(request));
     }
 
     @GetMapping
     public ApiResponseDTO <List<EventResponseDTO>> getAllEvents(){
-        return new ApiResponseDTO<>(true ,"event fetch successfully" , eventService.getAllEvents());
+        return new ApiResponseDTO<>(true ,"Etkinlikler başarıyla getirildi" , eventService.getAllEvents());
     }
 
     @GetMapping("/{id}")
     public ApiResponseDTO <EventResponseDTO> getEventById(@PathVariable Long id) { // @NonNull eklendi
-        return new ApiResponseDTO<>(true,"event fetch successfully",eventService.getEventById(id));
+        return new ApiResponseDTO<>(true,"Etkinlik başarıyla getirildi",eventService.getEventById(id));
     }
 
     @PutMapping("/{id}") // Bu anotasyon eksikti, ekledik
     @PreAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
     public ApiResponseDTO <EventResponseDTO> updateEvent(@PathVariable  Long id , @Valid @RequestBody EventRequestDTO request) { // @NonNull eklendi
-        return new ApiResponseDTO<>(true ,"event updated successfully", eventService.updateEvent(id, request));
+        return new ApiResponseDTO<>(true ,"Etkinlik başarıyla güncellendi", eventService.updateEvent(id, request));
     }
 
     @DeleteMapping("/{id}")
@@ -61,7 +61,7 @@ public class EventController {
 
         return new ApiResponseDTO<>(
                 true,
-                "Event deleted successfully",
+                "Etkinlik başarıyla silindi",
                 null
         );
     }
@@ -72,7 +72,7 @@ public class EventController {
         eventRegistrationService.registerToEvent(eventId);
         return new ApiResponseDTO<>(
             true,
-            "successfully",
+            "Kayıt başarıyla tamamlandı",
             null
         );
     }
@@ -82,7 +82,7 @@ public class EventController {
     public ApiResponseDTO<List<MyResgistrationResponseDTO>> getMyRegistrations(){
         return new ApiResponseDTO<>(
             true,
-            "Registrations fetched successfully",
+            "Kayıtlar başarıyla getirildi",
             eventRegistrationService.getMyRegistrations()
         );
     }
@@ -92,7 +92,7 @@ public class EventController {
     public ApiResponseDTO<List<ParticipantResponseDTO>> getEventParticipants(@PathVariable long eventId){
         return new ApiResponseDTO<>(
             true,
-            "Participants fetched successfully",
+            "Katılımcılar başarıyla getirildi",
             eventRegistrationService.getEventParticipants(eventId)
         );
     }
@@ -102,7 +102,7 @@ public class EventController {
     public ApiResponseDTO<List<EventResponseDTO>>getMyEvents(){
         return new ApiResponseDTO<>(
             true,
-            "My events fetched successfully",
+            "Etkinliklerim başarıyla getirildi",
             eventService.getMyEvents()
         );
     }
@@ -112,7 +112,7 @@ public class EventController {
     public ApiResponseDTO<EventResponseDTO> approveEvent(@PathVariable long id){
         return new ApiResponseDTO<>(
             true,
-            "Event approved successfully",
+            "Etkinlik başarıyla onaylandı",
             eventService.approveEvent(id)
         );
     }
@@ -122,7 +122,7 @@ public class EventController {
     public ApiResponseDTO<EventResponseDTO> rejectEvent(@PathVariable long id){
         return new ApiResponseDTO<>(
             true,
-            "Event rejected successfully",
+            "Etkinlik başarıyla reddedildi",
             eventService.rejectEvent(id)
         );
     }
@@ -133,7 +133,7 @@ public class EventController {
     public ApiResponseDTO<List<EventResponseDTO>> getPendingEvents() {
         return new ApiResponseDTO<>(
             true,
-            "Pending events fetched successfully",
+            "Onay bekleyen etkinlikler başarıyla getirildi",
             eventService.getPendingEvents()
         );
     }
@@ -144,7 +144,7 @@ public class EventController {
         eventRegistrationService.cancelRegistration(eventId);
         return new ApiResponseDTO<>(
             true,
-            "Registration cancelled successfully",
+            "Kayıt başarıyla iptal edildi",
             null
         );
     }

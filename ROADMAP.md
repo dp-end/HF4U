@@ -1,178 +1,160 @@
-# UniEvents Roadmap
+# UniEvents Yol Haritası
 
-> Product Development Roadmap
-
----
-
-# Current Version
-
-Version: MVP (0.1)
-
-Current Status:
-
-🟢 Backend Core Completed
-
-🟡 Frontend Development Started
+> Ürün geliştirme yol haritası
 
 ---
 
-# Product Goal
+# Mevcut Sürüm
 
-UniEvents is a social-media-inspired university event discovery platform.
+Sürüm: MVP (0.1)
 
-The project is NOT a traditional Event Management System.
+Mevcut durum:
 
-The goal is to make discovering university events as enjoyable as browsing Instagram or TikTok.
+🟢 Backend çekirdeği tamamlandı
 
-Students should discover campus life through rich multimedia content.
-
----
-
-# Development Strategy
-
-Development will be completed in multiple phases.
-
-Each phase should be fully functional before moving to the next one.
-
-Never start a new phase before completing the current one.
+🟡 Frontend geliştirmesi devam ediyor
 
 ---
 
-# Phase 1 — Core Platform
+# Ürün Hedefi
 
-Status
+UniEvents, sosyal medya esintili bir üniversite etkinlik keşif platformudur.
 
-🟢 In Progress
+Proje geleneksel bir etkinlik yönetim sistemi değildir.
 
-Goal
+Amaç, üniversite etkinliklerini keşfetmeyi Instagram veya TikTok gezmek kadar keyifli hale getirmektir.
 
-Build a complete working event platform.
+Öğrenciler kampüs yaşamını zengin medya içerikleri üzerinden keşfetmelidir.
+
+---
+
+# Geliştirme Stratejisi
+
+Geliştirme birden fazla faz halinde tamamlanacaktır.
+
+Her faz, bir sonrakine geçmeden önce işlevsel hale getirilmelidir.
+
+Mevcut faz tamamlanmadan yeni faz başlatılmamalıdır.
+
+---
+
+# Faz 1 — Çekirdek Platform
+
+Durum:
+
+🟢 Devam ediyor
+
+Hedef:
+
+Çalışan tam bir etkinlik platformu oluşturmak.
 
 ---
 
 ## Backend
 
-### Authentication
+### Kimlik Doğrulama
 
 - [x] JWT Authentication
 - [x] Login
-- [x] Register
-- [x] BCrypt Password Encoding
-- [x] Security Configuration
-- [x] JWT Filter
-- [x] Role Authorization
+- [x] Kayıt
+- [x] BCrypt password encoding
+- [x] Security configuration
+- [x] JWT filter
+- [x] Role authorization
 
----
+### Kullanıcı Rolleri
 
-### User Roles
+- [x] Öğrenci
+- [x] Kulüp yöneticisi
+- [x] Yönetici
 
-- [x] Student
-- [x] Club Manager
-- [x] Administrator
+### Etkinlik
 
----
+- [x] Etkinlik oluşturma
+- [x] Etkinlik güncelleme
+- [x] Etkinlik silme
+- [x] Etkinlik detayı
+- [x] Etkinlik listesi
 
-### Event
+### Kayıt
 
-- [x] Create Event
-- [x] Update Event
-- [x] Delete Event
-- [x] Event Detail
-- [x] Event List
+- [x] Etkinliğe kayıt
+- [x] Kayıt iptali
+- [x] Kayıtlarım
 
----
+### Etkinlik Onayı
 
-### Registration
+- [x] Beklemede
+- [x] Onaylama
+- [x] Reddetme
 
-- [x] Register Event
-- [x] Cancel Registration
-- [x] My Registrations
+### Hata Yönetimi
 
----
-
-### Event Approval
-
-- [x] Pending
-- [x] Approve
-- [x] Reject
-
----
-
-### Exception Handling
-
-- [x] Global Exception Handler
-- [x] Custom Exceptions
+- [x] Global exception handler
+- [x] Özel exceptionlar
 - [x] ApiResponse
 
 ---
 
 ## Frontend
 
-### Authentication
+### Kimlik Doğrulama
 
 - [x] Login
-- [ ] Register
-- [x] JWT Storage
-- [x] Logout
-- [x] Auth Guard
-- [x] Role Guard
-- [x] HTTP Interceptor
+- [x] Kayıt
+- [x] JWT storage
+- [x] Çıkış
+- [x] Auth guard
+- [x] Role guard
+- [x] HTTP interceptor
 
----
+### Öğrenci
 
-### Student
+- [x] Etkinlikleri çekme
+- [x] Öğrenci akışı
+- [x] Etkinlik detayı
+- [x] Kayıt butonu
+- [x] Kayıt iptali
+- [x] Kayıtlarım
 
-- [x] Fetch Events
-- [ ] Student Feed UI
-- [ ] Event Detail
-- [ ] Register Button
-- [ ] Cancel Registration
-- [ ] My Registrations
-
----
-
-### Club
+### Kulüp
 
 - [ ] Dashboard
-- [ ] Create Event
-- [ ] Edit Event
-- [ ] Delete Event
-- [ ] My Events
-- [ ] Participants
-
----
+- [ ] Etkinlik oluşturma
+- [ ] Etkinlik düzenleme
+- [ ] Etkinlik silme
+- [ ] Etkinliklerim
+- [ ] Katılımcılar
 
 ### Admin
 
 - [ ] Dashboard
-- [ ] Pending Events
-- [ ] Approve
-- [ ] Reject
-- [ ] Manage Events
+- [ ] Onay bekleyen etkinlikler
+- [ ] Onaylama
+- [ ] Reddetme
+- [ ] Etkinlik yönetimi
 
 ---
 
-# Phase 2 — Media Platform
+# Faz 2 — Medya Platformu
 
-Status
+Durum:
 
-⚪ Planned
+⚪ Planlandı
 
-Goal
+Hedef:
 
-Turn events into rich multimedia content.
-
----
+Etkinlikleri zengin medya içeriklerine dönüştürmek.
 
 ## Backend
 
-### Event Media
+### Etkinlik Medyası
 
-New Entity
+Yeni entity:
 
 EventMedia
 
-Fields
+Alanlar:
 
 - id
 - eventId
@@ -180,394 +162,285 @@ Fields
 - mediaType
 - orderIndex
 
-Media Types
+Medya tipleri:
 
 - IMAGE
 - VIDEO
 
----
+### Depolama
 
-### Storage
+Başlangıç:
 
-Initially
+- Local storage
 
-- Local Storage
-
-Future
+Gelecek:
 
 - AWS S3
 - Cloudinary
 
----
-
 ### API
 
-Upload Media
-
-Delete Media
-
-Update Media
-
-Reorder Media
-
----
+- Medya yükleme
+- Medya silme
+- Medya güncelleme
+- Medya sıralama
 
 ## Frontend
 
-### Event Card
+### Etkinlik Kartı
 
-Support
+Desteklenecekler:
 
-- Hero Image
-- Gallery
+- Hero image
+- Galeri
 - Swipe
 - Video
 
----
+### Etkinlik Detayı
 
-### Event Detail
+Desteklenecekler:
 
-Support
-
-- Image Slider
-- Video Player
-- Poster Preview
+- Image slider
+- Video player
+- Poster preview
 
 ---
 
-# Phase 3 — Social Platform
+# Faz 3 — Sosyal Platform
 
-Status
+Durum:
 
-⚪ Planned
+⚪ Planlandı
 
-Goal
+Hedef:
 
-Turn clubs into content creators.
-
----
+Kulüpleri içerik üreticilerine dönüştürmek.
 
 ## Backend
 
-Club Profile
-
-Follow System
-
-Notification
-
-Favorites
-
----
+- Kulüp profili
+- Takip sistemi
+- Bildirim
+- Favoriler
 
 ## Frontend
 
-Club Profile
-
-Club Feed
-
-Follow Button
-
-Favorite Events
-
-Notifications
-
-Profile Page
+- Kulüp profili
+- Kulüp akışı
+- Takip butonu
+- Favori etkinlikler
+- Bildirimler
+- Profil sayfası
 
 ---
 
-# Phase 4 — Discovery
+# Faz 4 — Keşif
 
-Status
+Durum:
 
-⚪ Planned
+⚪ Planlandı
 
-Goal
+Hedef:
 
-Students should discover events instead of searching for them.
+Öğrencilerin etkinlikleri aramak yerine keşfetmesini sağlamak.
 
----
+## Özellikler
 
-## Features
-
-Trending Events
-
-Popular Events
-
-Recommended Events
-
-Recently Added
-
-Nearby Events
-
-Category Feed
-
-Infinite Scroll
+- Trend etkinlikler
+- Popüler etkinlikler
+- Önerilen etkinlikler
+- Yeni eklenenler
+- Yakındaki etkinlikler
+- Kategori akışı
+- Sonsuz kaydırma
 
 ---
 
-# Phase 5 — Smart Platform
+# Faz 5 — Akıllı Platform
 
-Status
+Durum:
 
-⚪ Planned
+⚪ Planlandı
 
-Goal
+Hedef:
 
-AI powered event recommendations.
+Yapay zeka destekli etkinlik önerileri sunmak.
 
----
+## Öneri Sistemi
 
-## AI
+- Öneriler
+- İlgi alanı analizi
+- Kategori tahmini
+- Akıllı akış sıralaması
 
-Recommendations
+## Analitik
 
-Interest Analysis
-
-Category Prediction
-
-Smart Feed Ranking
-
----
-
-## Analytics
-
-Most Viewed Events
-
-Most Registered Events
-
-Club Statistics
-
-User Activity
-
-Heatmaps
+- En çok görüntülenen etkinlikler
+- En çok kayıt alınan etkinlikler
+- Kulüp istatistikleri
+- Kullanıcı aktivitesi
+- Heatmapler
 
 ---
 
-# UI Roadmap
+# UI Yol Haritası
+
+## Ortak Componentler
+
+- Navbar
+- Sidebar
+- Footer
+- Search bar
+- Category chips
+- Event card
+- Hero card
+- Badge
+- Button
+- Loading component
+- Empty state
+- Modal
+- Dialog
+- Toast
+- Pagination
+- Carousel
+- Media viewer
+
+## Öğrenci Sayfaları
+
+- Login
+- Kayıt sayfası
+- Home feed
+- Event detail
+- My registrations
+- Profile
+- Settings
+
+## Kulüp Sayfaları
+
+- Dashboard
+- Create event
+- My events
+- Participants
+- Statistics
+- Profile
+
+## Admin Sayfaları
+
+- Dashboard
+- Pending events
+- Users
+- Events
+- Reports
+- Settings
 
 ---
 
-## Shared Components
+# Veritabanı Yol Haritası
 
-Navbar
+Mevcut:
 
-Sidebar
+- User
+- Role
+- Event
+- Registration
 
-Footer
+Gelecek:
 
-Search Bar
-
-Category Chips
-
-Event Card
-
-Hero Card
-
-Badge
-
-Button
-
-Loading
-
-Empty State
-
-Modal
-
-Dialog
-
-Toast
-
-Pagination
-
-Carousel
-
-Media Viewer
+- Media
+- ClubProfile
+- Follow
+- Notification
+- Comment
+- Favorite
+- Analytics
 
 ---
 
-## Student Pages
+# API Yol Haritası
 
-Login
-
-Register
-
-Home Feed
-
-Event Detail
-
-My Registrations
-
-Profile
-
-Settings
+- Authentication API
+- Öğrenci API
+- Club API
+- Admin API
+- Media API
+- Notification API
+- Analytics API
+- Recommendation API
 
 ---
 
-## Club Pages
+# Mobil Destek
 
-Dashboard
-
-Create Event
-
-My Events
-
-Participants
-
-Statistics
-
-Profile
+- Responsive layout
+- Tablet desteği
+- Mobil navigasyon
+- Gesture desteği
+- Swipe deneyimi
 
 ---
 
-## Admin Pages
+# UX Hedefleri
 
-Dashboard
+Öğrenciler:
 
-Pending Events
+- Sıkıcı tablolar okumamalı
+- Etkinlikleri doğal şekilde keşfetmeli
+- Aramak yerine kaydırmalı
+- Etkinlik içeriğini hızlı tüketebilmeli
 
-Users
+Kulüpler:
 
-Events
+- Etkinlikleri kolayca tanıtabilmeli
+- Zengin medya yükleyebilmeli
+- Daha fazla öğrenciye ulaşabilmeli
 
-Reports
+Yöneticiler:
 
-Settings
-
----
-
-# Database Roadmap
-
-Current
-
-User
-
-Role
-
-Event
-
-Registration
-
-Future
-
-Media
-
-ClubProfile
-
-Follow
-
-Notification
-
-Comment
-
-Favorite
-
-Analytics
+- Platformu verimli yönetebilmeli
+- İçerikleri hızlı onaylayabilmeli
+- Platform istatistiklerini izleyebilmeli
 
 ---
 
-# API Roadmap
+# Performans Hedefleri
 
-Authentication API
-
-Student API
-
-Club API
-
-Admin API
-
-Media API
-
-Notification API
-
-Analytics API
-
-Recommendation API
+- Lazy loading
+- Görsel optimizasyonu
+- Video optimizasyonu
+- Pagination
+- Infinite scroll
+- Signal tabanlı rendering
+- Code splitting
+- Caching
 
 ---
 
-# Mobile Support
+# Uzun Vadeli Vizyon
 
-Responsive Layout
+UniEvents kampüsün merkezi dijital platformu haline gelmelidir.
 
-Tablet Support
+Yalnızca etkinlikleri yönetmek yerine, öğrencilerin üniversite yaşamına medya odaklı ve ilgi çekici içeriklerle katılmasını teşvik etmelidir.
 
-Mobile Navigation
-
-Gesture Support
-
-Swipe Experience
+Deneyim, geleneksel bir üniversite portalından çok Instagram veya TikTok’a yakın hissettirmelidir.
 
 ---
 
-# UX Goals
+# Başarı Kriterleri
 
-Students should:
+Proje şu durumda başarılı kabul edilir:
 
-- Never read boring tables.
-- Discover events naturally.
-- Scroll instead of searching.
-- Consume event content quickly.
+✓ Öğrenciler etkinlikleri gezmekten keyif alır.
 
-Clubs should:
+✓ Kulüpler aktif biçimde medya açısından zengin içerikler yayınlar.
 
-- Easily promote events.
-- Upload rich media.
-- Reach more students.
+✓ Etkinlik katılımı artar.
 
-Admins should:
+✓ UI modern ve responsive hissettirir.
 
-- Manage platform efficiently.
-- Approve content quickly.
-- Monitor platform statistics.
+✓ Platform ölçeklenebilir olur.
 
----
+✓ Backend temiz mimariyi takip eder.
 
-# Performance Goals
+✓ Frontend tekrar kullanılabilir component mimarisini takip eder.
 
-Lazy Loading
-
-Image Optimization
-
-Video Optimization
-
-Pagination
-
-Infinite Scroll
-
-Signal-based Rendering
-
-Code Splitting
-
-Caching
-
----
-
-# Long-Term Vision
-
-UniEvents should become the central digital campus platform.
-
-Instead of simply managing events, it should encourage students to participate in university life through engaging multimedia content.
-
-The experience should feel closer to Instagram or TikTok than a traditional university portal.
-
----
-
-# Success Criteria
-
-The project is considered successful when:
-
-✓ Students enjoy browsing events.
-
-✓ Clubs actively publish media-rich content.
-
-✓ Event participation increases.
-
-✓ The UI feels modern and responsive.
-
-✓ The platform is scalable.
-
-✓ Backend follows clean architecture.
-
-✓ Frontend follows reusable component architecture.
-
-✓ The project is production-ready.
+✓ Proje production’a hazır hale gelir.

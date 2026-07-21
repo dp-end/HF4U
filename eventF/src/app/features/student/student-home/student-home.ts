@@ -18,8 +18,8 @@ export class StudentHome implements OnInit {
   searchQuery = signal<string>('');
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');
-  categories = signal<string[]>(['All','Technology','Art','Sport','Career','Social']);
-  selectedCategory = signal<string>('All');
+  categories = signal<string[]>(['Tümü','Teknoloji','Sanat','Spor','Kariyer','Sosyal']);
+  selectedCategory = signal<string>('Tümü');
 
   filteredEvents = computed(() => {
     const query = this.searchQuery().trim().toLowerCase();
@@ -34,7 +34,7 @@ export class StudentHome implements OnInit {
         (event.clubName ?? '').toLowerCase().includes(query);
 
       const matchesCategory =
-        category === 'All' || event.category === category;
+        category === 'Tümü' || this.categoryLabel(event.category) === category;
 
       return matchesSearch && matchesCategory;
     });
@@ -64,7 +64,7 @@ export class StudentHome implements OnInit {
         this.isLoading.set(false);
       },
       error: () => {
-        this.errorMessage.set('Events could not be loaded.');
+        this.errorMessage.set('Etkinlikler yüklenemedi.');
         this.isLoading.set(false);
       },
     });
@@ -80,7 +80,7 @@ export class StudentHome implements OnInit {
         this.loadEvents();
       },
       error:() => {
-        this.errorMessage.set('Registration failed.');
+        this.errorMessage.set('Kayıt işlemi başarısız oldu.');
       },
     });
   }
@@ -96,6 +96,19 @@ export class StudentHome implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  private categoryLabel(category?: string): string {
+    const labels: Record<string, string> = {
+      Technology: 'Teknoloji',
+      Art: 'Sanat',
+      Sport: 'Spor',
+      Sports: 'Spor',
+      Career: 'Kariyer',
+      Social: 'Sosyal',
+    };
+
+    return category ? labels[category] ?? category : '';
   }
 
 }

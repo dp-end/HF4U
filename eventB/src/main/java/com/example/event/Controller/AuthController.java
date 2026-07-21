@@ -23,11 +23,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ApiResponseDTO<UserResponseDTO> register (@Valid @RequestBody UserRequestDTO request) {
-        return new ApiResponseDTO<>(true , "User registered successfully" , authService.register(request));
+        return new ApiResponseDTO<>(true , "Kullanıcı başarıyla kaydedildi" , authService.register(request));
     }
     @PostMapping("/login")
     public ApiResponseDTO<LoginResponseDTO>login (@Valid @RequestBody LoginRequestDTO request) {
-        return new ApiResponseDTO<>(true , "Login successfuly" , authService.login(request));
+        return new ApiResponseDTO<>(true , "Giriş başarılı" , authService.login(request));
     }
 
 }

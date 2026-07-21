@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
-import { Event } from '../../../core/models/event';
+import { Event, EventStatus } from '../../../core/models/event';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
 
 type FeedbackType = 'success' | 'error';
@@ -36,18 +36,18 @@ export class EventDetail implements OnInit {
 
   registerButtonLabel = computed(() => {
     if (this.isRegistering()) {
-      return 'Registering...';
+      return 'Kayıt yapılıyor...';
     }
 
     if (this.isRegistered()) {
-      return 'Already Registered';
+      return 'Zaten Kayıtlısın';
     }
 
     if (this.event()?.availableSpots === 0) {
-      return 'Event Full';
+      return 'Kontenjan Doldu';
     }
 
-    return 'Register';
+    return 'Kayıt Ol';
   });
 
   constructor(
@@ -61,7 +61,7 @@ export class EventDetail implements OnInit {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!eventId) {
-      this.errorMessage.set('Event not found.');
+      this.errorMessage.set('Etkinlik bulunamadı.');
       return;
     }
 
@@ -79,7 +79,7 @@ export class EventDetail implements OnInit {
         this.isLoading.set(false);
       },
       error: () => {
-        this.errorMessage.set('Event could not be loaded.');
+        this.errorMessage.set('Etkinlik yüklenemedi.');
         this.isLoading.set(false);
       },
     });
@@ -113,6 +113,29 @@ export class EventDetail implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  statusLabel(status: EventStatus): string {
+    const labels: Record<EventStatus, string> = {
+      PENDING: 'Onay Bekliyor',
+      APPROVED: 'Onaylandı',
+      REJECTED: 'Reddedildi',
+    };
+
+    return labels[status];
+  }
+
+  categoryLabel(category?: string): string {
+    const labels: Record<string, string> = {
+      Technology: 'Teknoloji',
+      Art: 'Sanat',
+      Sport: 'Spor',
+      Sports: 'Spor',
+      Career: 'Kariyer',
+      Social: 'Sosyal',
+    };
+
+    return category ? labels[category] ?? category : '';
+  }
+
   registerToEvent(): void {
     const currentEvent = this.event();
 
@@ -127,14 +150,14 @@ export class EventDetail implements OnInit {
       next: () => {
         this.isRegistered.set(true);
         this.feedbackType.set('success');
-        this.feedbackMessage.set('Registration completed successfully.');
+        this.feedbackMessage.set('Kayıt başarıyla tamamlandı.');
         this.isRegistering.set(false);
         this.loadEvent(currentEvent.id);
       },
       error: (error: HttpErrorResponse) => {
         const message = this.getErrorMessage(error);
 
-        if (message.toLowerCase().includes('already registered')) {
+        if (message.toLowerCase().includes('already registered') || message.toLowerCase().includes('zaten')) {
           this.isRegistered.set(true);
         }
 
@@ -148,6 +171,6 @@ export class EventDetail implements OnInit {
   private getErrorMessage(error: HttpErrorResponse): string {
     const responseBody = error.error as { message?: string } | null;
 
-    return responseBody?.message ?? 'Registration failed.';
+    return responseBody?.message ?? 'Kayıt işlemi başarısız oldu.';
   }
 }
