@@ -1,0 +1,262 @@
+.registrations-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: #f5fbf8;
+  color: #183328;
+}
+
+.page-header {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand,
+.header-actions button,
+.state-panel button,
+.registration-main,
+.cancel-button {
+  font: inherit;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  color: #183328;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #08bd82;
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(8, 189, 130, 0.26);
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.header-actions button,
+.state-panel button {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #183328;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(6, 155, 112, 0.1);
+}
+
+.header-actions button.active,
+.state-panel button {
+  background: #08bd82;
+  color: #ffffff;
+}
+
+.profile-strip {
+  width: min(100%, 1080px);
+  margin: 28px auto 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.avatar {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #183328;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.profile-strip p,
+.profile-strip h1,
+.state-panel p,
+.state-panel h2 {
+  margin: 0;
+}
+
+.profile-strip p {
+  color: #668575;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.profile-strip h1 {
+  margin-top: 4px;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.feedback,
+.state-panel,
+.registrations-list {
+  width: min(100%, 1080px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feedback {
+  box-sizing: border-box;
+  margin-top: 12px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.feedback.success {
+  background: #dff8ec;
+  color: #00845f;
+}
+
+.feedback.error {
+  background: #ffe8e8;
+  color: #c93636;
+}
+
+.state-panel {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  color: #657a70;
+  text-align: center;
+  font-weight: 700;
+}
+
+.state-panel h2 {
+  color: #183328;
+  font-size: 28px;
+}
+
+.error {
+  color: #c93636;
+}
+
+.registrations-list {
+  display: grid;
+  gap: 12px;
+}
+
+.registration-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid #c7efdc;
+  border-radius: 18px;
+  padding: 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(6, 155, 112, 0.1);
+}
+
+.registration-main {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(150px, auto) minmax(0, 1fr) minmax(140px, auto);
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.registration-main strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #183328;
+  font-size: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.registration-main span {
+  min-width: 0;
+  overflow: hidden;
+  color: #668575;
+  font-size: 14px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.registration-main .date-pill {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: #eef7f3;
+  color: #00845f;
+  font-size: 12px;
+}
+
+.cancel-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #ffe8e8;
+  color: #c93636;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cancel-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+@media (max-width: 760px) {
+  .registrations-page {
+    padding: 14px;
+  }
+
+  .page-header,
+  .registration-card,
+  .registration-main {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    display: grid;
+    align-items: start;
+  }
+
+  .header-actions {
+    justify-content: flex-start;
+  }
+
+  .profile-strip h1 {
+    font-size: 26px;
+  }
+
+  .cancel-button {
+    width: 100%;
+  }
+}

@@ -5,6 +5,7 @@ import { EventCard } from '../../../shared/components/event-card/event-card';
 import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { CategoryChips } from '../../../shared/components/category-chips/category-chips';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/AuthService/auth-service';
 
 @Component({
   selector: 'app-student-home',
@@ -44,7 +45,11 @@ export class StudentHome implements OnInit {
   }
 
 
-  constructor(private eventService: EventService, private router: Router) {}
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loadEvents();
@@ -82,6 +87,15 @@ export class StudentHome implements OnInit {
 
   openEventDetail(eventId:number):void {
     this.router.navigate(['/student/events', eventId]);
+  }
+
+  openRegistrations(): void {
+    this.router.navigate(['/student/registrations']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

@@ -7,6 +7,7 @@ import { authGuard } from './core/guards/auth/auth-guard';
 import { roleGuard } from './core/guards/role/role-guard';
 import { Register } from './features/auth/register/register';
 import { EventDetail } from './features/student/event-detail/event-detail';
+import { StudentRegistrations } from './features/student/student-registrations/student-registrations';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,14 @@ export const routes: Routes = [
   {
     path:'student/events/:id',
     component: EventDetail,
+    canActivate: [authGuard,roleGuard],
+    data: {
+      role:'STUDENT'
+    }
+  },
+  {
+    path:'student/registrations',
+    component: StudentRegistrations,
     canActivate: [authGuard,roleGuard],
     data: {
       role:'STUDENT'

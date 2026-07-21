@@ -22,4 +22,15 @@ export class AuthService {
   register(request: RegisterRequest): Observable<ApiResponse<unknown>>{
     return this.http.post<ApiResponse<unknown>>(`${this.apiUrl}/register`,request);
   }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('userId');
+  }
+
+  getCurrentUserName(): string {
+    return localStorage.getItem('fullName') ?? 'Student';
+  }
 }

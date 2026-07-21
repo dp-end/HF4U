@@ -1,7 +1,15 @@
 <main class="detail-page">
-  <button class="back-button" type="button" (click)="goBack()">
-    Back
-  </button>
+  <header class="detail-header">
+    <button class="back-button" type="button" (click)="goBack()">
+      Back
+    </button>
+
+    <nav class="detail-nav" aria-label="Student navigation">
+      <button type="button" (click)="goBack()">Feed</button>
+      <button type="button" (click)="openRegistrations()">My Registrations</button>
+      <button type="button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
 
   @if (isLoading()) {
     <section class="state-screen">

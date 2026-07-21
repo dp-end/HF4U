@@ -3,6 +3,7 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { Event } from '../../../core/models/event';
+import { AuthService } from '../../../core/services/AuthService/auth-service';
 
 type FeedbackType = 'success' | 'error';
 
@@ -53,6 +54,7 @@ export class EventDetail implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private eventService: EventService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -100,6 +102,15 @@ export class EventDetail implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/student']);
+  }
+
+  openRegistrations(): void {
+    this.router.navigate(['/student/registrations']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   registerToEvent(): void {

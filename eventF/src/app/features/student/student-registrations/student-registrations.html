@@ -1,0 +1,68 @@
+<main class="registrations-page">
+  <header class="page-header">
+    <button class="brand" type="button" (click)="goToFeed()">
+      <span class="brand-mark">U</span>
+      <span>UniEvents</span>
+    </button>
+
+    <nav class="header-actions" aria-label="Student navigation">
+      <button type="button" (click)="goToFeed()">Feed</button>
+      <button class="active" type="button">My Registrations</button>
+      <button type="button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <section class="profile-strip">
+    <div class="avatar" aria-hidden="true">
+      {{ studentName().charAt(0) }}
+    </div>
+
+    <div>
+      <p>Student</p>
+      <h1>{{ studentName() }}</h1>
+    </div>
+  </section>
+
+  @if (feedbackMessage()) {
+    <p class="feedback" [class.success]="feedbackType() === 'success'" [class.error]="feedbackType() === 'error'">
+      {{ feedbackMessage() }}
+    </p>
+  }
+
+  @if (isLoading()) {
+    <section class="state-panel">
+      <p>Loading registrations...</p>
+    </section>
+  } @else if (errorMessage()) {
+    <section class="state-panel">
+      <p class="error">{{ errorMessage() }}</p>
+    </section>
+  } @else if (registrations().length === 0) {
+    <section class="state-panel">
+      <h2>No registrations yet</h2>
+      <p>Your registered events will appear here.</p>
+      <button type="button" (click)="goToFeed()">Browse Events</button>
+    </section>
+  } @else {
+    <section class="registrations-list" aria-label="Registered events">
+      @for (registration of registrations(); track registration.eventId) {
+        <article class="registration-card">
+          <button class="registration-main" type="button" (click)="openEvent(registration.eventId)">
+            <span class="date-pill">{{ registration.eventDate }}</span>
+            <strong>{{ registration.title }}</strong>
+            <span>{{ registration.location }}</span>
+          </button>
+
+          <button
+            class="cancel-button"
+            type="button"
+            [disabled]="cancellingEventId() === registration.eventId"
+            (click)="cancelRegistration(registration.eventId)"
+          >
+            {{ cancellingEventId() === registration.eventId ? 'Cancelling...' : 'Cancel' }}
+          </button>
+        </article>
+      }
+    </section>
+  }
+</main>

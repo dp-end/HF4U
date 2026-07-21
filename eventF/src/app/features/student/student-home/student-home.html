@@ -5,6 +5,12 @@
       <span>UniEvents</span>
     </div>
 
+    <nav class="student-nav" aria-label="Student navigation">
+      <button class="active" type="button">Feed</button>
+      <button type="button" (click)="openRegistrations()">My Registrations</button>
+      <button type="button" (click)="logout()">Logout</button>
+    </nav>
+
     <div class="feed-tools">
       <app-search-bar
         [value]="searchQuery()"
