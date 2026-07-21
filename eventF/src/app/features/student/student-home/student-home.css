@@ -1,5 +1,6 @@
 .student-page {
   height: 100vh;
+  height: 100svh;
   width: 100%;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
@@ -114,9 +115,12 @@ app-ui-state.state-screen {
 @media (max-width: 680px) {
   .feed-header {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 14px;
-    width: min(100%, 360px);
+    right: 0;
+    gap: 10px;
+    width: auto;
+    padding: 12px;
+    background: rgba(245, 251, 248, 0.86);
+    backdrop-filter: blur(14px);
   }
 
   .feed-tools {
@@ -128,13 +132,42 @@ app-ui-state.state-screen {
     font-size: 16px;
   }
 
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .student-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
   .feed-slide,
   app-ui-state.state-screen {
-    padding: 10px;
+    padding: 136px 10px 10px;
   }
 
   .feed-slide app-event-card {
     width: min(100%, 430px);
-    height: calc(100svh - 20px);
+    height: calc(100svh - 146px);
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 380px) {
+  .student-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .feed-slide,
+  app-ui-state.state-screen {
+    padding-top: 180px;
+  }
+
+  .feed-slide app-event-card {
+    height: calc(100svh - 190px);
+    min-height: 480px;
   }
 }

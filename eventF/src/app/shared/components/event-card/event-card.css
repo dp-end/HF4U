@@ -67,6 +67,7 @@
   margin: 0;
   font-size: 30px;
   line-height: 1.05;
+  overflow-wrap: anywhere;
 }
 
 .description {
@@ -88,24 +89,57 @@
   font-weight: 700;
 }
 
+.meta span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 680px) {
   .event-card {
     border-radius: 20px;
   }
 
   .event-content {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-    padding: 16px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 16px;
   }
 
   .event-content h2 {
-    font-size: 25px;
+    font-size: 23px;
   }
 
   .description {
     font-size: 14px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+@media (max-width: 380px) {
+  .event-card {
+    border-radius: 18px;
+  }
+
+  .event-content {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 12px;
+  }
+
+  .event-content h2 {
+    font-size: 21px;
+  }
+
+  .club-name,
+  .meta {
+    font-size: 12px;
   }
 }
 

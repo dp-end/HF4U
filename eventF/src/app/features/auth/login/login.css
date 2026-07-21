@@ -5,6 +5,7 @@
 
 .auth-page {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,8 +171,29 @@
 }
 
 @media (max-width: 680px) {
+  .auth-page {
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 18px 12px;
+  }
+
+  .brand {
+    align-self: flex-start;
+    margin-left: 4px;
+    font-size: 18px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 19px;
+  }
+
   .auth-card {
+    width: 100%;
     padding: 24px 18px;
+    border-radius: 16px;
   }
 
   .auth-header h1 {
@@ -186,5 +208,25 @@
 
   .role-tabs button {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-page {
+    padding: 14px 10px;
+  }
+
+  .auth-card {
+    gap: 13px;
+    padding: 20px 14px;
+  }
+
+  .role-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .legal,
+  .guest-link {
+    font-size: 12px;
   }
 }

@@ -160,7 +160,7 @@ app-ui-state.state-panel,
 
 @media (max-width: 760px) {
   .registrations-page {
-    padding: 14px;
+    padding: 12px;
   }
 
   .page-header,
@@ -176,17 +176,47 @@ app-ui-state.state-panel,
   .page-header {
     display: grid;
     align-items: start;
+    gap: 12px;
   }
 
   .header-actions {
-    justify-content: flex-start;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 6px;
+  }
+
+  .profile-strip {
+    margin-top: 22px;
+    padding-bottom: 14px;
   }
 
   .profile-strip h1 {
-    font-size: 26px;
+    font-size: 22px;
+    overflow-wrap: anywhere;
+  }
+
+  .registration-main {
+    gap: 8px;
+  }
+
+  .registration-main strong,
+  .registration-main span {
+    white-space: normal;
   }
 
   app-ui-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-strip {
+    align-items: flex-start;
   }
 }

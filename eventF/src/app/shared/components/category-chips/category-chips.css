@@ -96,4 +96,8 @@
   .category-trigger {
     grid-template-columns: 1fr auto auto;
   }
+
+  .category-list {
+    width: 100%;
+  }
 }
