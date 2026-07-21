@@ -1,0 +1,18 @@
+.feedback-message {
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.feedback-message.success {
+  background: #dff8ec;
+  color: #00845f;
+}
+
+.feedback-message.error {
+  background: #ffe8e8;
+  color: #c93636;
+}

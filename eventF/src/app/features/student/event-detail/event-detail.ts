@@ -4,12 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { Event, EventStatus } from '../../../core/models/event';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { Badge } from '../../../shared/components/badge/badge';
+import { FeedbackMessage } from '../../../shared/components/feedback-message/feedback-message';
+import { UiButton } from '../../../shared/components/ui-button/ui-button';
+import { UiState } from '../../../shared/components/ui-state/ui-state';
 
 type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-event-detail',
-  imports: [],
+  imports: [Badge, FeedbackMessage, UiButton, UiState],
   templateUrl: './event-detail.html',
   styleUrl: './event-detail.css',
 })

@@ -4,12 +4,15 @@ import { Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
 import { MyRegistration } from '../../../core/models/my-registration';
+import { FeedbackMessage } from '../../../shared/components/feedback-message/feedback-message';
+import { UiButton } from '../../../shared/components/ui-button/ui-button';
+import { UiState } from '../../../shared/components/ui-state/ui-state';
 
 type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-student-registrations',
-  imports: [],
+  imports: [FeedbackMessage, UiButton, UiState],
   templateUrl: './student-registrations.html',
   styleUrl: './student-registrations.css',
 })

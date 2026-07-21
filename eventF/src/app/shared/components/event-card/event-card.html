@@ -11,7 +11,7 @@
 
   <div class="event-content">
     <div class="event-topline">
-      <span class="status">{{ statusLabel(event().eventStatus) }}</span>
+      <app-badge tone="success">{{ statusLabel(event().eventStatus) }}</app-badge>
       @if (event().clubName) {
         <span class="club-name">{{ event().clubName }}</span>
       }
@@ -29,9 +29,9 @@
       <span>{{ event().availableSpots }} kontenjan kaldı</span>
     </div>
 
-    <button class="register-button" type="button" (click)="$event.stopPropagation(); register()">
+    <app-ui-button variant="primary" (click)="$event.stopPropagation(); register()">
       Kayıt Ol
-    </button>
+    </app-ui-button>
 
   </div>
 </article>

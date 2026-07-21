@@ -6,9 +6,9 @@
     </button>
 
     <nav class="header-actions" aria-label="Öğrenci menüsü">
-      <button type="button" (click)="goToFeed()">Akış</button>
-      <button class="active" type="button">Kayıtlarım</button>
-      <button type="button" (click)="logout()">Çıkış Yap</button>
+      <app-ui-button (click)="goToFeed()">Akış</app-ui-button>
+      <app-ui-button variant="primary">Kayıtlarım</app-ui-button>
+      <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
     </nav>
   </header>
 
@@ -24,25 +24,20 @@
   </section>
 
   @if (feedbackMessage()) {
-    <p class="feedback" [class.success]="feedbackType() === 'success'" [class.error]="feedbackType() === 'error'">
+    <app-feedback-message class="page-feedback" [tone]="feedbackType()">
       {{ feedbackMessage() }}
-    </p>
+    </app-feedback-message>
   }
 
   @if (isLoading()) {
-    <section class="state-panel">
-      <p>Kayıtların yükleniyor...</p>
-    </section>
+    <app-ui-state class="state-panel">Kayıtların yükleniyor...</app-ui-state>
   } @else if (errorMessage()) {
-    <section class="state-panel">
-      <p class="error">{{ errorMessage() }}</p>
-    </section>
+    <app-ui-state class="state-panel" tone="error">{{ errorMessage() }}</app-ui-state>
   } @else if (registrations().length === 0) {
-    <section class="state-panel">
-      <h2>Henüz kaydın yok</h2>
-      <p>Kayıt olduğun etkinlikler burada görünecek.</p>
-      <button type="button" (click)="goToFeed()">Etkinlikleri Keşfet</button>
-    </section>
+    <app-ui-state class="state-panel" title="Henüz kaydın yok">
+      Kayıt olduğun etkinlikler burada görünecek.
+      <app-ui-button variant="primary" (click)="goToFeed()">Etkinlikleri Keşfet</app-ui-button>
+    </app-ui-state>
   } @else {
     <section class="registrations-list" aria-label="Kayıt olunan etkinlikler">
       @for (registration of registrations(); track registration.eventId) {
@@ -53,14 +48,13 @@
             <span>{{ registration.location }}</span>
           </button>
 
-          <button
-            class="cancel-button"
-            type="button"
+          <app-ui-button
+            variant="danger"
             [disabled]="cancellingEventId() === registration.eventId"
             (click)="cancelRegistration(registration.eventId)"
           >
             {{ cancellingEventId() === registration.eventId ? 'İptal ediliyor...' : 'İptal Et' }}
-          </button>
+          </app-ui-button>
         </article>
       }
     </section>

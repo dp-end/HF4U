@@ -6,10 +6,12 @@ import { SearchBar } from '../../../shared/components/search-bar/search-bar';
 import { CategoryChips } from '../../../shared/components/category-chips/category-chips';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/AuthService/auth-service';
+import { UiButton } from '../../../shared/components/ui-button/ui-button';
+import { UiState } from '../../../shared/components/ui-state/ui-state';
 
 @Component({
   selector: 'app-student-home',
-  imports: [EventCard, SearchBar,CategoryChips],
+  imports: [EventCard, SearchBar, CategoryChips, UiButton, UiState],
   templateUrl: './student-home.html',
   styleUrl: './student-home.css',
 })

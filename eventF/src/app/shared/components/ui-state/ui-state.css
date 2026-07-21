@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.ui-state {
+  min-height: inherit;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  color: #657a70;
+  text-align: center;
+  font-weight: 700;
+}
+
+.ui-state h2,
+.ui-state-content {
+  margin: 0;
+}
+
+.ui-state h2 {
+  color: #183328;
+  font-size: 28px;
+}
+
+.ui-state-content {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+}
+
+.ui-state.error {
+  color: #c93636;
+}

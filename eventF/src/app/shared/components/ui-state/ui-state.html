@@ -1,0 +1,9 @@
+<section class="ui-state" [class.error]="tone() === 'error'">
+  @if (title()) {
+    <h2>{{ title() }}</h2>
+  }
+
+  <div class="ui-state-content">
+    <ng-content />
+  </div>
+</section>

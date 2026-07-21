@@ -1,0 +1,7 @@
+<p
+  class="feedback-message"
+  [class.success]="tone() === 'success'"
+  [class.error]="tone() === 'error'"
+>
+  <ng-content />
+</p>

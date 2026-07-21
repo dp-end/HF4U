@@ -13,8 +13,10 @@ describe('CategoryChips', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(CategoryChips);
+    fixture.componentRef.setInput('categories', ['Tümü', 'Teknoloji']);
+    fixture.componentRef.setInput('selectedCategory', 'Tümü');
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

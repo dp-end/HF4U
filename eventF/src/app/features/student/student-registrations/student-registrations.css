@@ -15,10 +15,7 @@
 }
 
 .brand,
-.header-actions button,
-.state-panel button,
-.registration-main,
-.cancel-button {
+.registration-main {
   font: inherit;
 }
 
@@ -51,24 +48,6 @@
   gap: 8px;
 }
 
-.header-actions button,
-.state-panel button {
-  border: 1px solid #c7efdc;
-  border-radius: 10px;
-  padding: 9px 11px;
-  background: #ffffff;
-  color: #183328;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.header-actions button.active,
-.state-panel button {
-  background: #08bd82;
-  color: #ffffff;
-}
-
 .profile-strip {
   width: min(100%, 1080px);
   margin: 32px auto 10px;
@@ -92,9 +71,7 @@
 }
 
 .profile-strip p,
-.profile-strip h1,
-.state-panel p,
-.state-panel h2 {
+.profile-strip h1 {
   margin: 0;
 }
 
@@ -110,51 +87,17 @@
   line-height: 1.1;
 }
 
-.feedback,
-.state-panel,
+.page-feedback,
+app-ui-state.state-panel,
 .registrations-list {
   width: min(100%, 1080px);
   margin-left: auto;
   margin-right: auto;
 }
 
-.feedback {
-  box-sizing: border-box;
+.page-feedback {
+  display: block;
   margin-top: 12px;
-  border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.feedback.success {
-  background: #dff8ec;
-  color: #00845f;
-}
-
-.feedback.error {
-  background: #ffe8e8;
-  color: #c93636;
-}
-
-.state-panel {
-  min-height: 360px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 12px;
-  color: #657a70;
-  text-align: center;
-  font-weight: 700;
-}
-
-.state-panel h2 {
-  color: #183328;
-  font-size: 28px;
-}
-
-.error {
-  color: #c93636;
 }
 
 .registrations-list {
@@ -215,26 +158,6 @@
   font-size: 12px;
 }
 
-.cancel-button {
-  border: 1px solid #c7efdc;
-  border-radius: 10px;
-  padding: 9px 11px;
-  background: #ffffff;
-  color: #183328;
-  font-size: 13px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.cancel-button:hover {
-  color: #c93636;
-}
-
-.cancel-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.62;
-}
-
 @media (max-width: 760px) {
   .registrations-page {
     padding: 14px;
@@ -263,7 +186,7 @@
     font-size: 26px;
   }
 
-  .cancel-button {
+  app-ui-button {
     width: 100%;
   }
 }

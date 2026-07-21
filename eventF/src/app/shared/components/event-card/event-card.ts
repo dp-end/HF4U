@@ -1,9 +1,11 @@
 import { Component,input ,output} from '@angular/core';
 import { Event, EventStatus } from '../../../core/models/event';
+import { Badge } from '../badge/badge';
+import { UiButton } from '../ui-button/ui-button';
 
 @Component({
   selector: 'app-event-card',
-  imports: [],
+  imports: [Badge, UiButton],
   templateUrl: './event-card.html',
   styleUrl: './event-card.css',
 })

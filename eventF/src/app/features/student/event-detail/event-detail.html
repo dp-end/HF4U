@@ -1,24 +1,18 @@
 <main class="detail-page">
   <header class="detail-header">
-    <button class="back-button" type="button" (click)="goBack()">
-      Geri
-    </button>
+    <app-ui-button (click)="goBack()">Geri</app-ui-button>
 
     <nav class="detail-nav" aria-label="Öğrenci menüsü">
-      <button type="button" (click)="goBack()">Akış</button>
-      <button type="button" (click)="openRegistrations()">Kayıtlarım</button>
-      <button type="button" (click)="logout()">Çıkış Yap</button>
+      <app-ui-button (click)="goBack()">Akış</app-ui-button>
+      <app-ui-button (click)="openRegistrations()">Kayıtlarım</app-ui-button>
+      <app-ui-button (click)="logout()">Çıkış Yap</app-ui-button>
     </nav>
   </header>
 
   @if (isLoading()) {
-    <section class="state-screen">
-      <p>Etkinlik yükleniyor...</p>
-    </section>
+    <app-ui-state class="state-screen">Etkinlik yükleniyor...</app-ui-state>
   } @else if (errorMessage()) {
-    <section class="state-screen">
-      <p class="error">{{ errorMessage() }}</p>
-    </section>
+    <app-ui-state class="state-screen" tone="error">{{ errorMessage() }}</app-ui-state>
   } @else if (event()) {
     <article class="detail-card">
       <section class="cover">
@@ -33,10 +27,10 @@
 
       <section class="content">
         <div class="topline">
-          <span class="status">{{ statusLabel(event()!.eventStatus) }}</span>
+          <app-badge tone="success">{{ statusLabel(event()!.eventStatus) }}</app-badge>
 
           @if (event()!.category) {
-            <span class="category">{{ categoryLabel(event()!.category) }}</span>
+            <app-badge>{{ categoryLabel(event()!.category) }}</app-badge>
           }
         </div>
 
@@ -72,18 +66,17 @@
           </div>
         </div>
         @if (feedbackMessage()) {
-          <p class="feedback" [class.success]="feedbackType() === 'success'" [class.error]="feedbackType() === 'error'">
+          <app-feedback-message [tone]="feedbackType()">
             {{ feedbackMessage() }}
-          </p>
+          </app-feedback-message>
         }
-        <button
-          class="register-button"
-          type="button"
+        <app-ui-button
+          variant="primary"
           [disabled]="!canRegister()"
           (click)="registerToEvent()"
         >
           {{ registerButtonLabel() }}
-        </button>
+        </app-ui-button>
       </section>
     </article>
   }
