@@ -89,6 +89,21 @@ export class StudentRegistrations implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  formatEventDate(value: string): string {
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return value;
+    }
+
+    return new Intl.DateTimeFormat('tr-TR', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date);
+  }
+
   private getErrorMessage(error: HttpErrorResponse): string {
     const responseBody = error.error as { message?: string } | null;
 

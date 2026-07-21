@@ -48,7 +48,7 @@
       @for (registration of registrations(); track registration.eventId) {
         <article class="registration-card">
           <button class="registration-main" type="button" (click)="openEvent(registration.eventId)">
-            <span class="date-pill">{{ registration.eventDate }}</span>
+            <span class="date-pill">{{ formatEventDate(registration.eventDate) }}</span>
             <strong>{{ registration.title }}</strong>
             <span>{{ registration.location }}</span>
           </button>
