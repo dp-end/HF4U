@@ -1,7 +1,10 @@
-import { Component ,signal} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { Event } from '../../../core/models/event';
+
+type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-event-detail',
@@ -9,29 +12,62 @@ import { Event } from '../../../core/models/event';
   templateUrl: './event-detail.html',
   styleUrl: './event-detail.css',
 })
-export class EventDetail {
-  event=signal<Event | null>(null);
+export class EventDetail implements OnInit {
+  event = signal<Event | null>(null);
   isLoading = signal<boolean>(false);
+  isRegistering = signal<boolean>(false);
+  isRegistered = signal<boolean>(false);
   errorMessage = signal<string>('');
+  feedbackMessage = signal<string>('');
+  feedbackType = signal<FeedbackType>('success');
+
+  canRegister = computed(() => {
+    const currentEvent = this.event();
+
+    return (
+      !!currentEvent &&
+      currentEvent.eventStatus === 'APPROVED' &&
+      currentEvent.availableSpots > 0 &&
+      !this.isRegistered() &&
+      !this.isRegistering()
+    );
+  });
+
+  registerButtonLabel = computed(() => {
+    if (this.isRegistering()) {
+      return 'Registering...';
+    }
+
+    if (this.isRegistered()) {
+      return 'Already Registered';
+    }
+
+    if (this.event()?.availableSpots === 0) {
+      return 'Event Full';
+    }
+
+    return 'Register';
+  });
 
   constructor(
     private route: ActivatedRoute,
-    private router : Router,
-    private eventService: EventService
-  ){}
+    private router: Router,
+    private eventService: EventService,
+  ) {}
 
-  ngOnInit():void {
-    const eventId = Number (this.route.snapshot.paramMap.get('id'));
+  ngOnInit(): void {
+    const eventId = Number(this.route.snapshot.paramMap.get('id'));
 
-    if(!eventId){
-      this.errorMessage.set('Event not found');
+    if (!eventId) {
+      this.errorMessage.set('Event not found.');
       return;
     }
 
     this.loadEvent(eventId);
+    this.checkRegistrationState(eventId);
   }
 
-  loadEvent(eventId:number): void {
+  loadEvent(eventId: number): void {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
@@ -40,32 +76,67 @@ export class EventDetail {
         this.event.set(response.data);
         this.isLoading.set(false);
       },
-      error:() => {
+      error: () => {
         this.errorMessage.set('Event could not be loaded.');
         this.isLoading.set(false);
       },
     });
   }
 
-  goBack():void {
-    this.router.navigate(['/student']);
-  }
+  checkRegistrationState(eventId: number): void {
+    this.eventService.getMyRegistrations().subscribe({
+      next: (response) => {
+        const alreadyRegistered = response.data.some(
+          (registration) => registration.eventId === eventId,
+        );
 
-  registerToEvent():void {
-    const currentEvent = this.event();
-
-    if(!currentEvent){
-      return;
-    }
-
-    this.eventService.registerToEvent(currentEvent.id).subscribe({
-      next:()=> {
-        this.loadEvent(currentEvent.id);
+        this.isRegistered.set(alreadyRegistered);
       },
-      error:() => {
-        this.errorMessage.set('Registration failed.');
+      error: () => {
+        this.isRegistered.set(false);
       },
     });
   }
 
+  goBack(): void {
+    this.router.navigate(['/student']);
+  }
+
+  registerToEvent(): void {
+    const currentEvent = this.event();
+
+    if (!currentEvent || !this.canRegister()) {
+      return;
+    }
+
+    this.isRegistering.set(true);
+    this.feedbackMessage.set('');
+
+    this.eventService.registerToEvent(currentEvent.id).subscribe({
+      next: () => {
+        this.isRegistered.set(true);
+        this.feedbackType.set('success');
+        this.feedbackMessage.set('Registration completed successfully.');
+        this.isRegistering.set(false);
+        this.loadEvent(currentEvent.id);
+      },
+      error: (error: HttpErrorResponse) => {
+        const message = this.getErrorMessage(error);
+
+        if (message.toLowerCase().includes('already registered')) {
+          this.isRegistered.set(true);
+        }
+
+        this.feedbackType.set('error');
+        this.feedbackMessage.set(message);
+        this.isRegistering.set(false);
+      },
+    });
+  }
+
+  private getErrorMessage(error: HttpErrorResponse): string {
+    const responseBody = error.error as { message?: string } | null;
+
+    return responseBody?.message ?? 'Registration failed.';
+  }
 }

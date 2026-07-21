@@ -63,9 +63,18 @@
             <strong>{{ event()!.availableSpots }}</strong>
           </div>
         </div>
-
-        <button class="register-button" type="button" (click)="registerToEvent()">
-          Register
+        @if (feedbackMessage()) {
+          <p class="feedback" [class.success]="feedbackType() === 'success'" [class.error]="feedbackType() === 'error'">
+            {{ feedbackMessage() }}
+          </p>
+        }
+        <button
+          class="register-button"
+          type="button"
+          [disabled]="!canRegister()"
+          (click)="registerToEvent()"
+        >
+          {{ registerButtonLabel() }}
         </button>
       </section>
     </article>
