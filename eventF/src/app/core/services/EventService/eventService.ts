@@ -41,7 +41,7 @@ export class EventService {
   }
 
   getMyEvents():Observable<ApiResponse<Event[]>>{
-    return this.http.get<ApiResponse<Event[]>>(`${this.apiUrl}/pending`);
+    return this.http.get<ApiResponse<Event[]>>(`${this.apiUrl}/my-events`);
   }
 
   approveEvent(id:number):Observable<ApiResponse<Event>>{
