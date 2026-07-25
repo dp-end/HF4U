@@ -1,7 +1,9 @@
 package com.example.event.Dto.Event;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.example.event.Entity.EventStatus;
+import com.example.event.Dto.EventMedia.EventMediaResponseDTO;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -28,4 +30,5 @@ public class EventResponseDTO {
     private String clubName;
     private long registeredCount;
     private long availableSpots;
+    private List<EventMediaResponseDTO> media;
 }

@@ -1,3 +1,5 @@
+import { EventMedia } from './event-media';
+
 export type EventStatus= 'PENDING' | 'APPROVED' | 'REJECTED';
 
 export interface Event {
@@ -14,4 +16,5 @@ export interface Event {
   clubName?:string;
   registeredCount:number;
   availableSpots: number;
+  media?: EventMedia[];
 }

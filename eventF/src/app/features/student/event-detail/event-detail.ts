@@ -3,8 +3,10 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { Event } from '../../../core/models/event';
+import { EventMedia } from '../../../core/models/event-media';
 import { Badge } from '../../../shared/components/badge/badge';
 import { EventStatusBadge } from '../../../shared/components/event-status-badge/event-status-badge';
+import { MediaCarousel } from '../../../shared/components/media-carousel/media-carousel';
 import { StudentNavbar } from '../../../shared/components/student-navbar/student-navbar';
 import { Toast } from '../../../shared/components/toast/toast';
 import { UiButton } from '../../../shared/components/ui-button/ui-button';
@@ -14,18 +16,41 @@ type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-event-detail',
-  imports: [Badge, EventStatusBadge, StudentNavbar, Toast, UiButton, UiState],
+  imports: [Badge, EventStatusBadge, MediaCarousel, StudentNavbar, Toast, UiButton, UiState],
   templateUrl: './event-detail.html',
   styleUrl: './event-detail.css',
 })
 export class EventDetail implements OnInit {
   event = signal<Event | null>(null);
+  media = signal<EventMedia[]>([]);
   isLoading = signal<boolean>(false);
   isRegistering = signal<boolean>(false);
   isRegistered = signal<boolean>(false);
   errorMessage = signal<string>('');
   feedbackMessage = signal<string>('');
   feedbackType = signal<FeedbackType>('success');
+  displayMedia = computed<EventMedia[]>(() => {
+    const currentMedia = this.media();
+    const currentEvent = this.event();
+
+    if (currentMedia.length > 0) {
+      return currentMedia;
+    }
+
+    if (!currentEvent?.coverImageUrl) {
+      return [];
+    }
+
+    return [
+      {
+        id: 0,
+        mediaUrl: currentEvent.coverImageUrl,
+        mediaType: 'IMAGE',
+        orderIndex: 0,
+        createdAt: currentEvent.createdAt,
+      },
+    ];
+  });
 
   canRegister = computed(() => {
     const currentEvent = this.event();
@@ -69,6 +94,7 @@ export class EventDetail implements OnInit {
     }
 
     this.loadEvent(eventId);
+    this.loadMedia(eventId);
     this.checkRegistrationState(eventId);
   }
 
@@ -84,6 +110,17 @@ export class EventDetail implements OnInit {
       error: () => {
         this.errorMessage.set('Etkinlik yüklenemedi.');
         this.isLoading.set(false);
+      },
+    });
+  }
+
+  loadMedia(eventId: number): void {
+    this.eventService.getEventMedia(eventId).subscribe({
+      next: (response) => {
+        this.media.set(response.data);
+      },
+      error: () => {
+        this.media.set([]);
       },
     });
   }

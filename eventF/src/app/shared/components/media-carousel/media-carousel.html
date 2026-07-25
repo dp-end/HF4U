@@ -1,0 +1,38 @@
+<section class="media-carousel">
+  @if (activeMedia()) {
+    <div class="media-frame">
+      @if (activeMedia()!.mediaType === 'IMAGE') {
+        <img [src]="activeMedia()!.mediaUrl" [alt]="fallbackTitle()" />
+      } @else {
+        <video [src]="activeMedia()!.mediaUrl" controls></video>
+      }
+
+      @if (media().length > 1) {
+        <button class="nav previous" type="button" aria-label="Önceki medya" (click)="previous()">
+          &lsaquo;
+        </button>
+        <button class="nav next" type="button" aria-label="Sonraki medya" (click)="next()">
+          &rsaquo;
+        </button>
+      }
+    </div>
+
+    @if (media().length > 1) {
+      <div class="thumbnail-strip" aria-label="Medya küçük görselleri">
+        @for (item of media(); track item.id; let index = $index) {
+          <button type="button" [class.active]="index === activeIndex()" (click)="select(index)">
+            @if (item.mediaType === 'IMAGE') {
+              <img [src]="item.mediaUrl" [alt]="fallbackTitle()" />
+            } @else {
+              <span>Video</span>
+            }
+          </button>
+        }
+      </div>
+    }
+  } @else {
+    <div class="media-placeholder">
+      {{ fallbackTitle().charAt(0) }}
+    </div>
+  }
+</section>

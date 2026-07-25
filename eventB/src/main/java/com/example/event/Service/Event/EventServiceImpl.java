@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
+import com.example.event.Dto.EventMedia.EventMediaResponseDTO;
 import com.example.event.Entity.Event;
+import com.example.event.Entity.EventMedia;
 import com.example.event.Entity.EventStatus;
 import com.example.event.Entity.Role;
 import com.example.event.Entity.User;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
 import com.example.event.Exception.miniExceptions.UnauthorizedEventAccessException;
+import com.example.event.Repository.EventMediaRepository;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
 
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final EventRegistrationRepository eventRegistrationRepository;
+    private final EventMediaRepository eventMediaRepository;
 
     @Override
     public EventResponseDTO createEvent(EventRequestDTO request) {
@@ -114,11 +118,25 @@ public class EventServiceImpl implements EventService {
         response.setCoverImageUrl(event.getCoverImageUrl());
         response.setRegisteredCount(registeredCount);
         response.setAvailableSpots(availableSpots);
+        response.setMedia(eventMediaRepository.findByEventOrderByOrderIndexAsc(event)
+        .stream()
+        .map(this::mapMediaToResponse)
+        .toList());
 
         if(event.getCreatedBy() != null){
             response.setClubName(event.getCreatedBy().getFullName());
         }
 
+        return response;
+    }
+
+    private EventMediaResponseDTO mapMediaToResponse(EventMedia media) {
+        EventMediaResponseDTO response = new EventMediaResponseDTO();
+        response.setId(media.getId());
+        response.setMediaUrl(media.getMediaUrl());
+        response.setMediaType(media.getMediaType());
+        response.setOrderIndex(media.getOrderIndex());
+        response.setCreatedAt(media.getCreatedAt());
         return response;
     }
 

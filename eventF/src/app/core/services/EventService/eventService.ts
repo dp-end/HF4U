@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ApiResponse } from '../../models/api-response';
 import { Event } from '../../models/event';
+import { EventMedia, EventMediaRequest } from '../../models/event-media';
 import { EventRequest } from '../../models/event-request';
 import { MyRegistration } from '../../models/my-registration';
 
@@ -50,5 +51,28 @@ export class EventService {
 
   rejectEvent(id:number):Observable<ApiResponse<Event>>{
     return this.http.put<ApiResponse<Event>>(`${this.apiUrl}/${id}/reject`,null);
+  }
+
+  getEventMedia(eventId: number): Observable<ApiResponse<EventMedia[]>> {
+    return this.http.get<ApiResponse<EventMedia[]>>(`${this.apiUrl}/${eventId}/media`);
+  }
+
+  addEventMedia(eventId: number, request: EventMediaRequest): Observable<ApiResponse<EventMedia>> {
+    return this.http.post<ApiResponse<EventMedia>>(`${this.apiUrl}/${eventId}/media`, request);
+  }
+
+  updateEventMedia(
+    eventId: number,
+    mediaId: number,
+    request: EventMediaRequest,
+  ): Observable<ApiResponse<EventMedia>> {
+    return this.http.put<ApiResponse<EventMedia>>(
+      `${this.apiUrl}/${eventId}/media/${mediaId}`,
+      request,
+    );
+  }
+
+  deleteEventMedia(eventId: number, mediaId: number): Observable<ApiResponse<string>> {
+    return this.http.delete<ApiResponse<string>>(`${this.apiUrl}/${eventId}/media/${mediaId}`);
   }
 }

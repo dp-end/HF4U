@@ -13,15 +13,7 @@
     <app-ui-state class="state-screen" tone="error">{{ errorMessage() }}</app-ui-state>
   } @else if (event()) {
     <article class="detail-card">
-      <section class="cover">
-        @if (event()!.coverImageUrl) {
-          <img [src]="event()!.coverImageUrl" [alt]="event()!.title" />
-        } @else {
-          <div class="cover-placeholder">
-            {{ event()!.title.charAt(0) }}
-          </div>
-        }
-      </section>
+      <app-media-carousel [media]="displayMedia()" [fallbackTitle]="event()!.title" />
 
       <section class="content">
         <div class="topline">

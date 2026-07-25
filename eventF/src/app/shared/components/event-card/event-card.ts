@@ -1,4 +1,4 @@
-import { Component,input ,output} from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Event } from '../../../core/models/event';
 import { EventStatusBadge } from '../event-status-badge/event-status-badge';
 import { UiButton } from '../ui-button/ui-button';
@@ -13,6 +13,12 @@ export class EventCard {
   event = input.required<Event>();
   registerClick = output<number>();
   detailClick = output<number>();
+  coverUrl = computed(() => {
+    const currentEvent = this.event();
+    const firstImageMedia = currentEvent.media?.find((media) => media.mediaType === 'IMAGE');
+
+    return currentEvent.coverImageUrl || firstImageMedia?.mediaUrl || '';
+  });
 
   register():void {
     this.registerClick.emit(this.event().id);
