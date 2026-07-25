@@ -11,12 +11,22 @@ import { Toast } from '../../../shared/components/toast/toast';
 import { UiButton } from '../../../shared/components/ui-button/ui-button';
 import { UiState } from '../../../shared/components/ui-state/ui-state';
 import { ClubEventForm } from '../club-event-form/club-event-form';
+import { ClubMediaManager } from '../club-media-manager/club-media-manager';
 
 type FeedbackType = 'success' | 'error';
 
 @Component({
   selector: 'app-club-home',
-  imports: [Badge, ClubEventForm, ClubNavbar, EventStatusBadge, Toast, UiButton, UiState],
+  imports: [
+    Badge,
+    ClubEventForm,
+    ClubMediaManager,
+    ClubNavbar,
+    EventStatusBadge,
+    Toast,
+    UiButton,
+    UiState,
+  ],
   templateUrl: './club-home.html',
   styleUrl: './club-home.css',
 })

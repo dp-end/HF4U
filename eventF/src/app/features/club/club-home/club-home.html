@@ -50,6 +50,10 @@
       (saved)="saveEvent($event)"
       (cancelled)="closeForm()"
     />
+
+    @if (selectedEvent()) {
+      <app-club-media-manager [eventId]="selectedEvent()!.id" />
+    }
   }
 
   @if (isLoading()) {

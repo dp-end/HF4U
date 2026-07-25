@@ -1,0 +1,76 @@
+<section class="media-manager">
+  <app-toast
+    [message]="feedbackMessage()"
+    [tone]="feedbackType()"
+    (dismissed)="clearFeedback()"
+  />
+
+  <header>
+    <div>
+      <h2>Medya Galerisi</h2>
+      <p>Bu alan yalnızca kayıtlı etkinliklerde kullanılabilir.</p>
+    </div>
+  </header>
+
+  <form class="media-form" [formGroup]="mediaForm" (ngSubmit)="addMedia()">
+    <label>
+      <span>Medya tipi</span>
+      <select formControlName="mediaType">
+        <option value="IMAGE">Fotoğraf</option>
+        <option value="VIDEO">Video</option>
+      </select>
+    </label>
+
+    <label class="url-field">
+      <span>Medya URL</span>
+      <input type="url" formControlName="mediaUrl" />
+    </label>
+
+    <label>
+      <span>Sıra</span>
+      <input type="number" min="0" formControlName="orderIndex" />
+    </label>
+
+    <app-ui-button type="submit" variant="primary" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Ekleniyor...' : 'Medya Ekle' }}
+    </app-ui-button>
+  </form>
+
+  @if (isLoading()) {
+    <app-ui-state>Medya listesi yükleniyor...</app-ui-state>
+  } @else if (errorMessage()) {
+    <app-ui-state tone="error">{{ errorMessage() }}</app-ui-state>
+  } @else if (media().length === 0) {
+    <app-ui-state title="Medya yok">
+      Bu etkinliğe fotoğraf veya video URL'i ekleyebilirsin.
+    </app-ui-state>
+  } @else {
+    <div class="media-list">
+      @for (item of media(); track item.id) {
+        <article>
+          <div class="preview">
+            @if (item.mediaType === 'IMAGE') {
+              <img [src]="item.mediaUrl" alt="Etkinlik medyası" />
+            } @else {
+              <span>Video</span>
+            }
+          </div>
+
+          <div class="media-info">
+            <strong>{{ item.mediaType === 'IMAGE' ? 'Fotoğraf' : 'Video' }}</strong>
+            <span>{{ item.mediaUrl }}</span>
+            <small>Sıra: {{ item.orderIndex }}</small>
+          </div>
+
+          <app-ui-button
+            variant="danger"
+            [disabled]="deletingMediaId() === item.id"
+            (click)="deleteMedia(item)"
+          >
+            {{ deletingMediaId() === item.id ? 'Siliniyor...' : 'Sil' }}
+          </app-ui-button>
+        </article>
+      }
+    </div>
+  }
+</section>
