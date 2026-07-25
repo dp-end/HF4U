@@ -1,1 +1,130 @@
-<p>Kulüp paneli çalışıyor.</p>
+<main class="club-page">
+  <app-club-navbar />
+
+  <app-toast
+    [message]="feedbackMessage()"
+    [tone]="feedbackType()"
+    (dismissed)="clearFeedback()"
+  />
+
+  <section class="page-heading">
+    <div>
+      <p>Kulüp Paneli</p>
+      <h1>Etkinlik yönetimi</h1>
+    </div>
+
+    <app-ui-button variant="primary" (click)="openCreateForm()">Yeni Etkinlik</app-ui-button>
+  </section>
+
+  <section class="metrics" aria-label="Dashboard özeti">
+    <article>
+      <span>Toplam</span>
+      <strong>{{ totalEvents() }}</strong>
+    </article>
+
+    <article>
+      <span>Onay Bekleyen</span>
+      <strong>{{ pendingEvents() }}</strong>
+    </article>
+
+    <article>
+      <span>Onaylanan</span>
+      <strong>{{ approvedEvents() }}</strong>
+    </article>
+
+    <article>
+      <span>Reddedilen</span>
+      <strong>{{ rejectedEvents() }}</strong>
+    </article>
+
+    <article>
+      <span>Toplam Kayıt</span>
+      <strong>{{ totalRegistrations() }}</strong>
+    </article>
+  </section>
+
+  @if (isFormOpen()) {
+    <app-club-event-form
+      [event]="selectedEvent()"
+      [isSubmitting]="isSubmitting()"
+      (saved)="saveEvent($event)"
+      (cancelled)="closeForm()"
+    />
+  }
+
+  @if (isLoading()) {
+    <app-ui-state class="state-screen">Etkinlikler yükleniyor...</app-ui-state>
+  } @else if (errorMessage()) {
+    <app-ui-state class="state-screen" tone="error">{{ errorMessage() }}</app-ui-state>
+  } @else if (events().length === 0) {
+    <app-ui-state class="state-screen" title="Henüz etkinlik yok">
+      İlk etkinliğini oluşturarak kulüp akışını başlat.
+    </app-ui-state>
+  } @else {
+    <section class="event-list" aria-label="Etkinliklerim">
+      @for (event of events(); track event.id) {
+        <article class="event-row">
+          <div class="event-main">
+            <div class="event-title-line">
+              <h2>{{ event.title }}</h2>
+              <app-event-status-badge [status]="event.eventStatus" />
+            </div>
+
+            <p>{{ event.description }}</p>
+
+            <div class="event-meta">
+              <span>{{ formatEventDate(event.eventDate) }}</span>
+              <span>{{ event.location }}</span>
+              <app-badge>{{ categoryLabel(event.category) }}</app-badge>
+            </div>
+          </div>
+
+          <div class="event-numbers">
+            <div>
+              <span>Kayıtlı</span>
+              <strong>{{ event.registeredCount }}</strong>
+            </div>
+
+            <div>
+              <span>Kalan</span>
+              <strong>{{ event.availableSpots }}</strong>
+            </div>
+          </div>
+
+          <div class="event-actions">
+            <app-ui-button variant="secondary" (click)="openParticipants(event)">
+              Katılımcılar
+            </app-ui-button>
+            <app-ui-button variant="secondary" (click)="openEditForm(event)">Düzenle</app-ui-button>
+            <app-ui-button variant="danger" (click)="deleteEvent(event)">Sil</app-ui-button>
+          </div>
+        </article>
+      }
+    </section>
+  }
+
+  @if (isParticipantsOpen()) {
+    <section class="participants-panel" aria-label="Katılımcılar">
+      <header>
+        <div>
+          <span>Katılımcılar</span>
+          <h2>{{ participantEvent()?.title }}</h2>
+        </div>
+        <app-ui-button variant="secondary" (click)="closeParticipants()">Kapat</app-ui-button>
+      </header>
+
+      @if (participants().length === 0) {
+        <app-ui-state>Bu etkinlikte henüz katılımcı yok.</app-ui-state>
+      } @else {
+        <div class="participant-list">
+          @for (participant of participants(); track participant.id) {
+            <article>
+              <strong>{{ participant.fullName }}</strong>
+              <span>{{ participant.email }}</span>
+            </article>
+          }
+        </div>
+      }
+    </section>
+  }
+</main>

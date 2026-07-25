@@ -14,4 +14,6 @@ public interface EventMediaRepository extends JpaRepository<EventMedia, Long> {
     Optional<EventMedia> findByEventAndId(Event event, Long id);
 
     boolean existsByEventAndId(Event event, Long id);
+
+    void deleteByEvent(Event event);
 }

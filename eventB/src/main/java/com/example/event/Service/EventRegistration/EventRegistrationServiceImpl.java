@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import com.example.event.Entity.Event;
 import com.example.event.Entity.EventRegistration;
 import com.example.event.Entity.EventStatus;
+import com.example.event.Entity.Role;
 import com.example.event.Entity.User;
 import com.example.event.Exception.miniExceptions.AlreadyRegisteredException;
 import com.example.event.Exception.miniExceptions.EventCapacityFullException;
 import com.example.event.Exception.miniExceptions.ResourceNotFoundException;
+import com.example.event.Exception.miniExceptions.UnauthorizedEventAccessException;
 import com.example.event.Exception.miniExceptions.notAllowRegisterException;
 import com.example.event.Repository.EventRegistrationRepository;
 import com.example.event.Repository.EventRepository;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,6 +88,7 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     @Override
     public List<ParticipantResponseDTO> getEventParticipants(long eventId) {
         Event event =eventRepository.findById(eventId).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + eventId));
+        checkParticipantAccess(event);
         return eventRegistrationRepository.findByEvent(event).stream()
         .map(this::mapToParticipantResponse).toList();
     }
@@ -95,6 +99,18 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
         dto.setFullName(eventRegistration.getStudent().getFullName());
         dto.setEmail(eventRegistration.getStudent().getEmail());
         return dto;
+    }
+
+    private void checkParticipantAccess(Event event) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        boolean isAdmin = currentUser.getRole() == Role.ADMIN;
+        boolean isOwner = event.getCreatedBy() != null
+                && Objects.equals(event.getCreatedBy().getId(), currentUser.getId());
+
+        if (!isAdmin && !isOwner) {
+            throw new UnauthorizedEventAccessException("Sadece kendi etkinliğinin katılımcılarını görebilirsin");
+        }
     }
 
     @Override

@@ -1,0 +1,56 @@
+<form class="event-form" [formGroup]="eventForm" (ngSubmit)="submit()">
+  <header>
+    <h2>{{ event() ? 'Etkinliği Düzenle' : 'Yeni Etkinlik' }}</h2>
+    <p>Etkinlik kaydedildikten sonra onay sürecine alınır.</p>
+  </header>
+
+  <label>
+    <span>Başlık</span>
+    <input type="text" formControlName="title" />
+  </label>
+
+  <label>
+    <span>Açıklama</span>
+    <textarea rows="4" formControlName="description"></textarea>
+  </label>
+
+  <div class="form-grid">
+    <label>
+      <span>Konum</span>
+      <input type="text" formControlName="location" />
+    </label>
+
+    <label>
+      <span>Tarih</span>
+      <input type="datetime-local" formControlName="eventDate" />
+    </label>
+
+    <label>
+      <span>Kontenjan</span>
+      <input type="number" min="1" formControlName="capacity" />
+    </label>
+
+    <label>
+      <span>Kategori</span>
+      <select formControlName="category">
+        <option value="Technology">Teknoloji</option>
+        <option value="Art">Sanat</option>
+        <option value="Sport">Spor</option>
+        <option value="Career">Kariyer</option>
+        <option value="Social">Sosyal</option>
+      </select>
+    </label>
+  </div>
+
+  <label>
+    <span>Kapak görseli URL</span>
+    <input type="url" formControlName="coverImageUrl" />
+  </label>
+
+  <footer>
+    <app-ui-button type="button" variant="secondary" (click)="cancel()">Vazgeç</app-ui-button>
+    <app-ui-button type="submit" variant="primary" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Kaydediliyor...' : 'Kaydet' }}
+    </app-ui-button>
+  </footer>
+</form>

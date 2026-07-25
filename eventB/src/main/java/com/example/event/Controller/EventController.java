@@ -53,7 +53,7 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CLUB_MANAGER')")
     public ApiResponseDTO<String> deleteEvent(
             @PathVariable Long id) {
 

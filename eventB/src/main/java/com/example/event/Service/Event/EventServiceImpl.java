@@ -2,10 +2,12 @@ package com.example.event.Service.Event;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.event.Dto.Event.EventRequestDTO;
 import com.example.event.Dto.Event.EventResponseDTO;
@@ -65,15 +67,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventResponseDTO updateEvent(long id, EventRequestDTO request) {
         Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-        boolean isAdmin = currentUser.getRole() == Role.ADMIN;
-        boolean isOwner = event.getCreatedBy().getId()==(currentUser.getId());
+        checkManagePermission(event);
 
-        if(!isAdmin && !isOwner){
-            System.out.println("Update merhodu çalışıyor mu");
-            throw new UnauthorizedEventAccessException("Sadece kendi etkinliklerini yönetebilirsin");
-        }
         event.setTitle(request.getTitle());
         event.setDescription(request.getDescription());
         event.setLocation(request.getLocation());
@@ -89,12 +84,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(long id) {
-        
-    if (!eventRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id);
-        }
-        
+        Event event = eventRepository.findById(id)
+        .orElseThrow(()-> new ResourceNotFoundException("Etkinlik bulunamadı. Id: " + id));
+
+        checkManagePermission(event);
+        eventRegistrationRepository.deleteByEvent(event);
+        eventMediaRepository.deleteByEvent(event);
         eventRepository.deleteById(id);
     }
 
@@ -138,6 +135,18 @@ public class EventServiceImpl implements EventService {
         response.setOrderIndex(media.getOrderIndex());
         response.setCreatedAt(media.getCreatedAt());
         return response;
+    }
+
+    private void checkManagePermission(Event event) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        boolean isAdmin = currentUser.getRole() == Role.ADMIN;
+        boolean isOwner = event.getCreatedBy() != null
+                && Objects.equals(event.getCreatedBy().getId(), currentUser.getId());
+
+        if(!isAdmin && !isOwner){
+            throw new UnauthorizedEventAccessException("Sadece kendi etkinliklerini yönetebilirsin");
+        }
     }
 
     @Override

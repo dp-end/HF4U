@@ -7,6 +7,7 @@ import { Event } from '../../models/event';
 import { EventMedia, EventMediaRequest } from '../../models/event-media';
 import { EventRequest } from '../../models/event-request';
 import { MyRegistration } from '../../models/my-registration';
+import { Participant } from '../../models/participant';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,14 @@ export class EventService {
     return this.http.post<ApiResponse<Event>>(this.apiUrl,request);
   }
 
+  updateEvent(id: number, request: EventRequest): Observable<ApiResponse<Event>> {
+    return this.http.put<ApiResponse<Event>>(`${this.apiUrl}/${id}`, request);
+  }
+
+  deleteEvent(id: number): Observable<ApiResponse<string>> {
+    return this.http.delete<ApiResponse<string>>(`${this.apiUrl}/${id}`);
+  }
+
   registerToEvent(eventId:number):Observable<ApiResponse<string>>{
     return this.http.post<ApiResponse<string>>(`${this.apiUrl}/${eventId}/register`,null);
   }
@@ -43,6 +52,10 @@ export class EventService {
 
   getMyEvents():Observable<ApiResponse<Event[]>>{
     return this.http.get<ApiResponse<Event[]>>(`${this.apiUrl}/my-events`);
+  }
+
+  getEventParticipants(eventId: number): Observable<ApiResponse<Participant[]>> {
+    return this.http.get<ApiResponse<Participant[]>>(`${this.apiUrl}/${eventId}/participants`);
   }
 
   approveEvent(id:number):Observable<ApiResponse<Event>>{
