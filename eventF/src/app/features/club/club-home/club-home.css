@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: grid;
   align-content: start;
-  gap: 18px;
-  padding: 24px;
+  gap: 16px;
+  padding: 22px;
   background: #f5fbf8;
   color: #183328;
 }
@@ -25,6 +25,7 @@ app-ui-state.state-screen,
   align-items: end;
   justify-content: space-between;
   gap: 16px;
+  padding: 8px 2px 4px;
 }
 
 .page-heading p,
@@ -35,44 +36,49 @@ app-ui-state.state-screen,
 
 .page-heading p {
   color: #668575;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
+  text-transform: uppercase;
 }
 
 .page-heading h1 {
-  font-size: 34px;
+  font-size: 30px;
   line-height: 1.05;
 }
 
 .page-heading span {
   display: block;
-  margin-top: 8px;
+  margin-top: 7px;
   color: #657a70;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .metrics {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #d8eee4;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 28px rgba(6, 155, 112, 0.08);
 }
 
 .metrics article,
-.metrics button,
-.event-row,
-.participants-panel {
-  border: 1px solid #c7efdc;
-  border-radius: 18px;
+.metrics button {
+  border: 1px solid transparent;
+  border-radius: 12px;
   background: #ffffff;
-  box-shadow: 0 14px 32px rgba(6, 155, 112, 0.1);
 }
 
 .metrics article,
 .metrics button {
   display: grid;
-  gap: 8px;
-  padding: 16px;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  align-items: center;
+  padding: 12px;
 }
 
 .metrics button {
@@ -80,14 +86,20 @@ app-ui-state.state-screen,
   color: inherit;
   font: inherit;
   cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .metrics button.active {
   border-color: #08bd82;
-  background: #dff8ec;
+  background: #eefbf5;
+  box-shadow: inset 0 0 0 1px rgba(8, 189, 130, 0.12);
 }
 
 .metrics span,
+.metrics small,
 .event-numbers span,
 .participants-panel header span {
   color: #668575;
@@ -96,7 +108,16 @@ app-ui-state.state-screen,
 }
 
 .metrics strong {
-  font-size: 28px;
+  color: #183328;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.metrics small {
+  grid-column: 1 / -1;
+  color: #8aa296;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .event-list {
@@ -110,7 +131,7 @@ app-ui-state.state-screen,
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 auto;
+  margin: 4px auto -2px;
 }
 
 .list-heading h2 {
@@ -126,10 +147,14 @@ app-ui-state.state-screen,
 
 .event-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px 300px;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 150px 268px;
+  gap: 14px;
   align-items: center;
-  padding: 16px;
+  padding: 14px;
+  border: 1px solid #d8eee4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 22px rgba(6, 155, 112, 0.07);
 }
 
 .event-main {
@@ -152,7 +177,7 @@ app-ui-state.state-screen,
 }
 
 .event-title-line h2 {
-  font-size: 20px;
+  font-size: 18px;
   overflow-wrap: anywhere;
 }
 
@@ -160,7 +185,7 @@ app-ui-state.state-screen,
   display: -webkit-box;
   overflow: hidden;
   color: #657a70;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -173,26 +198,26 @@ app-ui-state.state-screen,
   align-items: center;
   gap: 8px;
   color: #52665d;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .event-numbers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .event-numbers div {
   display: grid;
   gap: 4px;
-  padding: 12px;
-  border-radius: 14px;
+  padding: 10px;
+  border-radius: 12px;
   background: #f5fbf8;
 }
 
 .event-numbers strong {
-  font-size: 22px;
+  font-size: 19px;
 }
 
 .event-actions {
@@ -205,6 +230,10 @@ app-ui-state.state-screen,
   display: grid;
   gap: 14px;
   padding: 16px;
+  border: 1px solid #d8eee4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 22px rgba(6, 155, 112, 0.07);
 }
 
 .participants-panel header {

@@ -1,11 +1,11 @@
 .event-form {
   display: grid;
-  gap: 16px;
-  padding: 18px;
-  border: 1px solid #c7efdc;
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 14px 32px rgba(6, 155, 112, 0.1);
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #d8eee4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 22px rgba(6, 155, 112, 0.07);
 }
 
 header {
@@ -20,7 +20,7 @@ p {
 
 h2 {
   color: #183328;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 p {
@@ -40,12 +40,19 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid #c7efdc;
+  border: 1px solid #d8eee4;
   border-radius: 12px;
   padding: 12px;
   background: #f5fbf8;
   color: #183328;
   font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(8, 189, 130, 0.22);
+  border-color: #08bd82;
 }
 
 textarea {

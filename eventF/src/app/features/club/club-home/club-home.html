@@ -9,9 +9,9 @@
 
   <section class="page-heading">
     <div>
-      <p>{{ clubName() }}</p>
+      <p>Kulüp Paneli</p>
       <h1>Etkinlik yönetimi</h1>
-      <span>Bu özet yalnızca kulübüne ait etkinlikleri gösterir.</span>
+      <span>{{ clubName() }} için etkinlikleri oluştur, düzenle ve onay durumlarını takip et.</span>
     </div>
 
     <app-ui-button variant="primary" (click)="openCreateForm()">Yeni Etkinlik</app-ui-button>
@@ -21,26 +21,31 @@
     <button type="button" [class.active]="activeFilter() === 'ALL'" (click)="setFilter('ALL')">
       <span>Toplam Etkinliğim</span>
       <strong>{{ totalEvents() }}</strong>
+      <small>Tüm kayıtların</small>
     </button>
 
     <button type="button" [class.active]="activeFilter() === 'PENDING'" (click)="setFilter('PENDING')">
       <span>Onay Bekleyen</span>
       <strong>{{ pendingEvents() }}</strong>
+      <small>İncelemede</small>
     </button>
 
     <button type="button" [class.active]="activeFilter() === 'APPROVED'" (click)="setFilter('APPROVED')">
       <span>Onaylanan</span>
       <strong>{{ approvedEvents() }}</strong>
+      <small>Akışta görünür</small>
     </button>
 
     <button type="button" [class.active]="activeFilter() === 'REJECTED'" (click)="setFilter('REJECTED')">
       <span>Reddedilen</span>
       <strong>{{ rejectedEvents() }}</strong>
+      <small>Yayınlanmaz</small>
     </button>
 
     <article>
       <span>Toplam Kayıt</span>
       <strong>{{ totalRegistrations() }}</strong>
+      <small>Katılımcı sayısı</small>
     </article>
   </section>
 
@@ -93,7 +98,7 @@
             </div>
           </div>
 
-          <div class="event-numbers">
+          <div class="event-numbers" aria-label="Etkinlik kayıt özeti">
             <div>
               <span>Kayıtlı</span>
               <strong>{{ event.registeredCount }}</strong>
@@ -106,7 +111,7 @@
           </div>
 
           <div class="event-actions">
-            <app-ui-button variant="secondary" (click)="openParticipants(event)">
+            <app-ui-button variant="ghost" (click)="openParticipants(event)">
               Katılımcılar
             </app-ui-button>
             <app-ui-button variant="secondary" (click)="openEditForm(event)">Düzenle</app-ui-button>
