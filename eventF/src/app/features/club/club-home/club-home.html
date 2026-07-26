@@ -83,6 +83,14 @@
     <section class="event-list" aria-label="Etkinliklerim">
       @for (event of filteredEvents(); track event.id) {
         <article class="event-row">
+          <div class="event-thumb">
+            @if (thumbnailUrl(event)) {
+              <img [src]="thumbnailUrl(event)" [alt]="event.title" />
+            } @else {
+              <span>{{ event.title.charAt(0) }}</span>
+            }
+          </div>
+
           <div class="event-main">
             <div class="event-title-line">
               <h2>{{ event.title }}</h2>
@@ -95,19 +103,20 @@
               <span>{{ formatEventDate(event.eventDate) }}</span>
               <span>{{ event.location }}</span>
               <app-badge>{{ categoryLabel(event.category) }}</app-badge>
+              <span class="media-chip">IMG {{ imageCount(event) }}</span>
+              <span class="media-chip">VID {{ videoCount(event) }}</span>
             </div>
           </div>
 
-          <div class="event-numbers" aria-label="Etkinlik kayıt özeti">
-            <div>
-              <span>Kayıtlı</span>
-              <strong>{{ event.registeredCount }}</strong>
+          <div class="capacity-meter" aria-label="Etkinlik kontenjan özeti">
+            <div class="capacity-topline">
+              <span>Katılım</span>
+              <strong>{{ event.registeredCount }} / {{ event.capacity }}</strong>
             </div>
-
-            <div>
-              <span>Kalan</span>
-              <strong>{{ event.availableSpots }}</strong>
+            <div class="capacity-track">
+              <span [style.width.%]="occupancyPercent(event)"></span>
             </div>
+            <small>{{ event.availableSpots }} kontenjan kaldı</small>
           </div>
 
           <div class="event-actions">

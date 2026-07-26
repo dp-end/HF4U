@@ -189,6 +189,28 @@ export class ClubHome implements OnInit {
     return labels[this.activeFilter()];
   }
 
+  occupancyPercent(event: Event): number {
+    if (event.capacity <= 0) {
+      return 0;
+    }
+
+    return Math.min(100, Math.round((event.registeredCount / event.capacity) * 100));
+  }
+
+  thumbnailUrl(event: Event): string {
+    const firstImageMedia = event.media?.find((media) => media.mediaType === 'IMAGE');
+
+    return event.coverImageUrl || firstImageMedia?.mediaUrl || '';
+  }
+
+  imageCount(event: Event): number {
+    return event.media?.filter((media) => media.mediaType === 'IMAGE').length ?? 0;
+  }
+
+  videoCount(event: Event): number {
+    return event.media?.filter((media) => media.mediaType === 'VIDEO').length ?? 0;
+  }
+
   categoryLabel(category?: string): string {
     const labels: Record<string, string> = {
       Technology: 'Teknoloji',
