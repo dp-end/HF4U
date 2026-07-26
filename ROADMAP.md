@@ -18,7 +18,7 @@ Mevcut durum:
 
 🟢 Kulüp dashboard MVP tamamlandı
 
-🟡 Admin paneli sıradaki öncelik
+🟢 Admin paneli MVP tamamlandı
 
 ---
 
@@ -134,10 +134,10 @@ Hedef:
 
 ### Admin
 
-- [ ] Dashboard
-- [ ] Onay bekleyen etkinlikler
-- [ ] Onaylama
-- [ ] Reddetme
+- [x] Dashboard
+- [x] Onay bekleyen etkinlikler
+- [x] Onaylama
+- [x] Reddetme
 - [ ] Etkinlik yönetimi
 
 ---
@@ -184,14 +184,14 @@ Etkinlikleri zengin medya içeriklerine dönüştürmek.
 
 Durum:
 
-🟡 Sprint 006 ile başlayacak
+🟡 Sprint 006 ilk MVP tamamlandı
 
 ## Sprint 006 — Admin Dashboard ve Etkinlik Onayı
 
-- [ ] Admin dashboard
-- [ ] Pending events
-- [ ] Approve
-- [ ] Reject
+- [x] Admin dashboard
+- [x] Pending events
+- [x] Approve
+- [x] Reject
 - [ ] Event management
 
 ---

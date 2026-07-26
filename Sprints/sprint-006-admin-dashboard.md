@@ -46,9 +46,9 @@ DELETE /api/events/{id}
 
 ## Kontrol Edilecekler
 
-- [ ] Admin dashboard endpoint'i doğru sayıları dönüyor mu?
-- [ ] Admin yalnızca `ADMIN` rolüyle erişebiliyor mu?
-- [ ] Pending listesi yalnızca onay bekleyenleri gösteriyor mu?
+- [x] Admin dashboard endpoint'i doğru sayıları dönüyor mu?
+- [x] Admin yalnızca `ADMIN` rolüyle erişebiliyor mu?
+- [x] Pending listesi yalnızca onay bekleyenleri gösteriyor mu?
 - [ ] Approve sonrası etkinlik öğrenci akışında görünür oluyor mu?
 - [ ] Reject sonrası etkinlik öğrenci akışından gizli kalıyor mu?
 
@@ -58,35 +58,35 @@ DELETE /api/events/{id}
 
 ## Admin Home
 
-- [ ] Placeholder kaldır
-- [ ] Admin navbar oluştur
-- [ ] Dashboard metrikleri göster
-- [ ] Pending events listesi oluştur
-- [ ] Loading state
-- [ ] Error state
-- [ ] Empty state
+- [x] Placeholder kaldır
+- [x] Admin navbar oluştur
+- [x] Dashboard metrikleri göster
+- [x] Pending events listesi oluştur
+- [x] Loading state
+- [x] Error state
+- [x] Empty state
 
 ## Event Review
 
 Her pending event için:
 
-- [ ] Kapak/medya önizleme
-- [ ] Başlık
-- [ ] Açıklama
-- [ ] Kulüp adı
-- [ ] Tarih
-- [ ] Konum
-- [ ] Kontenjan
-- [ ] Kategori
-- [ ] Onayla butonu
-- [ ] Reddet butonu
+- [x] Kapak/medya önizleme
+- [x] Başlık
+- [x] Açıklama
+- [x] Kulüp adı
+- [x] Tarih
+- [x] Konum
+- [x] Kontenjan
+- [x] Kategori
+- [x] Onayla butonu
+- [x] Reddet butonu
 
 ## Etkinlik Yönetimi
 
 - [ ] Tüm etkinlikleri status bazlı görebilme
 - [ ] Onaylanan etkinlikler
 - [ ] Reddedilen etkinlikler
-- [ ] Silme işlemi
+- [x] Silme işlemi
 - [ ] Filtreler
 
 ---

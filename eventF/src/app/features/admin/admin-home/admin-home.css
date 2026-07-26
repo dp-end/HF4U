@@ -1,0 +1,267 @@
+.admin-page {
+  min-height: 100vh;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 22px;
+  background: #f5fbf8;
+  color: #183328;
+}
+
+app-admin-navbar,
+.page-heading,
+.metrics,
+.list-heading,
+.review-list,
+app-ui-state.state-screen {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.page-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 2px 4px;
+}
+
+.page-heading p,
+.page-heading h1,
+.page-heading span {
+  margin: 0;
+}
+
+.page-heading p {
+  color: #668575;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.page-heading h1 {
+  font-size: 30px;
+  line-height: 1.05;
+}
+
+.page-heading span {
+  display: block;
+  margin-top: 7px;
+  color: #657a70;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #d8eee4;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 28px rgba(6, 155, 112, 0.08);
+}
+
+.metrics article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.metrics article.active {
+  border-color: #08bd82;
+  background: #eefbf5;
+  box-shadow: inset 0 0 0 1px rgba(8, 189, 130, 0.12);
+}
+
+.metrics span,
+.capacity-meter span {
+  color: #668575;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.metrics strong {
+  color: #183328;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px auto -2px;
+}
+
+.list-heading h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.list-heading span {
+  color: #668575;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.review-list {
+  display: grid;
+  gap: 12px;
+}
+
+.review-card {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr) 190px 250px;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid #d8eee4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 22px rgba(6, 155, 112, 0.07);
+}
+
+.event-thumb {
+  width: 86px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #dff8ec;
+  color: rgba(6, 155, 112, 0.55);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.event-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-main {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.event-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.event-title-line h2,
+.event-main p {
+  margin: 0;
+}
+
+.event-title-line h2 {
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.event-main p {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #657a70;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #52665d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.capacity-meter {
+  display: grid;
+  gap: 7px;
+}
+
+.capacity-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.capacity-topline strong {
+  font-size: 14px;
+}
+
+.capacity-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8f5ef;
+}
+
+.capacity-track span {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #08bd82, #00966d);
+}
+
+.capacity-meter small {
+  color: #8aa296;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.review-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 1080px) {
+  .metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .review-card {
+    grid-template-columns: 86px minmax(0, 1fr);
+  }
+
+  .capacity-meter,
+  .review-actions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-page {
+    padding: 12px;
+  }
+
+  .metrics,
+  .review-card,
+  .review-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .event-thumb {
+    width: 100%;
+    height: 180px;
+  }
+}

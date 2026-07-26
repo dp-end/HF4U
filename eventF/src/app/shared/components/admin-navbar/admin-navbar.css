@@ -1,0 +1,52 @@
+.admin-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px;
+  border: 1px solid #d8eee4;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 28px rgba(6, 155, 112, 0.08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  color: #183328;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #08bd82;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(8, 189, 130, 0.24);
+}
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 620px) {
+  .admin-navbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

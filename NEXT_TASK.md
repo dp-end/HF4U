@@ -82,7 +82,11 @@ Admin panelini gerçek bir kalite kontrol ve etkinlik onay merkezine dönüştü
 
 ✅ Katılımcı görüntüleme
 
-⚠️ Admin paneli placeholder durumunda
+✅ Admin dashboard ilk MVP
+
+✅ Onay bekleyen etkinlik listesi
+
+✅ Admin onay/red/silme aksiyonları
 
 ---
 
@@ -94,6 +98,8 @@ Hedef:
 
 Admin'in onay bekleyen etkinlikleri yönetebilmesi.
 
+İlk uygulama tamamlandı. Kalan iş, admin tarafında tüm etkinlikleri durum bazlı görebilme ve filtreleme ekranını eklemek.
+
 ---
 
 # Sprint 006 Görevleri
@@ -102,12 +108,12 @@ Admin'in onay bekleyen etkinlikleri yönetebilmesi.
 
 Öncelik: En yüksek
 
-- [ ] Admin placeholder ekranını kaldır
-- [ ] Admin navbar oluştur
-- [ ] Dashboard metriklerini göster
-- [ ] Loading state
-- [ ] Error state
-- [ ] Empty state
+- [x] Admin placeholder ekranını kaldır
+- [x] Admin navbar oluştur
+- [x] Dashboard metriklerini göster
+- [x] Loading state
+- [x] Error state
+- [x] Empty state
 
 ---
 
@@ -121,15 +127,15 @@ GET /api/events/pending
 
 Gösterilecekler:
 
-- [ ] Kapak/medya önizleme
-- [ ] Başlık
-- [ ] Açıklama
-- [ ] Kulüp adı
-- [ ] Tarih
-- [ ] Konum
-- [ ] Kontenjan
-- [ ] Kategori
-- [ ] Durum badge'i
+- [x] Kapak/medya önizleme
+- [x] Başlık
+- [x] Açıklama
+- [x] Kulüp adı
+- [x] Tarih
+- [x] Konum
+- [x] Kontenjan
+- [x] Kategori
+- [x] Durum badge'i
 
 ---
 
@@ -145,11 +151,11 @@ PUT /api/events/{id}/reject
 
 Gereksinimler:
 
-- [ ] Onayla butonu
-- [ ] Reddet butonu
-- [ ] Success feedback
-- [ ] Error feedback
-- [ ] Aksiyon sonrası listeyi güncelle
+- [x] Onayla butonu
+- [x] Reddet butonu
+- [x] Success feedback
+- [x] Error feedback
+- [x] Aksiyon sonrası listeyi güncelle
 
 ---
 
@@ -160,7 +166,7 @@ Gereksinimler:
 - [ ] Tüm etkinlikleri status bazlı görme
 - [ ] Onaylanan etkinlikler
 - [ ] Reddedilen etkinlikler
-- [ ] Silme işlemi
+- [x] Silme işlemi
 - [ ] Filtreler
 
 ---
@@ -174,11 +180,11 @@ Kullanılacaklar:
 - [x] app-event-status-badge
 - [x] app-ui-state
 - [x] app-toast
-- [x] app-media-carousel
+- [ ] app-media-carousel
 
 Gerekirse eklenecekler:
 
-- [ ] Admin navbar
+- [x] Admin navbar
 - [ ] Confirm dialog
 - [ ] Review panel
 
