@@ -9,33 +9,34 @@
 
   <section class="page-heading">
     <div>
-      <p>Kulüp Paneli</p>
+      <p>{{ clubName() }}</p>
       <h1>Etkinlik yönetimi</h1>
+      <span>Bu özet yalnızca kulübüne ait etkinlikleri gösterir.</span>
     </div>
 
     <app-ui-button variant="primary" (click)="openCreateForm()">Yeni Etkinlik</app-ui-button>
   </section>
 
   <section class="metrics" aria-label="Dashboard özeti">
-    <article>
-      <span>Toplam</span>
+    <button type="button" [class.active]="activeFilter() === 'ALL'" (click)="setFilter('ALL')">
+      <span>Toplam Etkinliğim</span>
       <strong>{{ totalEvents() }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button type="button" [class.active]="activeFilter() === 'PENDING'" (click)="setFilter('PENDING')">
       <span>Onay Bekleyen</span>
       <strong>{{ pendingEvents() }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button type="button" [class.active]="activeFilter() === 'APPROVED'" (click)="setFilter('APPROVED')">
       <span>Onaylanan</span>
       <strong>{{ approvedEvents() }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button type="button" [class.active]="activeFilter() === 'REJECTED'" (click)="setFilter('REJECTED')">
       <span>Reddedilen</span>
       <strong>{{ rejectedEvents() }}</strong>
-    </article>
+    </button>
 
     <article>
       <span>Toplam Kayıt</span>
@@ -64,9 +65,18 @@
     <app-ui-state class="state-screen" title="Henüz etkinlik yok">
       İlk etkinliğini oluşturarak kulüp akışını başlat.
     </app-ui-state>
+  } @else if (filteredEvents().length === 0) {
+    <app-ui-state class="state-screen" title="Bu durumda etkinlik yok">
+      {{ activeFilterLabel() }} için kayıt bulunamadı.
+    </app-ui-state>
   } @else {
+    <section class="list-heading">
+      <h2>{{ activeFilterLabel() }}</h2>
+      <span>{{ filteredEvents().length }} etkinlik</span>
+    </section>
+
     <section class="event-list" aria-label="Etkinliklerim">
-      @for (event of events(); track event.id) {
+      @for (event of filteredEvents(); track event.id) {
         <article class="event-row">
           <div class="event-main">
             <div class="event-title-line">

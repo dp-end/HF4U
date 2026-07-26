@@ -3,6 +3,7 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { Event } from '../../../core/models/event';
 import { EventRequest } from '../../../core/models/event-request';
 import { Participant } from '../../../core/models/participant';
+import { AuthService } from '../../../core/services/AuthService/auth-service';
 import { EventService } from '../../../core/services/EventService/eventService';
 import { Badge } from '../../../shared/components/badge/badge';
 import { ClubNavbar } from '../../../shared/components/club-navbar/club-navbar';
@@ -14,6 +15,7 @@ import { ClubEventForm } from '../club-event-form/club-event-form';
 import { ClubMediaManager } from '../club-media-manager/club-media-manager';
 
 type FeedbackType = 'success' | 'error';
+type ClubEventFilter = 'ALL' | 'PENDING' | 'APPROVED' | 'REJECTED';
 
 @Component({
   selector: 'app-club-home',
@@ -42,6 +44,8 @@ export class ClubHome implements OnInit {
   errorMessage = signal<string>('');
   feedbackMessage = signal<string>('');
   feedbackType = signal<FeedbackType>('success');
+  clubName = signal<string>('Kulüp');
+  activeFilter = signal<ClubEventFilter>('ALL');
 
   totalEvents = computed(() => this.events().length);
   pendingEvents = computed(() => this.events().filter((event) => event.eventStatus === 'PENDING').length);
@@ -50,10 +54,23 @@ export class ClubHome implements OnInit {
   totalRegistrations = computed(() =>
     this.events().reduce((total, event) => total + event.registeredCount, 0),
   );
+  filteredEvents = computed(() => {
+    const filter = this.activeFilter();
 
-  constructor(private eventService: EventService) {}
+    if (filter === 'ALL') {
+      return this.events();
+    }
+
+    return this.events().filter((event) => event.eventStatus === filter);
+  });
+
+  constructor(
+    private eventService: EventService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
+    this.clubName.set(this.authService.getCurrentUserName());
     this.loadEvents();
   }
 
@@ -155,6 +172,21 @@ export class ClubHome implements OnInit {
     this.participantEvent.set(null);
     this.participants.set([]);
     this.isParticipantsOpen.set(false);
+  }
+
+  setFilter(filter: ClubEventFilter): void {
+    this.activeFilter.set(filter);
+  }
+
+  activeFilterLabel(): string {
+    const labels: Record<ClubEventFilter, string> = {
+      ALL: 'Tüm etkinlikler',
+      PENDING: 'Onay bekleyen etkinlikler',
+      APPROVED: 'Onaylanan etkinlikler',
+      REJECTED: 'Reddedilen etkinlikler',
+    };
+
+    return labels[this.activeFilter()];
   }
 
   categoryLabel(category?: string): string {
