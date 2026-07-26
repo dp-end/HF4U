@@ -94,8 +94,18 @@ export class AdminHome implements OnInit {
     this.activeView.set(view);
   }
 
-  setEventFilter(filter: EventFilter): void {
+  showPendingEvents(): void {
+    this.activeView.set('pending');
+  }
+
+  showEvents(filter: EventFilter = 'ALL'): void {
+    this.activeView.set('events');
     this.eventFilter.set(filter);
+  }
+
+  showUsers(filter: UserFilter = 'ALL'): void {
+    this.activeView.set('users');
+    this.userFilter.set(filter);
   }
 
   setUserFilter(filter: UserFilter): void {
@@ -192,6 +202,14 @@ export class AdminHome implements OnInit {
     };
 
     return labels[status];
+  }
+
+  eventListTitle(): string {
+    if (this.eventFilter() === 'ALL') {
+      return 'Tüm etkinlikler';
+    }
+
+    return `${this.eventStatusLabel(this.eventFilter() as EventStatus)} etkinlikler`;
   }
 
   roleLabel(role: UserRole): string {

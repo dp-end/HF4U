@@ -16,35 +16,65 @@
   </section>
 
   <section class="metrics" aria-label="Admin özeti">
-    <article>
+    <button
+      class="metric-card"
+      type="button"
+      [class.active]="activeView() === 'users' && userFilter() === 'ALL'"
+      (click)="showUsers()"
+    >
       <span>Kullanıcı</span>
       <strong>{{ dashboard()?.totalUsers ?? 0 }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button
+      class="metric-card"
+      type="button"
+      [class.active]="activeView() === 'events' && eventFilter() === 'ALL'"
+      (click)="showEvents()"
+    >
       <span>Toplam Etkinlik</span>
       <strong>{{ dashboard()?.totalEvents ?? 0 }}</strong>
-    </article>
+    </button>
 
-    <article class="active">
+    <button
+      class="metric-card"
+      type="button"
+      [class.active]="activeView() === 'pending'"
+      (click)="showPendingEvents()"
+    >
       <span>Onay Bekleyen</span>
       <strong>{{ dashboard()?.pendingEvents ?? pendingCount() }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button
+      class="metric-card"
+      type="button"
+      [class.active]="activeView() === 'events' && eventFilter() === 'APPROVED'"
+      (click)="showEvents('APPROVED')"
+    >
       <span>Onaylanan</span>
       <strong>{{ dashboard()?.approvedEvents ?? 0 }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button
+      class="metric-card"
+      type="button"
+      [class.active]="activeView() === 'events' && eventFilter() === 'REJECTED'"
+      (click)="showEvents('REJECTED')"
+    >
       <span>Reddedilen</span>
       <strong>{{ dashboard()?.rejectedEvents ?? 0 }}</strong>
-    </article>
+    </button>
 
-    <article>
+    <button
+      class="metric-card"
+      type="button"
+      [class.passive]="true"
+      disabled
+    >
       <span>Toplam Kayıt</span>
       <strong>{{ dashboard()?.totalRegistrations ?? 0 }}</strong>
-    </article>
+    </button>
   </section>
 
   @if (isLoading()) {
@@ -52,35 +82,6 @@
   } @else if (errorMessage()) {
     <app-ui-state class="state-screen" tone="error">{{ errorMessage() }}</app-ui-state>
   } @else {
-    <section class="admin-tabs" aria-label="Admin görünüm seçimi">
-      <button
-        type="button"
-        [class.active]="activeView() === 'pending'"
-        (click)="setActiveView('pending')"
-      >
-        <span>Onay</span>
-        <strong>{{ pendingCount() }}</strong>
-      </button>
-
-      <button
-        type="button"
-        [class.active]="activeView() === 'events'"
-        (click)="setActiveView('events')"
-      >
-        <span>Etkinlikler</span>
-        <strong>{{ allEvents().length }}</strong>
-      </button>
-
-      <button
-        type="button"
-        [class.active]="activeView() === 'users'"
-        (click)="setActiveView('users')"
-      >
-        <span>Kullanıcılar</span>
-        <strong>{{ users().length }}</strong>
-      </button>
-    </section>
-
     @if (activeView() === 'pending') {
       @if (pendingEvents().length === 0) {
         <app-ui-state class="state-screen" title="Onay bekleyen etkinlik yok">
@@ -165,23 +166,8 @@
 
     @if (activeView() === 'events') {
       <section class="list-heading">
-        <h2>Tüm etkinlikler</h2>
+        <h2>{{ eventListTitle() }}</h2>
         <span>{{ filteredEvents().length }} / {{ allEvents().length }} etkinlik</span>
-      </section>
-
-      <section class="filter-bar" aria-label="Etkinlik durum filtresi">
-        <button type="button" [class.active]="eventFilter() === 'ALL'" (click)="setEventFilter('ALL')">
-          Tümü
-        </button>
-        <button type="button" [class.active]="eventFilter() === 'PENDING'" (click)="setEventFilter('PENDING')">
-          Bekleyen
-        </button>
-        <button type="button" [class.active]="eventFilter() === 'APPROVED'" (click)="setEventFilter('APPROVED')">
-          Onaylanan
-        </button>
-        <button type="button" [class.active]="eventFilter() === 'REJECTED'" (click)="setEventFilter('REJECTED')">
-          Reddedilen
-        </button>
       </section>
 
       @if (filteredEvents().length === 0) {
