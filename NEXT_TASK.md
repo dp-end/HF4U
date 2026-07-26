@@ -98,7 +98,7 @@ Hedef:
 
 Admin'in onay bekleyen etkinlikleri yönetebilmesi.
 
-İlk uygulama tamamlandı. Kalan iş, admin tarafında tüm etkinlikleri durum bazlı görebilme ve filtreleme ekranını eklemek.
+Admin panel MVP tamamlandı. Admin artık özet metrikleri, onay bekleyenleri, tüm etkinlikleri ve kullanıcıları aynı panelde yönetebilir.
 
 ---
 
@@ -163,11 +163,21 @@ Gereksinimler:
 
 Öncelik: Orta
 
-- [ ] Tüm etkinlikleri status bazlı görme
-- [ ] Onaylanan etkinlikler
-- [ ] Reddedilen etkinlikler
+- [x] Tüm etkinlikleri status bazlı görme
+- [x] Onaylanan etkinlikler
+- [x] Reddedilen etkinlikler
 - [x] Silme işlemi
-- [ ] Filtreler
+- [x] Filtreler
+
+---
+
+## 6. Kullanıcı Yönetimi
+
+Öncelik: Orta
+
+- [x] Tüm kullanıcıları listeleme
+- [x] Rol bazlı filtreleme
+- [x] Kullanıcı özet bilgileri
 
 ---
 

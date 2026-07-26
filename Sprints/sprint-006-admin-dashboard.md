@@ -18,6 +18,8 @@ Admin şunları yapabilmelidir:
 
 - Giriş yaptıktan sonra admin paneline yönlenebilmeli
 - Platform özetini görebilmeli
+- Bütün kullanıcıları görebilmeli
+- Bütün etkinlikleri görebilmeli
 - Onay bekleyen etkinlikleri listeleyebilmeli
 - Etkinlik detayını inceleyebilmeli
 - Etkinliği onaylayabilmeli
@@ -43,6 +45,10 @@ PUT /api/events/{id}/reject
 GET /api/events/{id}
 
 DELETE /api/events/{id}
+
+GET /api/admin/events
+
+GET /api/admin/users
 
 ## Kontrol Edilecekler
 
@@ -83,11 +89,20 @@ Her pending event için:
 
 ## Etkinlik Yönetimi
 
-- [ ] Tüm etkinlikleri status bazlı görebilme
-- [ ] Onaylanan etkinlikler
-- [ ] Reddedilen etkinlikler
+- [x] Tüm etkinlikleri status bazlı görebilme
+- [x] Onaylanan etkinlikler
+- [x] Reddedilen etkinlikler
 - [x] Silme işlemi
-- [ ] Filtreler
+- [x] Filtreler
+
+## Kullanıcı Yönetimi
+
+- [x] Tüm kullanıcıları listeleme
+- [x] Rol bazlı filtreleme
+- [x] Kullanıcı adı
+- [x] E-posta
+- [x] Rol badge'i
+- [x] Kayıt tarihi
 
 ---
 

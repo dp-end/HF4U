@@ -12,6 +12,7 @@ public interface EventService {
     EventResponseDTO getEventById(long id);
     EventResponseDTO updateEvent( long id , EventRequestDTO request);
     void deleteEvent( long id);
+    List<EventResponseDTO> getAdminEvents();
     List<EventResponseDTO> getMyEvents();
     EventResponseDTO approveEvent (long id);
     EventResponseDTO rejectEvent (long id);

@@ -10,8 +10,8 @@
   <section class="page-heading">
     <div>
       <p>Admin Paneli</p>
-      <h1>Etkinlik onay merkezi</h1>
-      <span>Kulüplerin oluşturduğu etkinlikleri incele, onayla veya reddet.</span>
+      <h1>Platform yönetimi</h1>
+      <span>Kullanıcıları, etkinlikleri ve onay akışını tek panelden takip et.</span>
     </div>
   </section>
 
@@ -48,14 +48,45 @@
   </section>
 
   @if (isLoading()) {
-    <app-ui-state class="state-screen">Onay bekleyen etkinlikler yükleniyor...</app-ui-state>
+    <app-ui-state class="state-screen">Admin panel verileri yükleniyor...</app-ui-state>
   } @else if (errorMessage()) {
     <app-ui-state class="state-screen" tone="error">{{ errorMessage() }}</app-ui-state>
-  } @else if (pendingEvents().length === 0) {
-    <app-ui-state class="state-screen" title="Onay bekleyen etkinlik yok">
-      Yeni etkinlikler kulüpler tarafından oluşturulduğunda burada görünür.
-    </app-ui-state>
   } @else {
+    <section class="admin-tabs" aria-label="Admin görünüm seçimi">
+      <button
+        type="button"
+        [class.active]="activeView() === 'pending'"
+        (click)="setActiveView('pending')"
+      >
+        <span>Onay</span>
+        <strong>{{ pendingCount() }}</strong>
+      </button>
+
+      <button
+        type="button"
+        [class.active]="activeView() === 'events'"
+        (click)="setActiveView('events')"
+      >
+        <span>Etkinlikler</span>
+        <strong>{{ allEvents().length }}</strong>
+      </button>
+
+      <button
+        type="button"
+        [class.active]="activeView() === 'users'"
+        (click)="setActiveView('users')"
+      >
+        <span>Kullanıcılar</span>
+        <strong>{{ users().length }}</strong>
+      </button>
+    </section>
+
+    @if (activeView() === 'pending') {
+      @if (pendingEvents().length === 0) {
+        <app-ui-state class="state-screen" title="Onay bekleyen etkinlik yok">
+          Yeni etkinlikler kulüpler tarafından oluşturulduğunda burada görünür.
+        </app-ui-state>
+      } @else {
     <section class="list-heading">
       <h2>Onay bekleyen etkinlikler</h2>
       <span>{{ pendingEvents().length }} etkinlik</span>
@@ -129,5 +160,157 @@
         </article>
       }
     </section>
+      }
+    }
+
+    @if (activeView() === 'events') {
+      <section class="list-heading">
+        <h2>Tüm etkinlikler</h2>
+        <span>{{ filteredEvents().length }} / {{ allEvents().length }} etkinlik</span>
+      </section>
+
+      <section class="filter-bar" aria-label="Etkinlik durum filtresi">
+        <button type="button" [class.active]="eventFilter() === 'ALL'" (click)="setEventFilter('ALL')">
+          Tümü
+        </button>
+        <button type="button" [class.active]="eventFilter() === 'PENDING'" (click)="setEventFilter('PENDING')">
+          Bekleyen
+        </button>
+        <button type="button" [class.active]="eventFilter() === 'APPROVED'" (click)="setEventFilter('APPROVED')">
+          Onaylanan
+        </button>
+        <button type="button" [class.active]="eventFilter() === 'REJECTED'" (click)="setEventFilter('REJECTED')">
+          Reddedilen
+        </button>
+      </section>
+
+      @if (filteredEvents().length === 0) {
+        <app-ui-state class="state-screen" title="Etkinlik bulunamadı">
+          Bu filtreye uygun etkinlik yok.
+        </app-ui-state>
+      } @else {
+        <section class="review-list compact-list" aria-label="Tüm etkinlikler">
+          @for (event of filteredEvents(); track event.id) {
+            <article class="review-card">
+              <div class="event-thumb">
+                @if (thumbnailUrl(event)) {
+                  <img [src]="thumbnailUrl(event)" [alt]="event.title" />
+                } @else {
+                  <span>{{ event.title.charAt(0) }}</span>
+                }
+              </div>
+
+              <div class="event-main">
+                <div class="event-title-line">
+                  <h2>{{ event.title }}</h2>
+                  <app-event-status-badge [status]="event.eventStatus" />
+                </div>
+
+                <p>{{ event.description }}</p>
+
+                <div class="event-meta">
+                  @if (event.clubName) {
+                    <span>{{ event.clubName }}</span>
+                  }
+                  <span>{{ formatEventDate(event.eventDate) }}</span>
+                  <span>{{ event.location }}</span>
+                  <app-badge>{{ categoryLabel(event.category) }}</app-badge>
+                </div>
+              </div>
+
+              <div class="capacity-meter" aria-label="Etkinlik kontenjan özeti">
+                <div class="capacity-topline">
+                  <span>Katılım</span>
+                  <strong>{{ event.registeredCount }} / {{ event.capacity }}</strong>
+                </div>
+                <div class="capacity-track">
+                  <span [style.width.%]="occupancyPercent(event)"></span>
+                </div>
+                <small>{{ event.availableSpots }} kontenjan kaldı</small>
+              </div>
+
+              <div class="review-actions event-actions">
+                @if (event.eventStatus === 'PENDING') {
+                  <app-ui-button
+                    variant="primary"
+                    [disabled]="processingEventId() === event.id"
+                    (click)="approveEvent(event)"
+                  >
+                    Onayla
+                  </app-ui-button>
+
+                  <app-ui-button
+                    variant="secondary"
+                    [disabled]="processingEventId() === event.id"
+                    (click)="rejectEvent(event)"
+                  >
+                    Reddet
+                  </app-ui-button>
+                } @else {
+                  <span class="status-note">{{ eventStatusLabel(event.eventStatus) }}</span>
+                }
+
+                <app-ui-button
+                  variant="danger"
+                  [disabled]="processingEventId() === event.id"
+                  (click)="deleteEvent(event)"
+                >
+                  Sil
+                </app-ui-button>
+              </div>
+            </article>
+          }
+        </section>
+      }
+    }
+
+    @if (activeView() === 'users') {
+      <section class="list-heading">
+        <h2>Kullanıcılar</h2>
+        <span>{{ filteredUsers().length }} / {{ users().length }} kullanıcı</span>
+      </section>
+
+      <section class="filter-bar" aria-label="Kullanıcı rol filtresi">
+        <button type="button" [class.active]="userFilter() === 'ALL'" (click)="setUserFilter('ALL')">
+          Tümü
+        </button>
+        <button type="button" [class.active]="userFilter() === 'STUDENT'" (click)="setUserFilter('STUDENT')">
+          Öğrenci
+        </button>
+        <button
+          type="button"
+          [class.active]="userFilter() === 'CLUB_MANAGER'"
+          (click)="setUserFilter('CLUB_MANAGER')"
+        >
+          Kulüp
+        </button>
+        <button type="button" [class.active]="userFilter() === 'ADMIN'" (click)="setUserFilter('ADMIN')">
+          Admin
+        </button>
+      </section>
+
+      @if (filteredUsers().length === 0) {
+        <app-ui-state class="state-screen" title="Kullanıcı bulunamadı">
+          Bu filtreye uygun kullanıcı yok.
+        </app-ui-state>
+      } @else {
+        <section class="user-list" aria-label="Kullanıcılar">
+          @for (user of filteredUsers(); track user.id) {
+            <article class="user-row">
+              <div class="user-avatar">{{ user.fullName.charAt(0) }}</div>
+
+              <div class="user-main">
+                <h2>{{ user.fullName }}</h2>
+                <span>{{ user.email }}</span>
+              </div>
+
+              <app-badge [tone]="roleTone(user.role)">{{ roleLabel(user.role) }}</app-badge>
+
+              <span class="user-date">{{ formatUserDate(user.createAt) }}</span>
+            </article>
+          }
+        </section>
+      }
+    }
   }
 </main>

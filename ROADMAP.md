@@ -138,7 +138,8 @@ Hedef:
 - [x] Onay bekleyen etkinlikler
 - [x] Onaylama
 - [x] Reddetme
-- [ ] Etkinlik yönetimi
+- [x] Etkinlik yönetimi
+- [x] Kullanıcı listesi
 
 ---
 
@@ -192,7 +193,8 @@ Durum:
 - [x] Pending events
 - [x] Approve
 - [x] Reject
-- [ ] Event management
+- [x] Event management
+- [x] User management
 
 ---
 

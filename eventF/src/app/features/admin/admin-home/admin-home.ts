@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed, signal } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { AdminUser } from '../../../core/models/admin-user';
 import { DashboardResponse } from '../../../core/models/dashboard-response';
-import { Event } from '../../../core/models/event';
+import { Event, EventStatus } from '../../../core/models/event';
+import { UserRole } from '../../../core/models/user_role';
 import { AdminService } from '../../../core/services/AdminService/admin-service';
 import { AdminNavbar } from '../../../shared/components/admin-navbar/admin-navbar';
 import { Badge } from '../../../shared/components/badge/badge';
@@ -11,6 +14,9 @@ import { UiButton } from '../../../shared/components/ui-button/ui-button';
 import { UiState } from '../../../shared/components/ui-state/ui-state';
 
 type FeedbackType = 'success' | 'error';
+type AdminView = 'pending' | 'events' | 'users';
+type EventFilter = 'ALL' | EventStatus;
+type UserFilter = 'ALL' | UserRole;
 
 @Component({
   selector: 'app-admin-home',
@@ -21,6 +27,11 @@ type FeedbackType = 'success' | 'error';
 export class AdminHome implements OnInit {
   dashboard = signal<DashboardResponse | null>(null);
   pendingEvents = signal<Event[]>([]);
+  allEvents = signal<Event[]>([]);
+  users = signal<AdminUser[]>([]);
+  activeView = signal<AdminView>('pending');
+  eventFilter = signal<EventFilter>('ALL');
+  userFilter = signal<UserFilter>('ALL');
   isLoading = signal<boolean>(false);
   processingEventId = signal<number | null>(null);
   errorMessage = signal<string>('');
@@ -28,6 +39,26 @@ export class AdminHome implements OnInit {
   feedbackType = signal<FeedbackType>('success');
 
   pendingCount = computed(() => this.pendingEvents().length);
+  approvedCount = computed(() => this.allEvents().filter((event) => event.eventStatus === 'APPROVED').length);
+  rejectedCount = computed(() => this.allEvents().filter((event) => event.eventStatus === 'REJECTED').length);
+  filteredEvents = computed(() => {
+    const filter = this.eventFilter();
+
+    if (filter === 'ALL') {
+      return this.allEvents();
+    }
+
+    return this.allEvents().filter((event) => event.eventStatus === filter);
+  });
+  filteredUsers = computed(() => {
+    const filter = this.userFilter();
+
+    if (filter === 'ALL') {
+      return this.users();
+    }
+
+    return this.users().filter((user) => user.role === filter);
+  });
 
   constructor(private adminService: AdminService) {}
 
@@ -39,25 +70,36 @@ export class AdminHome implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.adminService.getDashboard().subscribe({
-      next: (response) => {
-        this.dashboard.set(response.data);
+    forkJoin({
+      dashboard: this.adminService.getDashboard(),
+      pendingEvents: this.adminService.getPendingEvents(),
+      events: this.adminService.getEvents(),
+      users: this.adminService.getUsers(),
+    }).subscribe({
+      next: ({ dashboard, pendingEvents, events, users }) => {
+        this.dashboard.set(dashboard.data);
+        this.pendingEvents.set(pendingEvents.data);
+        this.allEvents.set(events.data);
+        this.users.set(users.data);
+        this.isLoading.set(false);
       },
       error: () => {
-        this.errorMessage.set('Admin özeti yüklenemedi.');
+        this.errorMessage.set('Admin panel verileri yüklenemedi.');
+        this.isLoading.set(false);
       },
     });
+  }
 
-    this.adminService.getPendingEvents().subscribe({
-      next: (response) => {
-        this.pendingEvents.set(response.data);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        this.errorMessage.set('Onay bekleyen etkinlikler yüklenemedi.');
-        this.isLoading.set(false);
-      },
-    });
+  setActiveView(view: AdminView): void {
+    this.activeView.set(view);
+  }
+
+  setEventFilter(filter: EventFilter): void {
+    this.eventFilter.set(filter);
+  }
+
+  setUserFilter(filter: UserFilter): void {
+    this.userFilter.set(filter);
   }
 
   approveEvent(event: Event): void {
@@ -81,6 +123,7 @@ export class AdminHome implements OnInit {
     this.adminService.deleteEvent(event.id).subscribe({
       next: () => {
         this.pendingEvents.update((events) => events.filter((item) => item.id !== event.id));
+        this.allEvents.update((events) => events.filter((item) => item.id !== event.id));
         this.feedbackType.set('success');
         this.feedbackMessage.set('Etkinlik silindi.');
         this.processingEventId.set(null);
@@ -141,6 +184,46 @@ export class AdminHome implements OnInit {
     this.feedbackMessage.set('');
   }
 
+  eventStatusLabel(status: EventStatus): string {
+    const labels: Record<EventStatus, string> = {
+      PENDING: 'Onay bekleyen',
+      APPROVED: 'Onaylanan',
+      REJECTED: 'Reddedilen',
+    };
+
+    return labels[status];
+  }
+
+  roleLabel(role: UserRole): string {
+    const labels: Record<UserRole, string> = {
+      ADMIN: 'Admin',
+      CLUB_MANAGER: 'Kulüp yöneticisi',
+      STUDENT: 'Öğrenci',
+    };
+
+    return labels[role];
+  }
+
+  roleTone(role: UserRole): 'success' | 'neutral' | 'danger' {
+    if (role === 'ADMIN') {
+      return 'danger';
+    }
+
+    if (role === 'CLUB_MANAGER') {
+      return 'success';
+    }
+
+    return 'neutral';
+  }
+
+  formatUserDate(value?: string): string {
+    if (!value) {
+      return 'Tarih yok';
+    }
+
+    return this.formatEventDate(value);
+  }
+
   private processEvent(eventId: number, action: 'approve' | 'reject'): void {
     this.processingEventId.set(eventId);
     this.feedbackMessage.set('');
@@ -152,6 +235,16 @@ export class AdminHome implements OnInit {
     request.subscribe({
       next: () => {
         this.pendingEvents.update((events) => events.filter((event) => event.id !== eventId));
+        this.allEvents.update((events) => events.map((event) => {
+          if (event.id !== eventId) {
+            return event;
+          }
+
+          return {
+            ...event,
+            eventStatus: action === 'approve' ? 'APPROVED' : 'REJECTED',
+          };
+        }));
         this.feedbackType.set('success');
         this.feedbackMessage.set(action === 'approve' ? 'Etkinlik onaylandı.' : 'Etkinlik reddedildi.');
         this.processingEventId.set(null);
@@ -166,9 +259,13 @@ export class AdminHome implements OnInit {
   }
 
   private refreshDashboard(): void {
-    this.adminService.getDashboard().subscribe({
-      next: (response) => {
-        this.dashboard.set(response.data);
+    forkJoin({
+      dashboard: this.adminService.getDashboard(),
+      events: this.adminService.getEvents(),
+    }).subscribe({
+      next: ({ dashboard, events }) => {
+        this.dashboard.set(dashboard.data);
+        this.allEvents.set(events.data);
       },
     });
   }

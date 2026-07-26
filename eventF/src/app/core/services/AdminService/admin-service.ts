@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { AdminUser } from '../../models/admin-user';
 import { ApiResponse } from '../../models/api-response';
 import { DashboardResponse } from '../../models/dashboard-response';
 import { Event } from '../../models/event';
@@ -17,6 +18,14 @@ export class AdminService {
 
   getDashboard(): Observable<ApiResponse<DashboardResponse>> {
     return this.http.get<ApiResponse<DashboardResponse>>(`${this.adminUrl}/dashboard`);
+  }
+
+  getUsers(): Observable<ApiResponse<AdminUser[]>> {
+    return this.http.get<ApiResponse<AdminUser[]>>(`${this.adminUrl}/users`);
+  }
+
+  getEvents(): Observable<ApiResponse<Event[]>> {
+    return this.http.get<ApiResponse<Event[]>>(`${this.adminUrl}/events`);
   }
 
   getPendingEvents(): Observable<ApiResponse<Event[]>> {

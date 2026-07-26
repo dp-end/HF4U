@@ -95,6 +95,12 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(id);
     }
 
+    @Override
+    public List<EventResponseDTO> getAdminEvents() {
+       return eventRepository.findAll().stream()
+       .map(this::mapToResponse).toList();
+    }
+
     //Event bilgisini çıktıda döndürmemizi sağlıyor.
     private EventResponseDTO mapToResponse(Event event) {
 

@@ -11,8 +11,11 @@
 app-admin-navbar,
 .page-heading,
 .metrics,
+.admin-tabs,
 .list-heading,
+.filter-bar,
 .review-list,
+.user-list,
 app-ui-state.state-screen {
   width: min(100%, 1120px);
   margin: 0 auto;
@@ -93,6 +96,50 @@ app-ui-state.state-screen {
   line-height: 1;
 }
 
+.admin-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #d8eee4;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.admin-tabs button,
+.filter-bar button {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #657a70;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.admin-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+}
+
+.admin-tabs button.active,
+.filter-bar button.active {
+  border-color: #08bd82;
+  background: #eefbf5;
+  color: #183328;
+}
+
+.admin-tabs strong {
+  color: #183328;
+  font-size: 20px;
+  line-height: 1;
+}
+
 .list-heading {
   display: flex;
   align-items: center;
@@ -110,6 +157,19 @@ app-ui-state.state-screen {
   color: #668575;
   font-size: 13px;
   font-weight: 900;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -4px;
+}
+
+.filter-bar button {
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 13px;
 }
 
 .review-list {
@@ -234,6 +294,76 @@ app-ui-state.state-screen {
   gap: 8px;
 }
 
+.event-actions {
+  align-items: center;
+}
+
+.status-note {
+  grid-column: span 2;
+  color: #668575;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.user-list {
+  display: grid;
+  gap: 10px;
+}
+
+.user-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 150px 170px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid #d8eee4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 22px rgba(6, 155, 112, 0.06);
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #dff8ec;
+  color: #07875f;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.user-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.user-main h2,
+.user-main span {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.user-main h2 {
+  color: #183328;
+  font-size: 16px;
+}
+
+.user-main span,
+.user-date {
+  color: #657a70;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.user-date {
+  text-align: right;
+}
+
 @media (max-width: 1080px) {
   .metrics {
     grid-template-columns: repeat(3, 1fr);
@@ -247,6 +377,15 @@ app-ui-state.state-screen {
   .review-actions {
     grid-column: 1 / -1;
   }
+
+  .user-row {
+    grid-template-columns: 48px minmax(0, 1fr) 150px;
+  }
+
+  .user-date {
+    grid-column: 2 / -1;
+    text-align: left;
+  }
 }
 
 @media (max-width: 620px) {
@@ -255,13 +394,23 @@ app-ui-state.state-screen {
   }
 
   .metrics,
+  .admin-tabs,
   .review-card,
-  .review-actions {
+  .review-actions,
+  .user-row {
     grid-template-columns: 1fr;
   }
 
   .event-thumb {
     width: 100%;
     height: 180px;
+  }
+
+  .user-avatar {
+    width: 100%;
+  }
+
+  .user-date {
+    grid-column: auto;
   }
 }
