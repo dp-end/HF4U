@@ -53,11 +53,11 @@ GET /api/events
 
 Tekrar kullanılabilir componentler oluştur.
 
-- [ ] Navbar
+- [x] Navbar
 - [x] Event Card
 - [x] Search Bar
 - [x] Category Filter
-- [ ] Empty State
+- [x] Empty State
 - [ ] Loading Skeleton
 
 ## Öğrenci Akışı

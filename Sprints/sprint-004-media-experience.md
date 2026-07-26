@@ -91,39 +91,39 @@ PUT /api/events/{eventId}/media/{mediaId}
 
 ## Modeller
 
-- [ ] EventMedia interface
-- [ ] MediaType type
-- [ ] EventMediaRequest interface
-- [ ] Event response içine media alanı ekleme, gerekirse opsiyonel
+- [x] EventMedia interface
+- [x] MediaType type
+- [x] EventMediaRequest interface
+- [x] Event response içine media alanı ekleme, gerekirse opsiyonel
 
 ## Service
 
-- [ ] Medya listeleme metodu
-- [ ] Medya ekleme metodu
-- [ ] Medya silme metodu
-- [ ] Medya güncelleme metodu
+- [x] Medya listeleme metodu
+- [x] Medya ekleme metodu
+- [x] Medya silme metodu
+- [x] Medya güncelleme metodu
 
 ## Ortak Componentler
 
-- [ ] Media carousel
+- [x] Media carousel
 - [ ] Media viewer
-- [ ] Media placeholder
-- [ ] Thumbnail strip
+- [x] Media placeholder
+- [x] Thumbnail strip
 
 ## Event Card
 
-- [ ] Kapak görseli varsa kullan
-- [ ] Kapak görseli yoksa ilk medya görselini kullan
-- [ ] Medya yoksa mevcut placeholder yapısını koru
-- [ ] Kart tasarımını mobilde stabil tut
+- [x] Kapak görseli varsa kullan
+- [x] Kapak görseli yoksa ilk medya görselini kullan
+- [x] Medya yoksa mevcut placeholder yapısını koru
+- [x] Kart tasarımını mobilde stabil tut
 
 ## Event Detail
 
-- [ ] Hero görsel alanını medya galerisine hazırla
-- [ ] Görseller arası ileri/geri kontrolü
-- [ ] Thumbnail seçimi
-- [ ] Video için poster/placeholder alanı
-- [ ] Medya yoksa sade boş durum
+- [x] Hero görsel alanını medya galerisine hazırla
+- [x] Görseller arası ileri/geri kontrolü
+- [x] Thumbnail seçimi
+- [x] Video için poster/placeholder alanı
+- [x] Medya yoksa sade boş durum
 
 ---
 

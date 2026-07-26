@@ -85,6 +85,7 @@ Mevcut controllerlar:
 - AuthController
 - EventController
 - DashboardController
+- EventMediaController
 
 ## Service
 
@@ -95,6 +96,7 @@ Mevcut servisler:
 - AuthService
 - EventService
 - EventRegistrationService
+- EventMediaService
 - DashboardService
 - JwtService
 
@@ -107,6 +109,7 @@ Mevcut repositoryler:
 - UserRepository
 - EventRepository
 - EventRegistrationRepository
+- EventMediaRepository
 
 ## Entity
 
@@ -116,9 +119,11 @@ Mevcut entityler:
 
 - User
 - Event
+- EventMedia
 - EventRegistration
 - Role
 - EventStatus
+- MediaType
 
 ## DTO
 
@@ -129,6 +134,7 @@ Mevcut DTO grupları:
 - Login DTO
 - User DTO
 - Event DTO
+- EventMedia DTO
 - Dashboard DTO
 - ApiResponseDTO
 - MyRegistration DTO
@@ -163,6 +169,9 @@ Kulüp yöneticisi şunları yapabilir:
 - Etkinlik oluşturabilir
 - Kendi etkinliklerini görebilir
 - Kendi etkinliklerini düzenleyebilir
+- Kendi etkinliklerini silebilir
+- Kendi etkinliklerine medya ekleyebilir
+- Kendi etkinliklerinden medya silebilir
 - Katılımcıları görebilir
 
 Kulüp yöneticisi şunları yapamaz:
@@ -209,6 +218,38 @@ Etkinlik onaylı değilse kayıt engellenmelidir.
 Öğrenci kendi kaydını iptal edebilir.
 
 Kayıt sayısı ve kalan kontenjan backend tarafından hesaplanmalıdır.
+
+---
+
+# Medya Mimarisi
+
+Etkinlik medyası `EventMedia` entity'si ile tutulur.
+
+Bir etkinlik birden fazla medya içerebilir.
+
+Medya tipleri:
+
+- IMAGE
+- VIDEO
+
+Medya alanları:
+
+- id
+- event
+- mediaUrl
+- mediaType
+- orderIndex
+- createdAt
+
+Başlangıçta medya URL tabanlıdır.
+
+Dosya upload ve storage yönetimi Sprint 007 kapsamındadır.
+
+Kulüp yöneticisi yalnızca kendi etkinliklerinin medyasını yönetebilir.
+
+Admin tüm etkinliklerin medyasını yönetebilir.
+
+Öğrenci medyayı yalnızca görüntüler.
 
 ---
 

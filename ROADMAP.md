@@ -12,7 +12,13 @@ Mevcut durum:
 
 🟢 Backend çekirdeği tamamlandı
 
-🟡 Frontend geliştirmesi devam ediyor
+🟢 Öğrenci deneyimi MVP tamamlandı
+
+🟢 Medya altyapısı tamamlandı
+
+🟢 Kulüp dashboard MVP tamamlandı
+
+🟡 Admin paneli sıradaki öncelik
 
 ---
 
@@ -30,9 +36,9 @@ Amaç, üniversite etkinliklerini keşfetmeyi Instagram veya TikTok gezmek kadar
 
 # Geliştirme Stratejisi
 
-Geliştirme birden fazla faz halinde tamamlanacaktır.
+Geliştirme sprintler halinde ilerler.
 
-Her faz, bir sonrakine geçmeden önce işlevsel hale getirilmelidir.
+Her sprint çalışır bir ürün çıktısı üretmelidir.
 
 Mevcut faz tamamlanmadan yeni faz başlatılmamalıdır.
 
@@ -42,13 +48,11 @@ Mevcut faz tamamlanmadan yeni faz başlatılmamalıdır.
 
 Durum:
 
-🟢 Devam ediyor
+🟢 Büyük ölçüde tamamlandı
 
 Hedef:
 
 Çalışan tam bir etkinlik platformu oluşturmak.
-
----
 
 ## Backend
 
@@ -113,18 +117,20 @@ Hedef:
 - [x] Etkinlikleri çekme
 - [x] Öğrenci akışı
 - [x] Etkinlik detayı
+- [x] Medya carousel
 - [x] Kayıt butonu
 - [x] Kayıt iptali
 - [x] Kayıtlarım
 
 ### Kulüp
 
-- [ ] Dashboard
-- [ ] Etkinlik oluşturma
-- [ ] Etkinlik düzenleme
-- [ ] Etkinlik silme
-- [ ] Etkinliklerim
-- [ ] Katılımcılar
+- [x] Dashboard
+- [x] Etkinlik oluşturma
+- [x] Etkinlik düzenleme
+- [x] Etkinlik silme
+- [x] Etkinliklerim
+- [x] Katılımcılar
+- [x] Medya URL yönetimi
 
 ### Admin
 
@@ -140,7 +146,7 @@ Hedef:
 
 Durum:
 
-⚪ Planlandı
+🟡 Temel altyapı tamamlandı, upload planlandı
 
 Hedef:
 
@@ -148,299 +154,94 @@ Etkinlikleri zengin medya içeriklerine dönüştürmek.
 
 ## Backend
 
-### Etkinlik Medyası
+### EventMedia
 
-Yeni entity:
-
-EventMedia
-
-Alanlar:
-
-- id
-- eventId
-- mediaUrl
-- mediaType
-- orderIndex
-
-Medya tipleri:
-
-- IMAGE
-- VIDEO
-
-### Depolama
-
-Başlangıç:
-
-- Local storage
-
-Gelecek:
-
-- AWS S3
-- Cloudinary
-
-### API
-
-- Medya yükleme
-- Medya silme
-- Medya güncelleme
-- Medya sıralama
+- [x] EventMedia entity
+- [x] MediaType enum
+- [x] EventMediaRepository
+- [x] EventMedia DTO'ları
+- [x] URL tabanlı medya API'leri
+- [ ] Dosya upload
+- [ ] Local storage
+- [ ] Cloud storage, ileride
 
 ## Frontend
 
-### Etkinlik Kartı
+### Medya Deneyimi
 
-Desteklenecekler:
-
-- Hero image
-- Galeri
-- Swipe
-- Video
-
-### Etkinlik Detayı
-
-Desteklenecekler:
-
-- Image slider
-- Video player
-- Poster preview
+- [x] EventMedia modelleri
+- [x] Medya service metodları
+- [x] Media carousel
+- [x] Fotoğraf görüntüleme
+- [x] Video görüntüleme
+- [x] Thumbnail seçimi
+- [x] Club media manager
+- [ ] Dosya upload UI
 
 ---
 
-# Faz 3 — Sosyal Platform
+# Faz 3 — Yönetim ve Kalite Kontrol
+
+Durum:
+
+🟡 Sprint 006 ile başlayacak
+
+## Sprint 006 — Admin Dashboard ve Etkinlik Onayı
+
+- [ ] Admin dashboard
+- [ ] Pending events
+- [ ] Approve
+- [ ] Reject
+- [ ] Event management
+
+---
+
+# Faz 4 — Kulüp Profilleri ve Sosyal Katman
 
 Durum:
 
 ⚪ Planlandı
 
-Hedef:
+## Sprint 008 — Kulüp Profilleri
 
-Kulüpleri içerik üreticilerine dönüştürmek.
+- [ ] Public club profile
+- [ ] Kulüp profil düzenleme
+- [ ] Kulüp etkinlikleri
 
-## Backend
+## Sprint 009 — Takip ve Favoriler
 
-- Kulüp profili
-- Takip sistemi
-- Bildirim
-- Favoriler
-
-## Frontend
-
-- Kulüp profili
-- Kulüp akışı
-- Takip butonu
-- Favori etkinlikler
-- Bildirimler
-- Profil sayfası
+- [ ] Follow clubs
+- [ ] Favorite events
+- [ ] Favorites page
+- [ ] Followed clubs
 
 ---
 
-# Faz 4 — Keşif
+# Faz 5 — Keşif ve Analitik
 
 Durum:
 
 ⚪ Planlandı
 
-Hedef:
+## Sprint 010 — Keşif, Trendler ve Analitik
 
-Öğrencilerin etkinlikleri aramak yerine keşfetmesini sağlamak.
-
-## Özellikler
-
-- Trend etkinlikler
-- Popüler etkinlikler
-- Önerilen etkinlikler
-- Yeni eklenenler
-- Yakındaki etkinlikler
-- Kategori akışı
-- Sonsuz kaydırma
+- [ ] Trend etkinlikler
+- [ ] Popüler etkinlikler
+- [ ] Yeni eklenenler
+- [ ] Kulüp analitikleri
+- [ ] Admin analitikleri
 
 ---
 
-# Faz 5 — Akıllı Platform
+# Sprint Planı
 
-Durum:
-
-⚪ Planlandı
-
-Hedef:
-
-Yapay zeka destekli etkinlik önerileri sunmak.
-
-## Öneri Sistemi
-
-- Öneriler
-- İlgi alanı analizi
-- Kategori tahmini
-- Akıllı akış sıralaması
-
-## Analitik
-
-- En çok görüntülenen etkinlikler
-- En çok kayıt alınan etkinlikler
-- Kulüp istatistikleri
-- Kullanıcı aktivitesi
-- Heatmapler
-
----
-
-# UI Yol Haritası
-
-## Ortak Componentler
-
-- Navbar
-- Sidebar
-- Footer
-- Search bar
-- Category chips
-- Event card
-- Hero card
-- Badge
-- Button
-- Loading component
-- Empty state
-- Modal
-- Dialog
-- Toast
-- Pagination
-- Carousel
-- Media viewer
-
-## Öğrenci Sayfaları
-
-- Login
-- Kayıt sayfası
-- Home feed
-- Event detail
-- My registrations
-- Profile
-- Settings
-
-## Kulüp Sayfaları
-
-- Dashboard
-- Create event
-- My events
-- Participants
-- Statistics
-- Profile
-
-## Admin Sayfaları
-
-- Dashboard
-- Pending events
-- Users
-- Events
-- Reports
-- Settings
-
----
-
-# Veritabanı Yol Haritası
-
-Mevcut:
-
-- User
-- Role
-- Event
-- Registration
-
-Gelecek:
-
-- Media
-- ClubProfile
-- Follow
-- Notification
-- Comment
-- Favorite
-- Analytics
-
----
-
-# API Yol Haritası
-
-- Authentication API
-- Öğrenci API
-- Club API
-- Admin API
-- Media API
-- Notification API
-- Analytics API
-- Recommendation API
-
----
-
-# Mobil Destek
-
-- Responsive layout
-- Tablet desteği
-- Mobil navigasyon
-- Gesture desteği
-- Swipe deneyimi
-
----
-
-# UX Hedefleri
-
-Öğrenciler:
-
-- Sıkıcı tablolar okumamalı
-- Etkinlikleri doğal şekilde keşfetmeli
-- Aramak yerine kaydırmalı
-- Etkinlik içeriğini hızlı tüketebilmeli
-
-Kulüpler:
-
-- Etkinlikleri kolayca tanıtabilmeli
-- Zengin medya yükleyebilmeli
-- Daha fazla öğrenciye ulaşabilmeli
-
-Yöneticiler:
-
-- Platformu verimli yönetebilmeli
-- İçerikleri hızlı onaylayabilmeli
-- Platform istatistiklerini izleyebilmeli
-
----
-
-# Performans Hedefleri
-
-- Lazy loading
-- Görsel optimizasyonu
-- Video optimizasyonu
-- Pagination
-- Infinite scroll
-- Signal tabanlı rendering
-- Code splitting
-- Caching
-
----
-
-# Uzun Vadeli Vizyon
-
-UniEvents kampüsün merkezi dijital platformu haline gelmelidir.
-
-Yalnızca etkinlikleri yönetmek yerine, öğrencilerin üniversite yaşamına medya odaklı ve ilgi çekici içeriklerle katılmasını teşvik etmelidir.
-
-Deneyim, geleneksel bir üniversite portalından çok Instagram veya TikTok’a yakın hissettirmelidir.
-
----
-
-# Başarı Kriterleri
-
-Proje şu durumda başarılı kabul edilir:
-
-✓ Öğrenciler etkinlikleri gezmekten keyif alır.
-
-✓ Kulüpler aktif biçimde medya açısından zengin içerikler yayınlar.
-
-✓ Etkinlik katılımı artar.
-
-✓ UI modern ve responsive hissettirir.
-
-✓ Platform ölçeklenebilir olur.
-
-✓ Backend temiz mimariyi takip eder.
-
-✓ Frontend tekrar kullanılabilir component mimarisini takip eder.
-
-✓ Proje production’a hazır hale gelir.
+- [x] Sprint 001 — Öğrenci Keşif Akışı
+- [x] Sprint 002 — Etkinlik Deneyimi
+- [x] Sprint 003 — Öğrenci Profili ve Kayıtlar
+- [x] Sprint 004 — Medya Deneyimi
+- [x] Sprint 005 — Kulüp Dashboard ve Etkinlik Yönetimi
+- [ ] Sprint 006 — Admin Dashboard ve Etkinlik Onayı
+- [ ] Sprint 007 — Medya Upload ve Depolama
+- [ ] Sprint 008 — Kulüp Profilleri ve Public Kulüp Sayfaları
+- [ ] Sprint 009 — Takip, Favoriler ve Sosyal Etkileşim
+- [ ] Sprint 010 — Keşif, Trendler ve Analitik

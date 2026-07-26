@@ -44,10 +44,10 @@ GET /api/events/{eventId}/participants
 
 ## Kontrol Edilecekler
 
-- [ ] Kulüp yöneticisi yalnızca kendi etkinliklerini görebiliyor mu?
-- [ ] Kulüp yöneticisi yalnızca kendi etkinliklerini düzenleyebiliyor mu?
-- [ ] Kulüp yöneticisi kendi etkinliğini silebiliyor mu?
-- [ ] Admin yetkileri bozulmadan kalıyor mu?
+- [x] Kulüp yöneticisi yalnızca kendi etkinliklerini görebiliyor mu?
+- [x] Kulüp yöneticisi yalnızca kendi etkinliklerini düzenleyebiliyor mu?
+- [x] Kulüp yöneticisi kendi etkinliğini silebiliyor mu?
+- [x] Admin yetkileri bozulmadan kalıyor mu?
 - [ ] Event update sonrası status davranışı net mi?
 
 Not: Şu an delete endpoint’i yalnızca admin’e açık görünüyor. Kulüp yöneticisinin kendi etkinliğini silebilmesi isteniyorsa backend yetki kuralı güncellenmelidir.
@@ -62,26 +62,26 @@ Placeholder kaldırılır.
 
 Sayfa şunları içermelidir:
 
-- [ ] Kulüp navbar
-- [ ] Dashboard özeti
-- [ ] Etkinliklerim listesi
-- [ ] Yeni etkinlik oluştur butonu
-- [ ] Boş durum
-- [ ] Loading state
-- [ ] Error state
+- [x] Kulüp navbar
+- [x] Dashboard özeti
+- [x] Etkinliklerim listesi
+- [x] Yeni etkinlik oluştur butonu
+- [x] Boş durum
+- [x] Loading state
+- [x] Error state
 
 ## Etkinliklerim
 
 Her etkinlik satırı/kartı şunları göstermelidir:
 
-- [ ] Başlık
-- [ ] Tarih
-- [ ] Konum
-- [ ] Durum badge’i
-- [ ] Kayıtlı kişi sayısı
-- [ ] Kalan kontenjan
-- [ ] Düzenle butonu
-- [ ] Sil butonu
+- [x] Başlık
+- [x] Tarih
+- [x] Konum
+- [x] Durum badge’i
+- [x] Kayıtlı kişi sayısı
+- [x] Kalan kontenjan
+- [x] Düzenle butonu
+- [x] Sil butonu
 
 ## Etkinlik Formu
 
@@ -89,20 +89,20 @@ Create ve edit için aynı form kullanılmalıdır.
 
 Alanlar:
 
-- [ ] Başlık
-- [ ] Açıklama
-- [ ] Konum
-- [ ] Tarih
-- [ ] Kontenjan
-- [ ] Kategori
-- [ ] Kapak görseli URL
+- [x] Başlık
+- [x] Açıklama
+- [x] Konum
+- [x] Tarih
+- [x] Kontenjan
+- [x] Kategori
+- [x] Kapak görseli URL
 
 ## Katılımcılar
 
-- [ ] Etkinlik katılımcılarını görüntüleme
-- [ ] Katılımcı adı
-- [ ] Katılımcı e-postası
-- [ ] Katılımcı yoksa boş durum
+- [x] Etkinlik katılımcılarını görüntüleme
+- [x] Katılımcı adı
+- [x] Katılımcı e-postası
+- [x] Katılımcı yoksa boş durum
 
 ---
 

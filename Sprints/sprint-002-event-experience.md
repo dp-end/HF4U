@@ -66,8 +66,8 @@ Gösterilecekler:
 
 ## Ortak Componentler
 
-- [ ] Badge
-- [ ] Toast
+- [x] Badge
+- [x] Toast
 - [ ] Dialog
 
 ---

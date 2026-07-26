@@ -214,3 +214,70 @@ Tamamlananlar:
 ✓ Event Approval
 
 ✓ Role Authorization
+
+✓ Event Media modeli
+
+✓ URL tabanlı medya yönetimi
+
+✓ Kulüp event owner kontrolleri
+
+✓ Katılımcı görüntüleme
+
+---
+
+# Mevcut Frontend
+
+Tamamlananlar:
+
+✓ Login
+
+✓ Kayıt
+
+✓ Rol bazlı yönlendirme
+
+✓ Öğrenci etkinlik akışı
+
+✓ Etkinlik detay sayfası
+
+✓ Medya carousel
+
+✓ Etkinliğe kayıt
+
+✓ Kayıt iptali
+
+✓ Kayıtlarım sayfası
+
+✓ Kulüp dashboard
+
+✓ Kulüp etkinlik oluşturma
+
+✓ Kulüp etkinlik düzenleme
+
+✓ Kulüp etkinlik silme
+
+✓ Kulüp medya URL yönetimi
+
+✓ Kulüp katılımcı görüntüleme
+
+Devam eden ana eksik:
+
+- Admin paneli
+- Medya upload
+- Kulüp public profil
+- Sosyal etkileşimler
+- Keşif ve analitik
+
+---
+
+# Sprint Durumu
+
+- Sprint 001: Öğrenci keşif akışı tamamlandı
+- Sprint 002: Etkinlik detay ve kayıt deneyimi tamamlandı
+- Sprint 003: Öğrenci kayıt yönetimi tamamlandı
+- Sprint 004: Medya altyapısı tamamlandı
+- Sprint 005: Kulüp dashboard MVP tamamlandı
+- Sprint 006: Admin dashboard ve etkinlik onayı sıradaki iş
+- Sprint 007: Medya upload ve depolama planlandı
+- Sprint 008: Kulüp profilleri planlandı
+- Sprint 009: Takip ve favoriler planlandı
+- Sprint 010: Keşif ve analitik planlandı
